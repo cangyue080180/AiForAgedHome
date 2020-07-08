@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientForFront"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-
+        <DockPanel LastChildFill="True">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                <TextBlock>RTSP_URL:</TextBlock>
+                <TextBox x:Name="textBox" MinWidth="300"></TextBox>
+                <Button x:Name="btn" Margin="5,0,0,0" Click="btn_Click">更新</Button>
+            </StackPanel>
+            <Image x:Name="image"/>
+        </DockPanel>
     </Grid>
 </Window>
