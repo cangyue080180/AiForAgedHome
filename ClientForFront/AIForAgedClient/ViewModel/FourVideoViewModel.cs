@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -11,8 +12,8 @@ namespace AIForAgedClient.ViewModel
     public class FourVideoViewModel:ViewModelBase
     {
         #region 设置Image Source属性
-        private BitmapImage _img1;
-        public BitmapImage Image1
+        private BitmapSource _img1;
+        public BitmapSource Image1
         {
             get
             {
@@ -28,8 +29,8 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        private BitmapImage _img2;
-        public BitmapImage Image2
+        private BitmapSource _img2;
+        public BitmapSource Image2
         {
             get
             {
@@ -45,8 +46,8 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        private BitmapImage _img3;
-        public BitmapImage Image3
+        private BitmapSource _img3;
+        public BitmapSource Image3
         {
             get
             {
@@ -62,8 +63,8 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        private BitmapImage _img4;
-        public BitmapImage Image4
+        private BitmapSource _img4;
+        public BitmapSource Image4
         {
             get
             {
@@ -75,6 +76,141 @@ namespace AIForAgedClient.ViewModel
                 {
                     _img4 = value;
                     RaisePropertyChanged(nameof(Image4));
+                }
+            }
+        }
+        #endregion
+
+        #region 设置Image Row 和Image Column 属性
+        private int _img1Row = 0;
+        public int Img1Row
+        {
+            get
+            {
+                return _img1Row;
+            }
+            set
+            {
+                if (_img1Row != value)
+                {
+                    _img1Row = value;
+                    RaisePropertyChanged(nameof(Img1Row));
+                }
+            }
+        }
+        private int _img1Column = 0;
+        public int Img1Column
+        {
+            get
+            {
+                return _img1Column;
+            }
+            set
+            {
+                if (_img1Column != value)
+                {
+                    _img1Column = value;
+                    RaisePropertyChanged(nameof(Img1Column));
+                }
+            }
+        }
+
+        private int _img2Row = 0;
+        public int Img2Row
+        {
+            get
+            {
+                return _img2Row;
+            }
+            set
+            {
+                if (_img2Row != value)
+                {
+                    _img2Row = value;
+                    RaisePropertyChanged(nameof(Img2Row));
+                }
+            }
+        }
+        private int _img2Column = 1;
+        public int Img2Column
+        {
+            get
+            {
+                return _img2Column;
+            }
+            set
+            {
+                if (_img2Column != value)
+                {
+                    _img2Column = value;
+                    RaisePropertyChanged(nameof(Img2Column));
+                }
+            }
+        }
+
+        private int _img3Row = 1;
+        public int Img3Row
+        {
+            get
+            {
+                return _img3Row;
+            }
+            set
+            {
+                if (_img3Row != value)
+                {
+                    _img3Row = value;
+                    RaisePropertyChanged(nameof(Img3Row));
+                }
+            }
+        }
+        private int _img3Column = 0;
+        public int Img3Column
+        {
+            get
+            {
+                return _img3Column;
+            }
+            set
+            {
+                if (_img3Column != value)
+                {
+                    _img3Column = value;
+                    RaisePropertyChanged(nameof(Img3Column));
+                }
+            }
+        }
+
+        private int _img4Row = 1;
+        public int Img4Row
+        {
+            get
+            {
+                return _img4Row;
+            }
+            set
+            {
+                if (_img4Row != value)
+                {
+                    _img4Row = value;
+                    RaisePropertyChanged(nameof(Img4Row));
+                }
+            }
+        }
+
+        private int _img4Column = 1;
+        public int Img4Column
+        {
+            get
+            {
+                return _img4Column;
+            }
+            set
+            {
+                if (_img4Column != value)
+                {
+                    _img4Column = value;
+                    RaisePropertyChanged(nameof(Img4Column));
                 }
             }
         }
@@ -220,7 +356,7 @@ namespace AIForAgedClient.ViewModel
 
         #region 设置Image Visibility属性
         private Visibility _img1Visibility=Visibility.Visible;
-        private Visibility Img1Visibility
+        public Visibility Img1Visibility
         {
             get
             {
@@ -237,7 +373,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private Visibility _img2Visibility = Visibility.Visible;
-        private Visibility Img2Visibility
+        public Visibility Img2Visibility
         {
             get
             {
@@ -254,7 +390,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private Visibility _img3Visibility = Visibility.Visible;
-        private Visibility Img3Visibility
+        public Visibility Img3Visibility
         {
             get
             {
@@ -271,7 +407,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private Visibility _img4Visibility = Visibility.Visible;
-        private Visibility Img4Visibility
+        public Visibility Img4Visibility
         {
             get
             {
@@ -343,7 +479,7 @@ namespace AIForAgedClient.ViewModel
         {
             if (!string.IsNullOrEmpty(url1))
             {
-                videoPlayHelper1 = new VideoPlayHelper(url1, (x) => { Image1 = x; });
+                videoPlayHelper1 = new VideoPlayHelper(url1, (x) => { Image1 = x;   });
             }
 
             if (!string.IsNullOrEmpty(url2))
@@ -405,6 +541,8 @@ namespace AIForAgedClient.ViewModel
             System.Console.WriteLine("Image2 Double click.");
             if (Img2ColumnSpan == 1)
             {
+                Img2Row = 0;
+                Img2Column = 0;
                 Img1Visibility = Visibility.Collapsed;
                 Img3Visibility = Visibility.Collapsed;
                 Img4Visibility = Visibility.Collapsed;
@@ -413,6 +551,8 @@ namespace AIForAgedClient.ViewModel
             }
             else
             {
+                Img2Row = 0;
+                Img2Column = 1;
                 Img1Visibility = Visibility.Visible;
                 Img3Visibility = Visibility.Visible;
                 Img4Visibility = Visibility.Visible;
@@ -426,6 +566,8 @@ namespace AIForAgedClient.ViewModel
             System.Console.WriteLine("Image3 Double click.");
             if (Img3ColumnSpan == 1)
             {
+                Img3Row = 0;
+                Img3Column = 0;
                 Img1Visibility = Visibility.Collapsed;
                 Img2Visibility = Visibility.Collapsed;
                 Img4Visibility = Visibility.Collapsed;
@@ -434,6 +576,8 @@ namespace AIForAgedClient.ViewModel
             }
             else
             {
+                Img3Row = 1;
+                Img3Column = 0;
                 Img1Visibility = Visibility.Visible;
                 Img2Visibility = Visibility.Visible;
                 Img4Visibility = Visibility.Visible;
@@ -447,6 +591,8 @@ namespace AIForAgedClient.ViewModel
             System.Console.WriteLine("Image4 Double click.");
             if (Img4ColumnSpan == 1)
             {
+                Img4Row = 0;
+                Img4Column = 0;
                 Img1Visibility = Visibility.Collapsed;
                 Img3Visibility = Visibility.Collapsed;
                 Img2Visibility = Visibility.Collapsed;
@@ -455,6 +601,8 @@ namespace AIForAgedClient.ViewModel
             }
             else
             {
+                Img4Row = 1;
+                Img4Column = 1;
                 Img1Visibility = Visibility.Visible;
                 Img3Visibility = Visibility.Visible;
                 Img2Visibility = Visibility.Visible;

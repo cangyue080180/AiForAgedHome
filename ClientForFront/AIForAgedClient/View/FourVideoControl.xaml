@@ -25,25 +25,25 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding Img1ColumnSpan}" Grid.RowSpan="{Binding Img1RowSpan}" Visibility="{Binding Img1Visibility}">
+        <Border Grid.Row="{Binding Img1Row}" Grid.Column="{Binding Img1Column}" Grid.ColumnSpan="{Binding Img1ColumnSpan}" Grid.RowSpan="{Binding Img1RowSpan}" Visibility="{Binding Path=Img1Visibility,Mode=TwoWay}">
             <Border.InputBindings>
                 <MouseBinding Command="{Binding Mode=OneWay, Path=Img1DoubleClickCmd}" MouseAction="LeftDoubleClick"/>
             </Border.InputBindings>
             <Image Source="{Binding Image1}" />
         </Border>
-        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="{Binding Img2ColumnSpan}" Grid.RowSpan="{Binding Img2RowSpan}" Visibility="{Binding Img2Visibility}">
+        <Border Grid.Row="{Binding Img2Row}" Grid.Column="{Binding Img2Column}" Grid.ColumnSpan="{Binding Img2ColumnSpan}" Grid.RowSpan="{Binding Img2RowSpan}" Visibility="{Binding Img2Visibility,Mode=TwoWay}">
             <Border.InputBindings>
                 <MouseBinding Command="{Binding Mode=OneWay, Path=Img2DoubleClickCmd}" MouseAction="LeftDoubleClick"/>
             </Border.InputBindings>
         <Image Source="{Binding Image2}" />
         </Border>
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding Img3ColumnSpan}" Grid.RowSpan="{Binding Img3RowSpan}" Visibility="{Binding Img3Visibility}">
+        <Border Grid.Row="{Binding Img3Row}" Grid.Column="{Binding Img3Column}" Grid.ColumnSpan="{Binding Img3ColumnSpan}" Grid.RowSpan="{Binding Img3RowSpan}" Visibility="{Binding Img3Visibility,Mode=TwoWay}">
             <Border.InputBindings>
                 <MouseBinding Command="{Binding Mode=OneWay, Path=Img3DoubleClickCmd}" MouseAction="LeftDoubleClick"/>
             </Border.InputBindings>
             <Image Source="{Binding Image3}" />
         </Border>
-        <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="{Binding Img4ColumnSpan}" Grid.RowSpan="{Binding Img4RowSpan}" Visibility="{Binding Img4Visibility}">
+        <Border Grid.Row="{Binding Img4Row}" Grid.Column="{Binding Img4Column}" Grid.ColumnSpan="{Binding Img4ColumnSpan}" Grid.RowSpan="{Binding Img4RowSpan}" Visibility="{Binding Img4Visibility,Mode=TwoWay}">
             <Border.InputBindings>
                 <MouseBinding Command="{Binding Mode=OneWay, Path=Img4DoubleClickCmd}" MouseAction="LeftDoubleClick"/>
             </Border.InputBindings>

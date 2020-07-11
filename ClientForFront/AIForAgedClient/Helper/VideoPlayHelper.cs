@@ -15,14 +15,14 @@ namespace AIForAgedClient.Helper
         private readonly Task task;
         private readonly CancellationTokenSource cancellationTokenSource;
         private readonly dynamic videoUrl;
-        private readonly Action<BitmapImage> actionWidthVideo;
+        private readonly Action<BitmapSource> actionWidthVideo;
 
         /// <summary>
         /// 显示URL视频
         /// </summary>
         /// <param name="url">视频地址</param>
         /// <param name="action">更新图像显示方法</param>
-        public VideoPlayHelper(string url, Action<BitmapImage> action)
+        public VideoPlayHelper(string url, Action<BitmapSource> action)
         {
             videoUrl = url;
             actionWidthVideo = action;
@@ -37,7 +37,7 @@ namespace AIForAgedClient.Helper
         /// </summary>
         /// <param name="index">摄像头序号</param>
         /// <param name="action">更新图像显示方法</param>
-        public VideoPlayHelper(int index, Action<BitmapImage> action)
+        public VideoPlayHelper(int index, Action<BitmapSource> action)
         {
             videoUrl = index;
             actionWidthVideo = action;
@@ -81,8 +81,10 @@ namespace AIForAgedClient.Helper
                     //    Cv2.Rectangle(frameMat, rects[0], Scalar.Red);
                     //}
 
-                    var frameBitmap = MatToBitmapImage(frameMat);
-                    actionWidthVideo(frameBitmap);
+                    // var frameBitmap = MatToBitmapImage(frameMat);
+                    var writeableBitmap = frameMat.ToWriteableBitmap();
+                    writeableBitmap.Freeze();
+                    actionWidthVideo(writeableBitmap);
                 }
                 Thread.Sleep(50);
             }
