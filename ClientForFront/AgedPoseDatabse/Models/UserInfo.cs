@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace AgedPoseDatabse.Models
 {
-    [Table("RoomInfo")]
-    public class RoomInfo
+    [Table("UserInfo")]
+    public class UserInfo
     {
-        public long Id { get; set; }
-        [Required]
-        [StringLength(20)]
+        [Key]
+        [StringLength(30)]
         public string Name { get; set; }
-        [Range(0,500)]
-        public int RoomSize { get; set; }
-        public List<AgesInfo> AgesInfos { get; set; }
+
+        [StringLength(16)]
+        public string Password { get; set; }
+
+        public int Authority { get; set; }
     }
 }

@@ -11,12 +11,14 @@
     <Compile Remove="Migrations\20200716134014_ChangeName.Designer.cs" />
     <Compile Remove="Migrations\20200716134502_InitialCreate1.cs" />
     <Compile Remove="Migrations\20200716134502_InitialCreate1.Designer.cs" />
+    <Compile Remove="Migrations\20200717141828_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200717141828_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200717142536_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200717142536_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

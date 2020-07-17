@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AgedPoseDatabse.Models
 {
+    [Table("AgesInfo")]
     public class AgesInfo
     {
         public long Id { get; set; }
@@ -17,7 +19,7 @@ namespace AgedPoseDatabse.Models
         [StringLength(20)]
         public string ContacterName { get; set; }
 
-        [Phone]
+        [StringLength(11)]
         public string ContacterPhone { get; set; }
 
         [StringLength(20)]

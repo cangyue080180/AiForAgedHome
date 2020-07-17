@@ -1,3 +1,4 @@
+using AgedPoseDatabse.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace AgedPoseDatabse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContextPool<TodoDbContext>(opt=>opt.UseMySQL("server=localhost;user=root;password=080180xyxy;database=todotest"));
+            services.AddDbContextPool<AiForAgedDbContext>(opt=>opt.UseMySQL("server=localhost;user=root;password=080180xyxy;database=AiForAgedDb"));
             services.AddControllers();
         }
 
