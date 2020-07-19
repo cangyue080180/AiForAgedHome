@@ -17,6 +17,8 @@ namespace AgedPoseDatabse.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<PoseInfo>().HasKey(c=>new { c.AgesInfoId,c.Date});
+            modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Ip).IsUnique();
+            modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Name).IsUnique();
         }
 
         public DbSet<RoomInfo> RoomInfos { get; set; }
