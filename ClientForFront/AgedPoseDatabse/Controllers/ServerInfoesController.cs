@@ -1,11 +1,9 @@
-﻿using System;
+﻿using AgedPoseDatabse.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AgedPoseDatabse.Models;
 
 namespace AgedPoseDatabse.Controllers
 {
@@ -28,7 +26,7 @@ namespace AgedPoseDatabse.Controllers
         }
 
         // GET: api/ServerInfoes/id
-        [HttpGet("{id}")]
+        [HttpGet("{id:long}")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(long id)
         {
             var serverInfo = await _context.ServerInfos.FindAsync(id);
@@ -42,7 +40,7 @@ namespace AgedPoseDatabse.Controllers
         }
 
         //Get:api/ServerInfoes/ip
-        [HttpGet]
+        [HttpGet("ip/{id}")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(string ip)
         {
             var serverInfo = await _context.ServerInfos.FirstAsync(x => x.Ip == ip);

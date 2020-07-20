@@ -82,9 +82,15 @@ namespace AIForAgedClient.Helper
                     //}
 
                     // var frameBitmap = MatToBitmapImage(frameMat);
-                    var writeableBitmap = frameMat.ToWriteableBitmap();
-                    writeableBitmap.Freeze();
-                    actionWidthVideo(writeableBitmap);
+                    try
+                    {
+                        var writeableBitmap = frameMat.ToWriteableBitmap();
+                        writeableBitmap.Freeze();
+                        actionWidthVideo(writeableBitmap);
+                    }catch(System.ArgumentException ex)
+                    {
+
+                    }
                 }
                 Thread.Sleep(50);
             }
