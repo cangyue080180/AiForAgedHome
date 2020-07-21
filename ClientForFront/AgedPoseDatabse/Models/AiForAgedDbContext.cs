@@ -1,12 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AgedPoseDatabse.Models
 {
-    public class AiForAgedDbContext:DbContext
+    public class AiForAgedDbContext : DbContext
     {
         public AiForAgedDbContext(DbContextOptions<AiForAgedDbContext> options) : base(options)
         {
@@ -16,7 +12,7 @@ namespace AgedPoseDatabse.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<PoseInfo>().HasKey(c=>new { c.AgesInfoId,c.Date});
+            modelBuilder.Entity<PoseInfo>().HasKey(c => new { c.AgesInfoId, c.Date });
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Ip).IsUnique();
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Name).IsUnique();
         }

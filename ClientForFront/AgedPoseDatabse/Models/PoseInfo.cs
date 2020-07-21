@@ -8,7 +8,7 @@ namespace AgedPoseDatabse.Models
     {
         public long AgesInfoId { get; set; }
 
-        [Column(TypeName="Date")]
+        [Column(TypeName = "Date")]
         public DateTime Date { get; set; }
 
         public int TimeStand { get; set; }

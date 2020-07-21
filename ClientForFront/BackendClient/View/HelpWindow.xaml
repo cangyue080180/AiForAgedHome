@@ -1,0 +1,26 @@
+﻿<Window x:Class="BackendClient.View.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackendClient.View"
+        mc:Ignorable="d"
+        Title="关于" Height="200" Width="400" ShowInTaskbar="False"
+        DataContext="{Binding Source={StaticResource Locator}, Path=HelpVM}">
+    <Grid>
+        <StackPanel>
+            <Border >
+                <TextBlock Margin="20" Text="{Binding Name}" FontSize="30"/>
+            </Border>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="版权:" Margin="20,0"/>
+                <TextBlock Text="{Binding Copyright}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,5">
+                <TextBlock Text="版本：" />
+                <TextBlock Text="{Binding Auth}" />
+            </StackPanel>
+            <TextBlock Text="{Binding Desc}"  Margin="20,5"/>
+        </StackPanel>
+    </Grid>
+</Window>
