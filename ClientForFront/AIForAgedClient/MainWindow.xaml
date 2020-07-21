@@ -16,15 +16,15 @@
             <view:FourVideoControl/>
         </DataTemplate>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
-            </i:EventTrigger>
-            <i:EventTrigger EventName="Closing">
-                <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
         <ContentControl Content="{Binding  Path=FourVideoVM}"/>
     </Grid>
 </Window>

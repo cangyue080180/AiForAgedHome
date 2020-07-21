@@ -2,6 +2,7 @@ using BackendClient.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Reflection;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BackendClient.ViewModel
@@ -57,6 +58,46 @@ namespace BackendClient.ViewModel
                     });
                 return _aboutCmd;
             }
+        }
+
+        private RelayCommand _onLoadCmd;
+        public ICommand OnLoadCmd
+        {
+            get
+            {
+                if (_onLoadCmd == null)
+                {
+                    _onLoadCmd = new RelayCommand(() => {
+                        OnWindowLoaded();
+                    });
+                }
+                return _onLoadCmd;
+            }
+        }
+
+        private RelayCommand _onClosingCmd;
+        public ICommand OnClosingCmd
+        {
+            get
+            {
+                if (_onClosingCmd == null)
+                {
+                    _onClosingCmd = new RelayCommand(() => {
+                        OnWindowClosing();
+                    });
+                }
+                return _onClosingCmd;
+            }
+        }
+
+        private void OnWindowLoaded()
+        {
+            System.Console.WriteLine("OnWindowLoaded()");
+        }
+
+        private void OnWindowClosing()
+        {
+            System.Console.WriteLine(" OnWindowClosing()");
         }
     }
 }

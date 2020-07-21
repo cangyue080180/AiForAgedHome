@@ -4,14 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackendClient.View"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCmd}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnUnloadedCmd}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <DockPanel LastChildFill="True">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="AntiqueWhite">
                 <TextBlock VerticalAlignment="Center" Margin="5">选择查看用户</TextBlock>
-                <ComboBox ItemsSource="{Binding}" Margin="5" MinWidth="80"/>
+                <ComboBox ItemsSource="{Binding Ageds}" DisplayMemberPath="Name" Margin="5" MinWidth="80">
+                </ComboBox>
                 <Button Command="{Binding}" VerticalAlignment="Center" MinWidth="60">确定</Button>
             </StackPanel>
             <UniformGrid Columns="2" Rows="2">
