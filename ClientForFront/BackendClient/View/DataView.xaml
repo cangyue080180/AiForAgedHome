@@ -9,6 +9,15 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" >
+    <UserControl.Resources>
+        <Style TargetType="DockPanel">
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="MinHeight" Value="200"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Blue"/>
+        </Style>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCmd}"/>
@@ -18,16 +27,31 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <DockPanel LastChildFill="True">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="AntiqueWhite">
                 <TextBlock VerticalAlignment="Center" Margin="5">选择查看用户</TextBlock>
-                <ComboBox ItemsSource="{Binding Ageds}" DisplayMemberPath="Name" Margin="5" MinWidth="80">
+                <ComboBox ItemsSource="{Binding Ageds}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedAged}" Margin="5" MinWidth="80">
                 </ComboBox>
-                <Button Command="{Binding}" VerticalAlignment="Center" MinWidth="60">确定</Button>
+                <Button Command="{Binding UserSelectionChangeCmd}" VerticalAlignment="Center" MinWidth="60">确定</Button>
             </StackPanel>
-            <UniformGrid Columns="2" Rows="2">
-                <DockPanel>
-                    <Label DockPanel.Dock="Top">当天行为统计饼图</Label>
+        <ScrollViewer Grid.Row="1">
+        <UniformGrid Columns="2" Rows="3">
+            <DockPanel>
+                <Label DockPanel.Dock="Top">当天行为统计饼图</Label>
+                <lvc:PieChart LegendLocation="Bottom" >
+                    <lvc:PieChart.Series>
+                        <lvc:PieSeries Title="站立" Values="3" DataLabels="False" />
+                        <lvc:PieSeries Title="躺" Values="4" DataLabels="False" />
+                        <lvc:PieSeries Title="坐" Values="6" DataLabels="False" />
+                        <lvc:PieSeries Title="其他" Values="2" DataLabels="False"/>
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>
+            </DockPanel>
+            <DockPanel>
+                    <Label DockPanel.Dock="Top">最近一周行为统计饼图</Label>
                     <lvc:PieChart LegendLocation="Bottom" >
                         <lvc:PieChart.Series>
                             <lvc:PieSeries Title="站立" Values="3" DataLabels="False" />
@@ -36,56 +60,67 @@
                             <lvc:PieSeries Title="其他" Values="2" DataLabels="False"/>
                         </lvc:PieChart.Series>
                     </lvc:PieChart>
-                </DockPanel>
-                <DockPanel>
-                    <Label DockPanel.Dock="Top">站立时间趋势图</Label>
-                    <lvc:CartesianChart>
-                        <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Values="2,1,2,3,4,1"/>
-                        </lvc:CartesianChart.Series>
-                        <lvc:CartesianChart.AxisY>
-                            <!-- 定义Y轴名称 -->
-                            <lvc:Axis Title="Value"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                        <lvc:CartesianChart.AxisX>
-                            <!-- 定义X轴名称 -->
-                            <lvc:Axis Title="Type"></lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                    </lvc:CartesianChart>
-                </DockPanel>
-                <DockPanel>
-                    <Label DockPanel.Dock="Top">躺下时间趋势图</Label>
-                    <lvc:CartesianChart>
-                        <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Stroke="Red" Fill="Pink"  Values="2,1,2,3,4,1"/>
-                        </lvc:CartesianChart.Series>
-                        <lvc:CartesianChart.AxisY>
-                            <!-- 定义Y轴名称 -->
-                            <lvc:Axis Title="Value"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                        <lvc:CartesianChart.AxisX>
-                            <!-- 定义X轴名称 -->
-                            <lvc:Axis Title="Type"></lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                    </lvc:CartesianChart>
-                </DockPanel>
-                <DockPanel>
-                    <Label DockPanel.Dock="Top">坐下时间趋势图</Label>
-                    <lvc:CartesianChart>
-                        <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Stroke="Green" Fill="AliceBlue" Values="2,1,2,3,4,1"/>
-                        </lvc:CartesianChart.Series>
-                        <lvc:CartesianChart.AxisY>
-                            <!-- 定义Y轴名称 -->
-                            <lvc:Axis Title="Value"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                        <lvc:CartesianChart.AxisX>
-                            <!-- 定义X轴名称 -->
-                            <lvc:Axis Title="Type"></lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                    </lvc:CartesianChart>
-                </DockPanel>
-            </UniformGrid>
-        </DockPanel>     
+            </DockPanel>
+            <DockPanel>
+                    <Label DockPanel.Dock="Top">最近一月行为统计饼图</Label>
+                    <lvc:PieChart LegendLocation="Bottom" >
+                        <lvc:PieChart.Series>
+                            <lvc:PieSeries Title="站立" Values="3" DataLabels="False" />
+                            <lvc:PieSeries Title="躺" Values="4" DataLabels="False" />
+                            <lvc:PieSeries Title="坐" Values="6" DataLabels="False" />
+                            <lvc:PieSeries Title="其他" Values="2" DataLabels="False"/>
+                        </lvc:PieChart.Series>
+                    </lvc:PieChart>
+            </DockPanel>
+            <DockPanel>
+                <Label DockPanel.Dock="Top">最近一周站立时间趋势图</Label>
+                <lvc:CartesianChart>
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Values="2,1,2,3,4,1"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.AxisY>
+                        <!-- 定义Y轴名称 -->
+                        <lvc:Axis Title="Value"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <!-- 定义X轴名称 -->
+                        <lvc:Axis Title="Type"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+            </DockPanel>
+            <DockPanel>
+                <Label DockPanel.Dock="Top">最近一周躺下时间趋势图</Label>
+                <lvc:CartesianChart>
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Stroke="Red" Fill="Pink"  Values="2,1,2,3,4,1"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.AxisY>
+                        <!-- 定义Y轴名称 -->
+                        <lvc:Axis Title="Value"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <!-- 定义X轴名称 -->
+                        <lvc:Axis Title="Type"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+            </DockPanel>
+            <DockPanel>
+                <Label DockPanel.Dock="Top">最近一周坐下时间趋势图</Label>
+                <lvc:CartesianChart>
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Stroke="Green" Fill="AliceBlue" Values="2,1,2,3,4,1"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.AxisY>
+                        <!-- 定义Y轴名称 -->
+                        <lvc:Axis Title="Value"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <!-- 定义X轴名称 -->
+                        <lvc:Axis Title="Type"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+            </DockPanel>
+        </UniformGrid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

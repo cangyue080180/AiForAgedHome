@@ -1,6 +1,8 @@
+using BackendClient.Model;
 using BackendClient.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Net.Http;
 using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,6 +23,8 @@ namespace BackendClient.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        public static readonly HttpClient httpClient = new HttpClient();
+
         public string Title
         {
             get
@@ -92,12 +96,12 @@ namespace BackendClient.ViewModel
 
         private void OnWindowLoaded()
         {
-            System.Console.WriteLine("OnWindowLoaded()");
+            LogHelper.Debug("OnMainWindowLoaded()");
         }
 
         private void OnWindowClosing()
         {
-            System.Console.WriteLine(" OnWindowClosing()");
+            LogHelper.Debug("OnMainWindowClosing()");
         }
     }
 }

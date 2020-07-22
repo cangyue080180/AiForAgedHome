@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BackendClient.View"
         mc:Ignorable="d"
         Title="关于" Height="200" Width="400" ShowInTaskbar="False"
-        DataContext="{Binding Source={StaticResource Locator}, Path=HelpVM}">
+        DataContext="{Binding Source={StaticResource Locator}, Path=HelpVM}" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
             <Border >

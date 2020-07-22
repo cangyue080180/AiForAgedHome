@@ -1,14 +1,20 @@
-﻿using DataModel;
+﻿using BackendClient.Model;
+using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Newtonsoft.Json;
 
 namespace BackendClient.ViewModel
 {
     public class DataViewVM : ViewModelBase
     {
+        private HttpClient httpClient;
+        #region property and command
         private List<AgesInfo> _ageds = new List<AgesInfo>();
         public List<AgesInfo> Ageds
         {
@@ -24,6 +30,11 @@ namespace BackendClient.ViewModel
                     RaisePropertyChanged(nameof(Ageds));
                 }
             }
+        }
+
+        public AgesInfo SelectedAged
+        {
+            get;set;
         }
 
         private RelayCommand _onLoadedCmd;
@@ -48,25 +59,58 @@ namespace BackendClient.ViewModel
             }
         }
 
+        private RelayCommand _userSelectedChangedCmd;
+        public ICommand UserSelectionChangeCmd
+        {
+            get
+            {
+                if (_userSelectedChangedCmd == null)
+                    _userSelectedChangedCmd = new RelayCommand(OnUserSelectionChanged);
+                return _userSelectedChangedCmd;
+            }
+        }
+        #endregion
+
         private void Loaded()
         {
-            System.Console.WriteLine("DataView Loaded.");
-            Ageds = new List<AgesInfo>()
+            LogHelper.Debug("DataView Loaded.");
+
+            httpClient = MainViewModel.httpClient;
+            GetAgedsAsync();
+        }
+
+        private async void GetAgedsAsync()
+        {
+            string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
+            string result;
+            try
             {
-                new AgesInfo()
-                {
-                    Name="age1"
-                },
-                new AgesInfo()
-                {
-                    Name="age2"
-                }
-            };
+                result = await httpClient.GetStringAsync(url);
+            }
+            catch (HttpRequestException e)
+            {
+                LogHelper.Debug($"GetAgeds caught exception: {e.Message}");
+                result = null;
+            }
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                Ageds = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
+            }
+        }
+
+        //选择用户改变事件
+        private void OnUserSelectionChanged()
+        {
+            LogHelper.Debug($"selected aged: {SelectedAged.Name}");
+
+            string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
+
         }
 
         private void Unloaded()
         {
-            System.Console.WriteLine("DataView Unloaded.");
+            LogHelper.Debug("DataView Unloaded.");
         }
     }
 }

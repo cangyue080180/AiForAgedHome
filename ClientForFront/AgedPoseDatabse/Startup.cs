@@ -20,7 +20,7 @@ namespace AgedPoseDatabse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AiForAgedDbContext>(opt => opt.UseMySQL("server=localhost;user=root;password=080180xyxy;database=AiForAgedDb"));
+            services.AddDbContextPool<AiForAgedDbContext>(opt => opt.UseMySQL(Configuration.GetConnectionString("AiForAgedDbContext")));
             services.AddControllers();
         }
 

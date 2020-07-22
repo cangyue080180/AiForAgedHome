@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AgedPoseDatabse.Models
@@ -20,11 +21,14 @@ namespace AgedPoseDatabse.Models
 
         [StringLength(20)]
         public string NurseName { get; set; }
+
         [StringLength(100)]
         public string Address { get; set; }
 
         public long RoomInfoId { get; set; }
 
         public RoomInfo RoomInfo { get; set; }
+
+        public List<PoseInfo> PoseInfoes { get; set; }
     }
 }

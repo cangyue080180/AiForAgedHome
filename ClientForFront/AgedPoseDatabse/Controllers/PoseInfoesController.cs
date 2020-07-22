@@ -1,6 +1,7 @@
 ﻿using AgedPoseDatabse.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,11 +26,13 @@ namespace AgedPoseDatabse.Controllers
             return await _context.PoseInfos.ToListAsync();
         }
 
-        // GET: api/PoseInfoes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PoseInfo>> GetPoseInfo(long id)
+        // GET: api/PoseInfoes/?id=xx&minDate=xx&maxDate=xx
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfo(long id,DateTime minDate,DateTime maxDate)
         {
-            var poseInfo = await _context.PoseInfos.FindAsync(id);
+            var poseInfo= await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date>=minDate && x.Date<maxDate).ToListAsync<PoseInfo>();
+
+            //var poseInfo = await _context.PoseInfos.FindAsync(id);
 
             if (poseInfo == null)
             {
