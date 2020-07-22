@@ -7,7 +7,7 @@ namespace AgedPoseDatabse.Models
     public class PoseInfo
     {
         public long AgesInfoId { get; set; }
-        public AgesInfo AgesInfo{get;set;}
+        public AgesInfo AgesInfo { get; set; }
 
         [Column(TypeName = "Date")]
         public DateTime Date { get; set; }

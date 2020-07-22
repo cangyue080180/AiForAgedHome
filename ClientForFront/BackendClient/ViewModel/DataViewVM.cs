@@ -2,12 +2,12 @@
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
 using System.Windows.Documents;
 using System.Windows.Input;
-using Newtonsoft.Json;
 
 namespace BackendClient.ViewModel
 {

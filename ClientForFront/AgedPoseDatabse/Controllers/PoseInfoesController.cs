@@ -26,13 +26,11 @@ namespace AgedPoseDatabse.Controllers
             return await _context.PoseInfos.ToListAsync();
         }
 
-        // GET: api/PoseInfoes/?id=xx&minDate=xx&maxDate=xx
-        [HttpGet]
+        // GET: api/PoseInfoes/getPoseInfo?id=1&minDate=2020-7-15&maxDate=2020-7-20
+        [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfo(long id,DateTime minDate,DateTime maxDate)
         {
-            var poseInfo= await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date>=minDate && x.Date<maxDate).ToListAsync<PoseInfo>();
-
-            //var poseInfo = await _context.PoseInfos.FindAsync(id);
+            var poseInfo = await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date >= minDate && x.Date < maxDate).ToListAsync<PoseInfo>();
 
             if (poseInfo == null)
             {
@@ -102,23 +100,23 @@ namespace AgedPoseDatabse.Controllers
 
         // DELETE: api/PoseInfoes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PoseInfo>> DeletePoseInfo(long id)
+        public async Task<ActionResult<IEnumerable<PoseInfo>>> DeletePoseInfo(long id)
         {
-            var poseInfo = await _context.PoseInfos.FindAsync(id);
-            if (poseInfo == null)
+            var poseInfos =await _context.PoseInfos.Where(x => x.AgesInfoId == id).ToListAsync();
+            
+            if (poseInfos.Count() == 0)
             {
                 return NotFound();
             }
-
-            _context.PoseInfos.Remove(poseInfo);
+            _context.PoseInfos.RemoveRange(poseInfos);
             await _context.SaveChangesAsync();
 
-            return poseInfo;
+            return poseInfos;
         }
 
         private bool PoseInfoExists(long id)
         {
-            return _context.PoseInfos.Any(e => e.AgesInfoId == id);
+            return _context.PoseInfos.Any(e => e.AgesInfoId == id && e.Date.Date==DateTime.Now.Date);
         }
     }
 }

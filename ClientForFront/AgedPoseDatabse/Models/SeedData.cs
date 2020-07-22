@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AgedPoseDatabse.Models
 {
@@ -62,7 +61,7 @@ namespace AgedPoseDatabse.Models
                         TimeOther = random.Next(1800, 7200),
                     };
                     aged1.PoseInfoes.Add(poseInfo1);
-                    
+
                     PoseInfo poseInfo2 = new PoseInfo()
                     {
                         Date = DateTime.Now.AddDays(-i),
@@ -85,7 +84,7 @@ namespace AgedPoseDatabse.Models
                 //};
 
 
-                
+
 
             }
         }
