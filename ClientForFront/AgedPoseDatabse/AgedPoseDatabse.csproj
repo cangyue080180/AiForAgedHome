@@ -19,6 +19,10 @@
     <Compile Remove="Migrations\20200719125753_addColumnforServerInfo.Designer.cs" />
     <Compile Remove="Migrations\20200722084857_litteChangeForPoseInfo.cs" />
     <Compile Remove="Migrations\20200722084857_litteChangeForPoseInfo.Designer.cs" />
+    <Compile Remove="Migrations\20200723092645_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200723092645_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200723093354_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200723093354_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

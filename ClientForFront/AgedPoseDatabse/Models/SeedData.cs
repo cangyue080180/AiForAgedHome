@@ -48,7 +48,7 @@ namespace AgedPoseDatabse.Models
                 Random random = new Random();
                 aged1.PoseInfoes = new List<PoseInfo>();
                 aged2.PoseInfoes = new List<PoseInfo>();
-                for (int i = 1; i < 40; i++)
+                for (int i = 0; i < 40; i++)
                 {
                     PoseInfo poseInfo1 = new PoseInfo()
                     {
@@ -59,6 +59,7 @@ namespace AgedPoseDatabse.Models
                         TimeStand = random.Next(1800, 7200),
                         TimeDown = random.Next(1800, 7200),
                         TimeOther = random.Next(1800, 7200),
+                        IsAlarm = false
                     };
                     aged1.PoseInfoes.Add(poseInfo1);
 
@@ -71,6 +72,7 @@ namespace AgedPoseDatabse.Models
                         TimeStand = random.Next(1800, 7200),
                         TimeDown = random.Next(1800, 7200),
                         TimeOther = random.Next(1800, 7200),
+                        IsAlarm = false
                     };
                     aged2.PoseInfoes.Add(poseInfo2);
 

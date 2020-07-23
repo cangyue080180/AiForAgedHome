@@ -1,31 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
-using System;
 
 namespace AgedPoseDatabse.Migrations
 {
-    public partial class InitialCreate0 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "PoseInfo",
-                columns: table => new
-                {
-                    AgesInfoId = table.Column<long>(nullable: false),
-                    Date = table.Column<DateTime>(type: "Date", nullable: false),
-                    TimeStand = table.Column<int>(nullable: false),
-                    TimeSit = table.Column<int>(nullable: false),
-                    TimeLie = table.Column<int>(nullable: false),
-                    TimeDown = table.Column<int>(nullable: false),
-                    TimeOther = table.Column<int>(nullable: false),
-                    TimeIn = table.Column<TimeSpan>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PoseInfo", x => new { x.AgesInfoId, x.Date });
-                });
-
             migrationBuilder.CreateTable(
                 name: "RoomInfo",
                 columns: table => new
@@ -46,8 +28,10 @@ namespace AgedPoseDatabse.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 20, nullable: false),
                     FactoryInfo = table.Column<string>(maxLength: 100, nullable: true),
-                    MaxCameraCount = table.Column<byte>(nullable: false)
+                    MaxCameraCount = table.Column<byte>(nullable: false),
+                    Ip = table.Column<string>(maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,6 +104,31 @@ namespace AgedPoseDatabse.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PoseInfo",
+                columns: table => new
+                {
+                    AgesInfoId = table.Column<long>(nullable: false),
+                    Date = table.Column<DateTime>(type: "Date", nullable: false),
+                    TimeStand = table.Column<int>(nullable: false),
+                    TimeSit = table.Column<int>(nullable: false),
+                    TimeLie = table.Column<int>(nullable: false),
+                    TimeDown = table.Column<int>(nullable: false),
+                    TimeOther = table.Column<int>(nullable: false),
+                    TimeIn = table.Column<TimeSpan>(nullable: false),
+                    IsAlarm = table.Column<bool>(nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PoseInfo", x => new { x.AgesInfoId, x.Date });
+                    table.ForeignKey(
+                        name: "FK_PoseInfo_AgesInfo_AgesInfoId",
+                        column: x => x.AgesInfoId,
+                        principalTable: "AgesInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AgesInfo_RoomInfoId",
                 table: "AgesInfo",
@@ -134,13 +143,22 @@ namespace AgedPoseDatabse.Migrations
                 name: "IX_CameraInfo_ServerInfoId",
                 table: "CameraInfo",
                 column: "ServerInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServerInfo_Ip",
+                table: "ServerInfo",
+                column: "Ip",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServerInfo_Name",
+                table: "ServerInfo",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AgesInfo");
-
             migrationBuilder.DropTable(
                 name: "CameraInfo");
 
@@ -151,10 +169,13 @@ namespace AgedPoseDatabse.Migrations
                 name: "UserInfo");
 
             migrationBuilder.DropTable(
-                name: "RoomInfo");
+                name: "ServerInfo");
 
             migrationBuilder.DropTable(
-                name: "ServerInfo");
+                name: "AgesInfo");
+
+            migrationBuilder.DropTable(
+                name: "RoomInfo");
         }
     }
 }

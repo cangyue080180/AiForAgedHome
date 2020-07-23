@@ -26,5 +26,7 @@ namespace DataModel
         public int TimeOther { get; set; }
 
         public TimeSpan TimeIn { get; set; }
+
+        public bool IsAlarm { get; set; }
     }
 }

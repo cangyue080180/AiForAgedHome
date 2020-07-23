@@ -95,6 +95,11 @@ namespace AgedPoseDatabse.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("Date");
 
+                    b.Property<bool>("IsAlarm")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<int>("TimeDown")
                         .HasColumnType("int");
 

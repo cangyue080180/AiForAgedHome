@@ -26,11 +26,27 @@ namespace AgedPoseDatabse.Controllers
             return await _context.PoseInfos.ToListAsync();
         }
 
+        //获取指定老人的一段时间内的姿态信息
         // GET: api/PoseInfoes/getPoseInfo?id=1&minDate=2020-7-15&maxDate=2020-7-20
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfo(long id,DateTime minDate,DateTime maxDate)
+        public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoDays(long id,DateTime minDate,DateTime maxDate)
         {
             var poseInfo = await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date >= minDate && x.Date < maxDate).ToListAsync<PoseInfo>();
+
+            if (poseInfo == null)
+            {
+                return NotFound();
+            }
+
+            return poseInfo;
+        }
+
+        //获取某一个老人的当前的姿态信息
+        // GET: api/PoseInfoes/id
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PoseInfo>> GetPoseInfoNow(long id)
+        {
+            var poseInfo = await _context.PoseInfos.FirstAsync(x => x.AgesInfoId == id && x.Date == DateTime.Now.Date);
 
             if (poseInfo == null)
             {
