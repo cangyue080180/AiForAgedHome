@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="AntiqueWhite">
                 <TextBlock VerticalAlignment="Center" Margin="5">选择查看用户</TextBlock>
-                <ComboBox ItemsSource="{Binding Ageds}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedAged}" Margin="5" MinWidth="80">
+                <ComboBox ItemsSource="{Binding Ageds}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAged}" Margin="5" MinWidth="80">
                 </ComboBox>
                 <Button Command="{Binding UserSelectionChangeCmd}" VerticalAlignment="Center" MinWidth="60">确定</Button>
             </StackPanel>
@@ -56,10 +56,11 @@
                     <Label DockPanel.Dock="Top">最近一周行为统计饼图</Label>
                     <lvc:PieChart LegendLocation="Bottom" >
                         <lvc:PieChart.Series>
-                            <lvc:PieSeries Title="站立" Values="3" DataLabels="False" />
-                            <lvc:PieSeries Title="躺" Values="4" DataLabels="False" />
-                            <lvc:PieSeries Title="坐" Values="6" DataLabels="False" />
-                            <lvc:PieSeries Title="其他" Values="2" DataLabels="False"/>
+                            <lvc:PieSeries Title="站立" Values="{Binding PoseInfoVm_Week.TimeStand, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="躺" Values="{Binding PoseInfoVm_Week.TimeLie, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="坐" Values="{Binding PoseInfoVm_Week.TimeSit, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="地上" Values="{Binding PoseInfoVm_Week.TimeDown, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="其他" Values="{Binding PoseInfoVm_Week.TimeOther, Converter={StaticResource intToChartValueConverter}}" DataLabels="False"/>
                         </lvc:PieChart.Series>
                     </lvc:PieChart>
             </DockPanel>
@@ -67,10 +68,11 @@
                     <Label DockPanel.Dock="Top">最近一月行为统计饼图</Label>
                     <lvc:PieChart LegendLocation="Bottom" >
                         <lvc:PieChart.Series>
-                            <lvc:PieSeries Title="站立" Values="3" DataLabels="False" />
-                            <lvc:PieSeries Title="躺" Values="4" DataLabels="False" />
-                            <lvc:PieSeries Title="坐" Values="6" DataLabels="False" />
-                            <lvc:PieSeries Title="其他" Values="2" DataLabels="False"/>
+                            <lvc:PieSeries Title="站立" Values="{Binding PoseInfoVm_Month.TimeStand, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="躺" Values="{Binding PoseInfoVm_Month.TimeLie, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="坐" Values="{Binding PoseInfoVm_Month.TimeSit, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="地上" Values="{Binding PoseInfoVm_Month.TimeDown, Converter={StaticResource intToChartValueConverter}}" DataLabels="False" />
+                            <lvc:PieSeries Title="其他" Values="{Binding PoseInfoVm_Month.TimeOther, Converter={StaticResource intToChartValueConverter}}" DataLabels="False"/>
                         </lvc:PieChart.Series>
                     </lvc:PieChart>
             </DockPanel>

@@ -1,4 +1,5 @@
 ﻿using LiveCharts;
+using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,8 +14,8 @@ namespace BackendClient.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int srcValue = (int)value;
-            IChartValues result = new ChartValues<int>(new[] { srcValue});
+            double srcValue = (double)value;
+            IChartValues result = new ChartValues<ObservableValue>() { new ObservableValue(srcValue) };
             return result;
         }
 

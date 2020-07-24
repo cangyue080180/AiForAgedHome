@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Input;
 
@@ -41,9 +42,11 @@ namespace BackendClient.ViewModel
             }
         }
 
+        private AgesInfo _selectedAged;
         public AgesInfo SelectedAged
         {
-            get;set;
+            get => _selectedAged;
+            set => Set(ref _selectedAged,value);
         }
 
         private RelayCommand _onLoadedCmd;
@@ -74,7 +77,7 @@ namespace BackendClient.ViewModel
             get
             {
                 if (_userSelectedChangedCmd == null)
-                    _userSelectedChangedCmd = new RelayCommand(OnUserSelectionChanged);
+                    _userSelectedChangedCmd = new RelayCommand(OnUserSelectionChangedAsync);
                 return _userSelectedChangedCmd;
             }
         }
@@ -88,25 +91,27 @@ namespace BackendClient.ViewModel
             PoseInfoVm_Now = new PoseInfoVm();
             PoseInfoVm_Week = new PoseInfoVm();
             PoseInfoVm_Month = new PoseInfoVm();
+
+            GetAgedsAsync();
         }
 
         private void Loaded()
         {
             LogHelper.Debug("DataView Loaded.");
-
-            PoseInfoVm_Now = new PoseInfoVm();
-            PoseInfoVm_Week = new PoseInfoVm();
-            PoseInfoVm_Month = new PoseInfoVm();
-            GetAgedsAsync();
         }
 
         private void TimerCallback(object state)
         {
+            PoseInfoVm_Now.TimeDown += 100;
+            PoseInfoVm_Now.TimeStand -= 50;
+            PoseInfoVm_Now.TimeSit += 3;
+            PoseInfoVm_Now.TimeLie +=4;
+            PoseInfoVm_Now.TimeOther -= 10;
             //从数据库中定时更新数据
-            string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
-            url += $"/{SelectedAged.Id}";
+            //string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
+            //url += $"/{SelectedAged.Id}";
 
-            updateTimer.Change(1,Timeout.Infinite);
+            updateTimer.Change(2000,Timeout.Infinite);
         }
 
         //从数据库加载老人信息
@@ -131,19 +136,27 @@ namespace BackendClient.ViewModel
         }
 
         //选择用户改变事件
-        private async void OnUserSelectionChanged()
+        private async void OnUserSelectionChangedAsync()
         {
             LogHelper.Debug($"selected aged: {SelectedAged.Name}");
 
+            await GetPoseInfoOfMonthAsync(SelectedAged.Id);
+
+            updateTimer.Change(2000,Timeout.Infinite);
+        }
+
+        private async Task GetPoseInfoOfMonthAsync(long agedId)
+        {
             //获取选择用户最近一个月的姿态信息
             string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
-            url += $"/GetPoseInfoDays?id={SelectedAged.Id}&minDate={DateTime.Now.AddDays(-29).Date}&maxDate={DateTime.Now.AddDays(1).Date}";
+            url += $"/GetPoseInfoDays?id={agedId}&minDate={DateTime.Now.AddDays(-29).Date}&maxDate={DateTime.Now.AddDays(1).Date}";
             string result;
 
             try
             {
-                result =await httpClient.GetStringAsync(url);
-            }catch(HttpRequestException e)
+                result = await httpClient.GetStringAsync(url);
+            }
+            catch (HttpRequestException e)
             {
                 result = null;
                 LogHelper.Debug($"get poseInfo caught exception: {e.Message}");
@@ -165,7 +178,7 @@ namespace BackendClient.ViewModel
                 }
                 //更新最近一周的姿态信息
                 var poseInfoWeek = poseinfoes.Where(x => x.Date >= DateTime.Now.AddDays(-6).Date && x.Date <= DateTime.Now);
-                foreach(var item in poseInfoWeek)
+                foreach (var item in poseInfoWeek)
                 {
                     PoseInfoVm_Week.TimeDown += item.TimeDown;
                     PoseInfoVm_Week.TimeLie += item.TimeLie;
@@ -174,7 +187,7 @@ namespace BackendClient.ViewModel
                     PoseInfoVm_Week.TimeStand += item.TimeStand;
                 }
                 //更新最近一月的姿态信息
-                foreach(var item in poseinfoes)
+                foreach (var item in poseinfoes)
                 {
                     PoseInfoVm_Month.TimeDown += item.TimeDown;
                     PoseInfoVm_Month.TimeLie += item.TimeLie;
@@ -183,9 +196,7 @@ namespace BackendClient.ViewModel
                     PoseInfoVm_Month.TimeStand += item.TimeStand;
                 }
             }
-
-           // updateTimer.Change(Timeout.Infinite,Timeout.Infinite);
-        }
+        } 
 
         private void Unloaded()
         {
