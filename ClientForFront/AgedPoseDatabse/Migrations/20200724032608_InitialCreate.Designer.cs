@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    [Migration("20200723094226_InitialCreate")]
+    [Migration("20200724032608_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,15 +98,14 @@ namespace AgedPoseDatabse.Migrations
                         .HasColumnType("Date");
 
                     b.Property<bool>("IsAlarm")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("TimeDown")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("TimeIn")
-                        .HasColumnType("time");
+                    b.Property<string>("TimeIn")
+                        .HasColumnType("varchar(8)")
+                        .HasMaxLength(8);
 
                     b.Property<int>("TimeLie")
                         .HasColumnType("int");

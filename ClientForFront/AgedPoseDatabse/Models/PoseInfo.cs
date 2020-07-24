@@ -20,7 +20,8 @@ namespace AgedPoseDatabse.Models
         public int TimeDown { get; set; }
         public int TimeOther { get; set; }
 
-        public TimeSpan TimeIn { get; set; }
+        [StringLength(8)]
+        public string TimeIn { get; set; }
 
         //是否警报
         public bool IsAlarm { get; set; }

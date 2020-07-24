@@ -39,12 +39,6 @@ namespace AgedPoseDatabse.Models
                     Name = "李四",
                 };
 
-                room1.AgesInfos = new List<AgesInfo>();
-                room1.AgesInfos.Add(aged1);
-
-                room2.AgesInfos = new List<AgesInfo>();
-                room2.AgesInfos.Add(aged2);
-
                 Random random = new Random();
                 aged1.PoseInfoes = new List<PoseInfo>();
                 aged2.PoseInfoes = new List<PoseInfo>();
@@ -53,7 +47,7 @@ namespace AgedPoseDatabse.Models
                     PoseInfo poseInfo1 = new PoseInfo()
                     {
                         Date = DateTime.Now.AddDays(-i),
-                        TimeIn = DateTime.Now.TimeOfDay,
+                        TimeIn = DateTime.Now.ToShortTimeString(),
                         TimeLie = random.Next(1800, 7200),//0.5h-2h
                         TimeSit = random.Next(1800, 7200),
                         TimeStand = random.Next(1800, 7200),
@@ -66,7 +60,7 @@ namespace AgedPoseDatabse.Models
                     PoseInfo poseInfo2 = new PoseInfo()
                     {
                         Date = DateTime.Now.AddDays(-i),
-                        TimeIn = DateTime.Now.TimeOfDay,
+                        TimeIn = DateTime.Now.ToShortTimeString(),
                         TimeLie = random.Next(1800, 7200),//0.5h-2h
                         TimeSit = random.Next(1800, 7200),
                         TimeStand = random.Next(1800, 7200),
@@ -77,6 +71,13 @@ namespace AgedPoseDatabse.Models
                     aged2.PoseInfoes.Add(poseInfo2);
 
                 }
+
+                room1.AgesInfos = new List<AgesInfo>();
+                room1.AgesInfos.Add(aged1);
+
+                room2.AgesInfos = new List<AgesInfo>();
+                room2.AgesInfos.Add(aged2);
+
                 context.RoomInfos.AddRange(room1, room2);
                 context.SaveChanges();
 

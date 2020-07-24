@@ -115,8 +115,8 @@ namespace AgedPoseDatabse.Migrations
                     TimeLie = table.Column<int>(nullable: false),
                     TimeDown = table.Column<int>(nullable: false),
                     TimeOther = table.Column<int>(nullable: false),
-                    TimeIn = table.Column<TimeSpan>(nullable: false),
-                    IsAlarm = table.Column<bool>(nullable: false, defaultValue: false)
+                    TimeIn = table.Column<string>(maxLength: 8, nullable: true),
+                    IsAlarm = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
