@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
@@ -25,20 +26,12 @@ namespace BackendClient.ViewModel
         public PoseInfoVm PoseInfoVm_Week { get; set; }//最近一周的pose信息
         public PoseInfoVm PoseInfoVm_Month { get; set; }//最近一月的pose信息
 
-        private List<AgesInfo> _ageds = new List<AgesInfo>();
-        public List<AgesInfo> Ageds
+        private ObservableCollection<AgesInfo> _ageds = new ObservableCollection<AgesInfo>();
+        public ObservableCollection<AgesInfo> Ageds
         {
             get
             {
                 return _ageds;
-            }
-            set
-            {
-                if (value != _ageds)
-                {
-                    _ageds = value;
-                    RaisePropertyChanged(nameof(Ageds));
-                }
             }
         }
 
@@ -98,20 +91,16 @@ namespace BackendClient.ViewModel
         private void Loaded()
         {
             LogHelper.Debug("DataView Loaded.");
+            GetAgedsAsync();
         }
 
         private void TimerCallback(object state)
         {
-            PoseInfoVm_Now.TimeDown += 100;
-            PoseInfoVm_Now.TimeStand -= 50;
-            PoseInfoVm_Now.TimeSit += 3;
-            PoseInfoVm_Now.TimeLie +=4;
-            PoseInfoVm_Now.TimeOther -= 10;
             //从数据库中定时更新数据
             //string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
             //url += $"/{SelectedAged.Id}";
 
-            updateTimer.Change(2000,Timeout.Infinite);
+           // updateTimer.Change(2000,Timeout.Infinite);
         }
 
         //从数据库加载老人信息
@@ -131,7 +120,33 @@ namespace BackendClient.ViewModel
 
             if (!string.IsNullOrEmpty(result))
             {
-                Ageds = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
+                var ageds = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
+                //检查有无新增
+                foreach (var item in ageds)
+                {
+                    if (!Ageds.Any(x=>x.Id==item.Id))
+                    {
+                        Ageds.Add(item);
+                    }
+                }
+                //检查有无删减
+                for(int i = Ageds.Count-1; i >= 0; i--)
+                {
+                    bool isExit = false;
+                    foreach(var item in ageds)
+                    {
+                        if (Ageds.ElementAt(i).Id == item.Id)
+                        {
+                            isExit = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExit)
+                    {
+                        Ageds.RemoveAt(i);
+                    }
+                }
             }
         }
 
@@ -141,8 +156,6 @@ namespace BackendClient.ViewModel
             LogHelper.Debug($"selected aged: {SelectedAged.Name}");
 
             await GetPoseInfoOfMonthAsync(SelectedAged.Id);
-
-            updateTimer.Change(2000,Timeout.Infinite);
         }
 
         private async Task GetPoseInfoOfMonthAsync(long agedId)
