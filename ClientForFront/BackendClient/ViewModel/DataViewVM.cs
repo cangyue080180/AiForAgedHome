@@ -13,7 +13,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace BackendClient.ViewModel
@@ -30,7 +29,7 @@ namespace BackendClient.ViewModel
         public ChartValues<MeasureModel> PoseInfoStandWeek { get; set; }
         public ChartValues<MeasureModel> PoseInfoSitWeek { get; set; }
         public ChartValues<MeasureModel> PoseInfoLieWeek { get; set; }
-        public Func<double,string> DateTimeFormatter { get; set; }
+        public Func<double, string> DateTimeFormatter { get; set; }
 
         public double AxisMax { get; set; }
         public double AxisMin { get; set; }
@@ -51,7 +50,7 @@ namespace BackendClient.ViewModel
         public AgesInfo SelectedAged
         {
             get => _selectedAged;
-            set => Set(ref _selectedAged,value);
+            set => Set(ref _selectedAged, value);
         }
 
         private RelayCommand _onLoadedCmd;
@@ -127,7 +126,7 @@ namespace BackendClient.ViewModel
             //string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
             //url += $"/{SelectedAged.Id}";
 
-           // updateTimer.Change(2000,Timeout.Infinite);
+            // updateTimer.Change(2000,Timeout.Infinite);
         }
 
         //从数据库加载老人信息
@@ -151,16 +150,16 @@ namespace BackendClient.ViewModel
                 //检查有无新增
                 foreach (var item in ageds)
                 {
-                    if (!Ageds.Any(x=>x.Id==item.Id))
+                    if (!Ageds.Any(x => x.Id == item.Id))
                     {
                         Ageds.Add(item);
                     }
                 }
                 //检查有无删减
-                for(int i = Ageds.Count-1; i >= 0; i--)
+                for (int i = Ageds.Count - 1; i >= 0; i--)
                 {
                     bool isExit = false;
-                    foreach(var item in ageds)
+                    foreach (var item in ageds)
                     {
                         if (Ageds.ElementAt(i).Id == item.Id)
                         {

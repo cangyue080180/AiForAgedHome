@@ -44,6 +44,8 @@ namespace BackendClient.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DataViewVM>();
             SimpleIoc.Default.Register<HelpVM>();
+            SimpleIoc.Default.Register<DataManagerVM>();
+            SimpleIoc.Default.Register<RoomInfoVM>();
         }
 
         public MainViewModel Main
@@ -61,6 +63,21 @@ namespace BackendClient.ViewModel
                 return ServiceLocator.Current.GetInstance<DataViewVM>();
             }
         }
+        public DataManagerVM DataManagerVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DataManagerVM>();
+            }
+        }
+        public RoomInfoVM RoomInfoVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RoomInfoVM>();
+            }
+        }
+
         public HelpVM HelpVM
         {
             get

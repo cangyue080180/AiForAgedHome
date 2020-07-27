@@ -98,7 +98,7 @@ namespace AgedPoseDatabse.Models
                 {
                     FactoryInfo = "海康威视",
                     IpAddress="192.168.1.10",
-                    VideoAddress= "http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",
+                    VideoAddress= "rtsp://admin:dan080180xy@@192.168.1.10:554",
                     ServerInfo=serverInfo1,
                     RoomInfo=room1
                 };
@@ -107,7 +107,7 @@ namespace AgedPoseDatabse.Models
                 {
                     FactoryInfo = "海康威视",
                     IpAddress = "192.168.1.11",
-                    VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
+                    VideoAddress = "rtsp://admin:dan080180xy@@192.168.1.11:554",
                     ServerInfo = serverInfo1,
                     RoomInfo = room1
                 };

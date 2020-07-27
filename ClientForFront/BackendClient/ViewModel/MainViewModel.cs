@@ -4,7 +4,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Net.Http;
 using System.Reflection;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BackendClient.ViewModel
@@ -71,7 +70,8 @@ namespace BackendClient.ViewModel
             {
                 if (_onLoadCmd == null)
                 {
-                    _onLoadCmd = new RelayCommand(() => {
+                    _onLoadCmd = new RelayCommand(() =>
+                    {
                         OnWindowLoaded();
                     });
                 }
@@ -86,7 +86,8 @@ namespace BackendClient.ViewModel
             {
                 if (_onClosingCmd == null)
                 {
-                    _onClosingCmd = new RelayCommand(() => {
+                    _onClosingCmd = new RelayCommand(() =>
+                    {
                         OnWindowClosing();
                     });
                 }

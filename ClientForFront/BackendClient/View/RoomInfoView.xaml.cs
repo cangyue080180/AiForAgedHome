@@ -3,11 +3,11 @@
 namespace BackendClient.View
 {
     /// <summary>
-    /// DataManagerView.xaml 的交互逻辑
+    /// RoomInfoView.xaml 的交互逻辑
     /// </summary>
-    public partial class DataManagerView : UserControl
+    public partial class RoomInfoView : UserControl
     {
-        public DataManagerView()
+        public RoomInfoView()
         {
             InitializeComponent();
         }

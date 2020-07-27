@@ -32,11 +32,13 @@
                 <MenuItem Header="关于" Command="{Binding AboutCmd}"/>
             </MenuItem>
         </Menu>
-        <TabControl TabStripPlacement="Left" Grid.Row="2">
-            <TabItem Name="backgroundcolor2" Header="数据报表" Style="{StaticResource tabItemStyle}" >
+        <TabControl TabStripPlacement="Top" Grid.Row="2">
+            <TabItem Name="backgroundcolor2" Header="数据报表">
                 <ContentControl Content="{Binding Path=DataViewVM,Source={StaticResource Locator}}"/>
             </TabItem>
-            <TabItem Name="foregroundcolor2" Header="数据库管理" Style="{StaticResource tabItemStyle}"/>
+            <TabItem Name="foregroundcolor2" Header="数据库管理">
+                <ContentControl Content="{Binding Path=DataManagerVM,Source={StaticResource Locator}}"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

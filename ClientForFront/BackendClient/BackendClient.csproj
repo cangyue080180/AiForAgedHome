@@ -86,9 +86,11 @@
     <Compile Include="Model\LogHelper.cs" />
     <Compile Include="Model\MeasureModel.cs" />
     <Compile Include="Model\PoseInfoVm.cs" />
+    <Compile Include="ViewModel\DataManagerVM.cs" />
     <Compile Include="ViewModel\DataViewVM.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RoomInfoVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\DataManagerView.xaml.cs">
       <DependentUpon>DataManagerView.xaml</DependentUpon>
@@ -98,6 +100,9 @@
     </Compile>
     <Compile Include="View\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RoomInfoView.xaml.cs">
+      <DependentUpon>RoomInfoView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RoomInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
