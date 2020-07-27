@@ -84,11 +84,15 @@
     </ApplicationDefinition>
     <Compile Include="Model\IntConvertToChartValues.cs" />
     <Compile Include="Model\LogHelper.cs" />
+    <Compile Include="Model\MeasureModel.cs" />
     <Compile Include="Model\PoseInfoVm.cs" />
     <Compile Include="ViewModel\DataViewVM.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\DataManagerView.xaml.cs">
+      <DependentUpon>DataManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DataView.xaml.cs">
       <DependentUpon>DataView.xaml</DependentUpon>
     </Compile>
@@ -107,6 +111,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DataManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

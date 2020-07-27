@@ -2,6 +2,8 @@
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using LiveCharts;
+using LiveCharts.Configurations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,16 @@ namespace BackendClient.ViewModel
         public PoseInfoVm PoseInfoVm_Now { get; set; }//当天的pose信息
         public PoseInfoVm PoseInfoVm_Week { get; set; }//最近一周的pose信息
         public PoseInfoVm PoseInfoVm_Month { get; set; }//最近一月的pose信息
+        public ChartValues<MeasureModel> PoseInfoStandWeek { get; set; }
+        public ChartValues<MeasureModel> PoseInfoSitWeek { get; set; }
+        public ChartValues<MeasureModel> PoseInfoLieWeek { get; set; }
+        public Func<double,string> DateTimeFormatter { get; set; }
+
+        public double AxisMax { get; set; }
+        public double AxisMin { get; set; }
+
+        public double AxisStep { get; set; }
+        public double AxisUnit { get; set; }
 
         private ObservableCollection<AgesInfo> _ageds = new ObservableCollection<AgesInfo>();
         public ObservableCollection<AgesInfo> Ageds
@@ -78,6 +90,20 @@ namespace BackendClient.ViewModel
 
         public DataViewVM()
         {
+            var mapper = Mappers.Xy<MeasureModel>()
+               .X(model => model.DateTime.Ticks)
+               .Y(model => model.Value);
+
+            Charting.For<MeasureModel>(mapper);
+
+            PoseInfoStandWeek = new ChartValues<MeasureModel>();
+            PoseInfoLieWeek = new ChartValues<MeasureModel>();
+            PoseInfoSitWeek = new ChartValues<MeasureModel>();
+            AxisMax = DateTime.Now.Ticks;
+            AxisMin = DateTime.Now.Ticks - TimeSpan.FromDays(7).Ticks;
+            DateTimeFormatter = value => new DateTime((long)value).ToString("MM/dd");
+            AxisStep = TimeSpan.FromDays(1).Ticks;
+            AxisUnit = TimeSpan.TicksPerDay;
             //初始化
             httpClient = MainViewModel.httpClient;
             updateTimer = new Timer(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
@@ -91,6 +117,7 @@ namespace BackendClient.ViewModel
         private void Loaded()
         {
             LogHelper.Debug("DataView Loaded.");
+            //刷新老人信息
             GetAgedsAsync();
         }
 
@@ -155,6 +182,7 @@ namespace BackendClient.ViewModel
         {
             LogHelper.Debug($"selected aged: {SelectedAged.Name}");
 
+            //获取数据更新视图
             await GetPoseInfoOfMonthAsync(SelectedAged.Id);
         }
 
@@ -177,40 +205,102 @@ namespace BackendClient.ViewModel
 
             if (!string.IsNullOrEmpty(result))
             {
-                List<PoseInfo> poseinfoes = JsonConvert.DeserializeObject<List<PoseInfo>>(result);
+                List<PoseInfo> poseinfoes_month = JsonConvert.DeserializeObject<List<PoseInfo>>(result);
 
-                //更新当前的姿态信息
-                var poseinfo = poseinfoes.FirstOrDefault(x => x.Date == DateTime.Now.Date);
-                if (poseinfo != null)
-                {
-                    PoseInfoVm_Now.TimeDown = poseinfo.TimeDown;
-                    PoseInfoVm_Now.TimeSit = poseinfo.TimeSit;
-                    PoseInfoVm_Now.TimeLie = poseinfo.TimeLie;
-                    PoseInfoVm_Now.TimeOther = poseinfo.TimeOther;
-                    PoseInfoVm_Now.TimeStand = poseinfo.TimeStand;
-                }
-                //更新最近一周的姿态信息
-                var poseInfoWeek = poseinfoes.Where(x => x.Date >= DateTime.Now.AddDays(-6).Date && x.Date <= DateTime.Now);
-                foreach (var item in poseInfoWeek)
-                {
-                    PoseInfoVm_Week.TimeDown += item.TimeDown;
-                    PoseInfoVm_Week.TimeLie += item.TimeLie;
-                    PoseInfoVm_Week.TimeOther += item.TimeOther;
-                    PoseInfoVm_Week.TimeSit += item.TimeSit;
-                    PoseInfoVm_Week.TimeStand += item.TimeStand;
-                }
-                //更新最近一月的姿态信息
-                foreach (var item in poseinfoes)
-                {
-                    PoseInfoVm_Month.TimeDown += item.TimeDown;
-                    PoseInfoVm_Month.TimeLie += item.TimeLie;
-                    PoseInfoVm_Month.TimeOther += item.TimeOther;
-                    PoseInfoVm_Month.TimeSit += item.TimeSit;
-                    PoseInfoVm_Month.TimeStand += item.TimeStand;
-                }
+                UpdateDayPieChart(poseinfoes_month);
+                UpdateWeekPieChart(poseinfoes_month);
+                UpdateMonthPieChart(poseinfoes_month);
+                UpdateWeekStandLine(poseinfoes_month);
+                UpdateWeekLieLine(poseinfoes_month);
+                UpdateWeekSitLine(poseinfoes_month);
             }
-        } 
+        }
+        //更新当前天的姿态信息饼图
+        private void UpdateDayPieChart(IEnumerable<PoseInfo> poseInfos)
+        {
+            PoseInfoVm_Now.TimeDown = 0;
+            PoseInfoVm_Now.TimeSit = 0;
+            PoseInfoVm_Now.TimeLie = 0;
+            PoseInfoVm_Now.TimeOther = 0;
+            PoseInfoVm_Now.TimeStand = 0;
+            var poseinfo_day = poseInfos.FirstOrDefault(x => x.Date == DateTime.Now.Date);
+            if (poseinfo_day != null)
+            {
+                PoseInfoVm_Now.TimeDown = poseinfo_day.TimeDown;
+                PoseInfoVm_Now.TimeSit = poseinfo_day.TimeSit;
+                PoseInfoVm_Now.TimeLie = poseinfo_day.TimeLie;
+                PoseInfoVm_Now.TimeOther = poseinfo_day.TimeOther;
+                PoseInfoVm_Now.TimeStand = poseinfo_day.TimeStand;
+            }
+        }
+        //更新最近一周的姿态信息饼图
+        private void UpdateWeekPieChart(IEnumerable<PoseInfo> poseInfos)
+        {
+            PoseInfoVm_Week.TimeDown += 0;
+            PoseInfoVm_Week.TimeLie += 0;
+            PoseInfoVm_Week.TimeOther += 0;
+            PoseInfoVm_Week.TimeSit += 0;
+            PoseInfoVm_Week.TimeStand += 0;
+            var poseInfoWeek = poseInfos.Where(x => x.Date >= DateTime.Now.AddDays(-6).Date && x.Date <= DateTime.Now);
 
+            foreach (var item in poseInfoWeek)
+            {
+                PoseInfoVm_Week.TimeDown += item.TimeDown;
+                PoseInfoVm_Week.TimeLie += item.TimeLie;
+                PoseInfoVm_Week.TimeOther += item.TimeOther;
+                PoseInfoVm_Week.TimeSit += item.TimeSit;
+                PoseInfoVm_Week.TimeStand += item.TimeStand;
+            }
+        }
+        //更新最近一月的姿态信息饼图
+        private void UpdateMonthPieChart(IEnumerable<PoseInfo> poseInfos)
+        {
+            PoseInfoVm_Month.TimeDown += 0;
+            PoseInfoVm_Month.TimeLie += 0;
+            PoseInfoVm_Month.TimeOther += 0;
+            PoseInfoVm_Month.TimeSit += 0;
+            PoseInfoVm_Month.TimeStand += 0;
+
+            foreach (var item in poseInfos)
+            {
+                PoseInfoVm_Month.TimeDown += item.TimeDown;
+                PoseInfoVm_Month.TimeLie += item.TimeLie;
+                PoseInfoVm_Month.TimeOther += item.TimeOther;
+                PoseInfoVm_Month.TimeSit += item.TimeSit;
+                PoseInfoVm_Month.TimeStand += item.TimeStand;
+            }
+        }
+        //更新最近一周站立信息线图
+        private void UpdateWeekStandLine(IEnumerable<PoseInfo> poseInfos)
+        {
+            var pose_stand_week = poseInfos.Where(item => item.Date > DateTime.Now.AddDays(-7)).Select(pose => new MeasureModel()
+            {
+                DateTime = pose.Date,
+                Value = pose.TimeStand
+            });
+            PoseInfoStandWeek.Clear();
+            PoseInfoStandWeek.AddRange(pose_stand_week);
+        }
+        private void UpdateWeekLieLine(IEnumerable<PoseInfo> poseInfos)
+        {
+            var pose_lie_week = poseInfos.Where(item => item.Date > DateTime.Now.AddDays(-7)).Select(pose => new MeasureModel()
+            {
+                DateTime = pose.Date,
+                Value = pose.TimeLie
+            });
+            PoseInfoLieWeek.Clear();
+            PoseInfoLieWeek.AddRange(pose_lie_week);
+        }
+        private void UpdateWeekSitLine(IEnumerable<PoseInfo> poseInfos)
+        {
+            var pose_sit_week = poseInfos.Where(item => item.Date > DateTime.Now.AddDays(-7)).Select(pose => new MeasureModel()
+            {
+                DateTime = pose.Date,
+                Value = pose.TimeSit
+            });
+            PoseInfoSitWeek.Clear();
+            PoseInfoSitWeek.AddRange(pose_sit_week);
+        }
         private void Unloaded()
         {
             LogHelper.Debug("DataView Unloaded.");

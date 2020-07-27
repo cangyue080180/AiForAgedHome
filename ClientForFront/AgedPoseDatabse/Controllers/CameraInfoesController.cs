@@ -39,6 +39,20 @@ namespace AgedPoseDatabse.Controllers
             return cameraInfo;
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<CameraInfo>>> GetCameraInfoes(long id)
+        {
+            var cameraInfos = await _context.CameraInfos.Where(x=>x.ServerInfoId==id).ToListAsync();
+
+            if (cameraInfos.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return cameraInfos;
+        }
+
+
         // PUT: api/CameraInfoes/id
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

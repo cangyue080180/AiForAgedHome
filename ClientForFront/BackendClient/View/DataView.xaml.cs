@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using BackendClient.Model;
+using DataModel;
+using LiveCharts;
+using LiveCharts.Configurations;
+using System;
+using System.Windows.Controls;
 
 namespace BackendClient.View
 {
@@ -10,6 +15,9 @@ namespace BackendClient.View
         public DataView()
         {
             InitializeComponent();
+
+            
+
         }
     }
 }

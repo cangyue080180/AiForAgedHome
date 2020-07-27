@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace AgedPoseDatabse.Controllers
@@ -40,9 +41,13 @@ namespace AgedPoseDatabse.Controllers
         }
 
         //Get:api/ServerInfoes/ip
-        [HttpGet("ip/{id}")]
+        [HttpGet("[action]")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(string ip)
         {
+            if(!IPAddress.TryParse(ip,out IPAddress ipAdd))
+            {
+                return BadRequest();
+            }
             var serverInfo = await _context.ServerInfos.FirstAsync(x => x.Ip == ip);
 
             if (serverInfo == null)

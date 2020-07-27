@@ -78,17 +78,45 @@ namespace AgedPoseDatabse.Models
                 room2.AgesInfos = new List<AgesInfo>();
                 room2.AgesInfos.Add(aged2);
 
+                ServerInfo serverInfo1 = new ServerInfo()
+                {
+                    Name = "server1",
+                    FactoryInfo = "Dell",
+                    MaxCameraCount = 10,
+                    Ip = "192.168.1.60"
+                };
+                ServerInfo serverInfo2 = new ServerInfo()
+                {
+                    Name = "server2",
+                    FactoryInfo = "Dell",
+                    MaxCameraCount = 10,
+                    Ip = "192.168.1.61"
+                };
+
+
+                CameraInfo camera1 = new CameraInfo()
+                {
+                    FactoryInfo = "海康威视",
+                    IpAddress="192.168.1.10",
+                    VideoAddress= "http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",
+                    ServerInfo=serverInfo1,
+                    RoomInfo=room1
+                };
+
+                CameraInfo camera2 = new CameraInfo()
+                {
+                    FactoryInfo = "海康威视",
+                    IpAddress = "192.168.1.11",
+                    VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
+                    ServerInfo = serverInfo1,
+                    RoomInfo = room1
+                };
+
+
                 context.RoomInfos.AddRange(room1, room2);
+                context.ServerInfos.AddRange(serverInfo1,serverInfo2);
+                context.CameraInfos.AddRange(camera1,camera2);
                 context.SaveChanges();
-
-                //PoseInfo poseInfo1 = new PoseInfo()
-                //{
-                //    
-                //};
-
-
-
-
             }
         }
     }

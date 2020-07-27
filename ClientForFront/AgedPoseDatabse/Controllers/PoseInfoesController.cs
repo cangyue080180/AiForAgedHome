@@ -33,7 +33,7 @@ namespace AgedPoseDatabse.Controllers
         {
             var poseInfo = await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date >= minDate && x.Date < maxDate).ToListAsync<PoseInfo>();
 
-            if (poseInfo == null)
+            if (poseInfo.Count == 0)
             {
                 return NotFound();
             }
@@ -41,10 +41,10 @@ namespace AgedPoseDatabse.Controllers
             return poseInfo;
         }
 
-        //获取某一个老人的当前的姿态信息
+        //获取某一个老人的当天的姿态信息
         // GET: api/PoseInfoes/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<PoseInfo>> GetPoseInfoNow(long id)
+        public async Task<ActionResult<PoseInfo>> GetPoseInfo(long id)
         {
             var poseInfo = await _context.PoseInfos.FirstAsync(x => x.AgesInfoId == id && x.Date == DateTime.Now.Date);
 
@@ -116,18 +116,18 @@ namespace AgedPoseDatabse.Controllers
 
         // DELETE: api/PoseInfoes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<PoseInfo>>> DeletePoseInfo(long id)
+        public async Task<ActionResult<PoseInfo>> DeletePoseInfo(long id)
         {
-            var poseInfos =await _context.PoseInfos.Where(x => x.AgesInfoId == id).ToListAsync();
-            
-            if (poseInfos.Count() == 0)
+            var poseInfo = await _context.PoseInfos.FirstAsync(x => x.AgesInfoId == id && x.Date == DateTime.Now.Date);
+
+            if (poseInfo == null)
             {
                 return NotFound();
             }
-            _context.PoseInfos.RemoveRange(poseInfos);
+            _context.PoseInfos.Remove(poseInfo);
             await _context.SaveChangesAsync();
 
-            return poseInfos;
+            return poseInfo;
         }
 
         private bool PoseInfoExists(long id)
