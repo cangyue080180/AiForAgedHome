@@ -16,7 +16,9 @@
             <TabItem Header="房间信息">
                 <ContentControl Content="{Binding Path=RoomInfoVM, Source={StaticResource Locator}}"/>
             </TabItem>
-            <TabItem Header="老人信息"/>
+            <TabItem Header="老人信息">
+                <ContentControl Content="{Binding Path=AgesInfoVM,Source={StaticResource Locator}}"/>
+            </TabItem>
             <TabItem Header="服务器信息"/>
             <TabItem Header="摄像头信息"/>
             <TabItem Header="用户信息"/>

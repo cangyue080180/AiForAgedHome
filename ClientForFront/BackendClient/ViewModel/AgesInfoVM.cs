@@ -9,17 +9,19 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BackendClient.ViewModel
 {
-    public class RoomInfoVM : ViewModelBase
+    public class AgesInfoVM:ViewModelBase
     {
         private HttpClient httpClient;
-        public ObservableCollection<RoomInfo> _roominfoes = new ObservableCollection<RoomInfo>();
-        public ObservableCollection<RoomInfo> RoomInfoes
+        public ObservableCollection<AgesInfo> _agesinfoes = new ObservableCollection<AgesInfo>();
+        public ObservableCollection<AgesInfo> AgesInfoes
         {
-            get => _roominfoes;
+            get => _agesinfoes;
         }
 
         private RelayCommand _onLoadedCmd;
@@ -43,26 +45,26 @@ namespace BackendClient.ViewModel
                 return _onUnloadedCmd;
             }
         }
-
-        public RoomInfoVM(HttpClient httpClient)
+        public AgesInfoVM(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
         private void Loaded()
         {
-            LogHelper.Debug("RoomInfoView Loaded.");
-            GetRoomInfoesAsync();
+            LogHelper.Debug("AgesInfoView Loaded.");
+            GetAgedsAsync();
         }
 
         private void Unloaded()
         {
-            LogHelper.Debug("RoomInfoView UnLoaded.");
+            LogHelper.Debug("AgesInfoView UnLoaded.");
         }
 
-        private async void GetRoomInfoesAsync()
+        private async void GetAgedsAsync()
         {
-            string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
+            string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
+            url += "/getagesinfoswithroominfo";
             string result;
             try
             {
@@ -70,28 +72,28 @@ namespace BackendClient.ViewModel
             }
             catch (HttpRequestException e)
             {
-                LogHelper.Debug($"GetRoomInfoes caught exception: {e.Message}");
+                LogHelper.Debug($"GetAgeds caught exception: {e.Message}");
                 result = null;
             }
 
             if (!string.IsNullOrEmpty(result))
             {
-                var roomInfos = JsonConvert.DeserializeObject<List<RoomInfo>>(result);
+                var ageds = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
                 //检查有无新增
-                foreach (var item in roomInfos)
+                foreach (var item in ageds)
                 {
-                    if (!RoomInfoes.Any(x => x.Id == item.Id))
+                    if (!AgesInfoes.Any(x => x.Id == item.Id))
                     {
-                        RoomInfoes.Add(item);
+                        AgesInfoes.Add(item);
                     }
                 }
                 //检查有无删减
-                for (int i = RoomInfoes.Count - 1; i >= 0; i--)
+                for (int i = AgesInfoes.Count - 1; i >= 0; i--)
                 {
                     bool isExit = false;
-                    foreach (var item in roomInfos)
+                    foreach (var item in ageds)
                     {
-                        if (RoomInfoes.ElementAt(i).Id == item.Id)
+                        if (AgesInfoes.ElementAt(i).Id == item.Id)
                         {
                             isExit = true;
                             break;
@@ -100,7 +102,7 @@ namespace BackendClient.ViewModel
 
                     if (!isExit)
                     {
-                        RoomInfoes.RemoveAt(i);
+                        AgesInfoes.RemoveAt(i);
                     }
                 }
             }

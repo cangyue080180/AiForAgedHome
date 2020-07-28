@@ -22,8 +22,6 @@ namespace BackendClient.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public static readonly HttpClient httpClient = new HttpClient();
-
         public string Title
         {
             get

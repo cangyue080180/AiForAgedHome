@@ -87,7 +87,7 @@ namespace BackendClient.ViewModel
         }
         #endregion
 
-        public DataViewVM()
+        public DataViewVM(HttpClient httpClient)
         {
             var mapper = Mappers.Xy<MeasureModel>()
                .X(model => model.DateTime.Ticks)
@@ -104,7 +104,7 @@ namespace BackendClient.ViewModel
             AxisStep = TimeSpan.FromDays(1).Ticks;
             AxisUnit = TimeSpan.TicksPerDay;
             //初始化
-            httpClient = MainViewModel.httpClient;
+            this.httpClient = httpClient;
             updateTimer = new Timer(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
             PoseInfoVm_Now = new PoseInfoVm();
             PoseInfoVm_Week = new PoseInfoVm();

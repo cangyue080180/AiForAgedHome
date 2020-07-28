@@ -26,6 +26,12 @@ namespace AgedPoseDatabse.Controllers
         }
 
         [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<AgesInfo>>> GetAgesInfosWithRoomInfo()
+        {
+            return await _context.AgesInfos.Include(aged => aged.RoomInfo).ToListAsync();
+        }
+
+        [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<AgesInfo>>> GetAgesInfos(long roominfoId)
         {
             var agesInfo = await _context.AgesInfos.Where(x => x.RoomInfoId == roominfoId).ToListAsync();

@@ -14,6 +14,7 @@
 
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using System.Net.Http;
 
 namespace BackendClient.ViewModel
 {
@@ -40,12 +41,14 @@ namespace BackendClient.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-
+            //SimpleIoc.Default.Register(()=>new HttpClient());
+            SimpleIoc.Default.Register(()=>new HttpClient());
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DataViewVM>();
             SimpleIoc.Default.Register<HelpVM>();
             SimpleIoc.Default.Register<DataManagerVM>();
             SimpleIoc.Default.Register<RoomInfoVM>();
+            SimpleIoc.Default.Register<AgesInfoVM>();
         }
 
         public MainViewModel Main
@@ -76,6 +79,10 @@ namespace BackendClient.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<RoomInfoVM>();
             }
+        }
+        public AgesInfoVM AgesInfoVM
+        {
+            get => ServiceLocator.Current.GetInstance<AgesInfoVM>();
         }
 
         public HelpVM HelpVM

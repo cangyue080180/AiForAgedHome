@@ -19,6 +19,9 @@
             <DataTemplate DataType="{x:Type vm:RoomInfoVM}">
                 <v:RoomInfoView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AgesInfoVM}">
+                <v:AgesInfoView/>
+            </DataTemplate>
             <Style TargetType="TabItem" x:Key="tabItemStyle">
                 <Setter Property="Padding" Value="5" />
                 <Setter Property="HeaderTemplate">
