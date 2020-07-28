@@ -108,6 +108,9 @@
     <Compile Include="View\RoomInfoView.xaml.cs">
       <DependentUpon>RoomInfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ServerInfoView.xaml.cs">
+      <DependentUpon>ServerInfoView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RoomInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ServerInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
