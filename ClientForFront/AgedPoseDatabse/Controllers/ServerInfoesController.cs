@@ -44,7 +44,7 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(string ip)
         {
-            if(!IPAddress.TryParse(ip,out IPAddress ipAdd))
+            if (!IPAddress.TryParse(ip, out IPAddress ipAdd))
             {
                 return BadRequest();
             }

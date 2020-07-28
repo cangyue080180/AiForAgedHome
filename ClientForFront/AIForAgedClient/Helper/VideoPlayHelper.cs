@@ -29,9 +29,9 @@ namespace AIForAgedClient.Helper
 
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
-            task = new Task(() => { PlayVideo(cancellationTokenSource.Token); },  cancellationTokenSource.Token);
+            task = new Task(() => { PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
         }
-        
+
         /// <summary>
         /// 显示本机摄像头视频
         /// </summary>
@@ -87,7 +87,8 @@ namespace AIForAgedClient.Helper
                         var writeableBitmap = frameMat.ToWriteableBitmap();
                         writeableBitmap.Freeze();
                         actionWidthVideo(writeableBitmap);
-                    }catch(System.ArgumentException ex)
+                    }
+                    catch (System.ArgumentException ex)
                     {
 
                     }

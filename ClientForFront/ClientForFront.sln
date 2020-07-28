@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendClient", "BackendCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{DB254AAE-AD6D-4B88-A89C-161172527517}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PressureTestForDataServer", "PressureTestForDataServer\PressureTestForDataServer.csproj", "{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{DB254AAE-AD6D-4B88-A89C-161172527517}.Release|x64.Build.0 = Release|Any CPU
 		{DB254AAE-AD6D-4B88-A89C-161172527517}.Release|x86.ActiveCfg = Release|Any CPU
 		{DB254AAE-AD6D-4B88-A89C-161172527517}.Release|x86.Build.0 = Release|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Debug|x64.Build.0 = Debug|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Debug|x86.Build.0 = Debug|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Release|x64.ActiveCfg = Release|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Release|x64.Build.0 = Release|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Release|x86.ActiveCfg = Release|Any CPU
+		{03ABC9D8-1506-40B7-BB3A-B4E6296F2AC0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

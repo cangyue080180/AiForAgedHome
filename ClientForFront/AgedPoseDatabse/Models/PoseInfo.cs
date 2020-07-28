@@ -25,5 +25,7 @@ namespace AgedPoseDatabse.Models
 
         //是否警报
         public bool IsAlarm { get; set; }
+
+        public byte? Status { get; set; }
     }
 }

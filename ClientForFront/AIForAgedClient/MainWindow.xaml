@@ -25,6 +25,25 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <ContentControl Content="{Binding  Path=FourVideoVM}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Row="1" Grid.Column="0">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding}" Width="100"/>
+                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding}" Width="100"/>
+                        <GridViewColumn Header="状态" DisplayMemberBinding="{Binding}" Width="100"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ContentControl Content="{Binding  Path=FourVideoVM}" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Window>

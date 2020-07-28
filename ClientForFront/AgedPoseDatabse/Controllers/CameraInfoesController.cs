@@ -42,7 +42,7 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<CameraInfo>>> GetCameraInfoes(long id)
         {
-            var cameraInfos = await _context.CameraInfos.Where(x=>x.ServerInfoId==id).ToListAsync();
+            var cameraInfos = await _context.CameraInfos.Where(x => x.ServerInfoId == id).ToListAsync();
 
             if (cameraInfos.Count == 0)
             {

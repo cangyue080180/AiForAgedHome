@@ -13,7 +13,7 @@ namespace AgedPoseDatabse.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<PoseInfo>().HasKey(c => new { c.AgesInfoId, c.Date });
-           // modelBuilder.Entity<PoseInfo>().Property(x => x.IsAlarm).HasDefaultValue(false);
+            // modelBuilder.Entity<PoseInfo>().Property(x => x.IsAlarm).HasDefaultValue(false);
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Ip).IsUnique();
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Name).IsUnique();
         }

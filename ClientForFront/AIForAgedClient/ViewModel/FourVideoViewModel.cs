@@ -1,15 +1,13 @@
 ﻿using AIForAgedClient.Helper;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace AIForAgedClient.ViewModel
 {
-    public class FourVideoViewModel:ViewModelBase
+    public class FourVideoViewModel : ViewModelBase
     {
         #region 设置Image Source属性
         private BitmapSource _img1;
@@ -217,7 +215,7 @@ namespace AIForAgedClient.ViewModel
         #endregion
 
         #region 设置Image RowSpan 和 ColumnSpan属性
-        private int _img1RowSpan=1;
+        private int _img1RowSpan = 1;
         public int Img1RowSpan
         {
             get
@@ -234,7 +232,7 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        private int _img1ColumnSpan=1;
+        private int _img1ColumnSpan = 1;
         public int Img1ColumnSpan
         {
             get
@@ -355,7 +353,7 @@ namespace AIForAgedClient.ViewModel
         #endregion
 
         #region 设置Image Visibility属性
-        private Visibility _img1Visibility=Visibility.Visible;
+        private Visibility _img1Visibility = Visibility.Visible;
         public Visibility Img1Visibility
         {
             get
@@ -431,7 +429,7 @@ namespace AIForAgedClient.ViewModel
             get
             {
                 if (_img1Dbclick == null)
-                    _img1Dbclick = new RelayCommand(()=> { Img1DoubleClick(); });
+                    _img1Dbclick = new RelayCommand(() => { Img1DoubleClick(); });
                 return _img1Dbclick;
             }
         }
@@ -470,36 +468,50 @@ namespace AIForAgedClient.ViewModel
         }
         #endregion
 
-        private readonly VideoPlayHelper videoPlayHelper1;
-        private readonly VideoPlayHelper videoPlayHelper2;
-        private readonly VideoPlayHelper videoPlayHelper3;
-        private readonly VideoPlayHelper videoPlayHelper4;
+        private VideoPlayHelper videoPlayHelper1;
+        private VideoPlayHelper videoPlayHelper2;
+        private VideoPlayHelper videoPlayHelper3;
+        private VideoPlayHelper videoPlayHelper4;
 
-        public FourVideoViewModel(string url1,string url2=null,string url3=null,string url4=null)
+        public string Url1 { get; set; }
+        public string Url2 { get; set; }
+        public string Url3 { get; set; }
+        public string Url4 { get; set; }
+
+        public FourVideoViewModel(string url1, string url2 = null, string url3 = null, string url4 = null)
         {
-            if (!string.IsNullOrEmpty(url1))
-            {
-                videoPlayHelper1 = new VideoPlayHelper(url1, (x) => { Image1 = x;   });
-            }
+            Url1 = url1;
+            Url2 = url2;
+            Url3 = url3;
+            Url4 = url4;
+        }
 
-            if (!string.IsNullOrEmpty(url2))
-            {
-                videoPlayHelper2 = new VideoPlayHelper(url2,(x)=> { Image2 = x; });
-            }
+        public FourVideoViewModel()
+        {
 
-            if (!string.IsNullOrEmpty(url3))
-            {
-                videoPlayHelper3 = new VideoPlayHelper(url3,(x)=> { Image3 = x; });
-            }
-
-            if (!string.IsNullOrEmpty(url4))
-            {
-                videoPlayHelper4 = new VideoPlayHelper(url4,(x)=> { Image4 = x; });
-            }
         }
 
         public void Start()
         {
+            if (!string.IsNullOrEmpty(Url1))
+            {
+                videoPlayHelper1 = new VideoPlayHelper(Url1, (x) => { Image1 = x; });
+            }
+
+            if (!string.IsNullOrEmpty(Url2))
+            {
+                videoPlayHelper2 = new VideoPlayHelper(Url2, (x) => { Image2 = x; });
+            }
+
+            if (!string.IsNullOrEmpty(Url3))
+            {
+                videoPlayHelper3 = new VideoPlayHelper(Url3, (x) => { Image3 = x; });
+            }
+
+            if (!string.IsNullOrEmpty(Url4))
+            {
+                videoPlayHelper4 = new VideoPlayHelper(Url4, (x) => { Image4 = x; });
+            }
             videoPlayHelper1?.Start();
             videoPlayHelper2?.Start();
             videoPlayHelper3?.Start();
@@ -517,7 +529,7 @@ namespace AIForAgedClient.ViewModel
         private void Img1DoubleClick()
         {
             System.Console.WriteLine("Image1 Double click.");
-            
+
             if (Img1ColumnSpan == 1)
             {
                 Img2Visibility = Visibility.Collapsed;

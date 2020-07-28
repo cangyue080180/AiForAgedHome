@@ -42,7 +42,7 @@ namespace BackendClient.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
             //SimpleIoc.Default.Register(()=>new HttpClient());
-            SimpleIoc.Default.Register(()=>new HttpClient());
+            SimpleIoc.Default.Register(() => new HttpClient());
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DataViewVM>();
             SimpleIoc.Default.Register<HelpVM>();

@@ -97,10 +97,10 @@ namespace AgedPoseDatabse.Models
                 CameraInfo camera1 = new CameraInfo()
                 {
                     FactoryInfo = "海康威视",
-                    IpAddress="192.168.1.10",
-                    VideoAddress= "rtsp://admin:dan080180xy@@192.168.1.10:554",
-                    ServerInfo=serverInfo1,
-                    RoomInfo=room1
+                    IpAddress = "192.168.1.10",
+                    VideoAddress = "rtsp://admin:dan080180xy@@192.168.1.10:554",
+                    ServerInfo = serverInfo1,
+                    RoomInfo = room1
                 };
 
                 CameraInfo camera2 = new CameraInfo()
@@ -114,8 +114,8 @@ namespace AgedPoseDatabse.Models
 
 
                 context.RoomInfos.AddRange(room1, room2);
-                context.ServerInfos.AddRange(serverInfo1,serverInfo2);
-                context.CameraInfos.AddRange(camera1,camera2);
+                context.ServerInfos.AddRange(serverInfo1, serverInfo2);
+                context.CameraInfos.AddRange(camera1, camera2);
                 context.SaveChanges();
             }
         }

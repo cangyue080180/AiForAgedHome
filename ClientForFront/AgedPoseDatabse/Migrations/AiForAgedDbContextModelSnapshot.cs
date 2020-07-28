@@ -98,6 +98,9 @@ namespace AgedPoseDatabse.Migrations
                     b.Property<bool>("IsAlarm")
                         .HasColumnType("bit");
 
+                    b.Property<byte?>("Status")
+                        .HasColumnType("tinyint");
+
                     b.Property<int>("TimeDown")
                         .HasColumnType("int");
 

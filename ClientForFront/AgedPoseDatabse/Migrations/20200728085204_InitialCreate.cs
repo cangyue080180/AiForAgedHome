@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
+using System;
 
 namespace AgedPoseDatabse.Migrations
 {
@@ -116,7 +116,8 @@ namespace AgedPoseDatabse.Migrations
                     TimeDown = table.Column<int>(nullable: false),
                     TimeOther = table.Column<int>(nullable: false),
                     TimeIn = table.Column<string>(maxLength: 8, nullable: true),
-                    IsAlarm = table.Column<bool>(nullable: false)
+                    IsAlarm = table.Column<bool>(nullable: false),
+                    Status = table.Column<byte>(nullable: true)
                 },
                 constraints: table =>
                 {

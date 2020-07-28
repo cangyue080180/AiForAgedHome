@@ -20,7 +20,7 @@ namespace AIForAgedClient.ViewModel
     {
         public FourVideoViewModel FourVideoVM
         {
-            get;set;
+            get; set;
         }
 
         private RelayCommand _onLoaded;

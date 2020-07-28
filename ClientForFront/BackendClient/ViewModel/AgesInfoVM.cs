@@ -3,19 +3,16 @@ using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BackendClient.ViewModel
 {
-    public class AgesInfoVM:ViewModelBase
+    public class AgesInfoVM : ViewModelBase
     {
         private HttpClient httpClient;
         public ObservableCollection<AgesInfo> _agesinfoes = new ObservableCollection<AgesInfo>();

@@ -3,7 +3,6 @@ using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;

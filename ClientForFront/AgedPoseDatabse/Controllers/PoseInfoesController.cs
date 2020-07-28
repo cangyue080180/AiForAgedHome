@@ -25,11 +25,23 @@ namespace AgedPoseDatabse.Controllers
         {
             return await _context.PoseInfos.ToListAsync();
         }
+        //获取Date为当天的所有Pose记录
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoToday()
+        {
+            var poseInfo = await _context.PoseInfos.Where(pose => pose.Date == DateTime.Now.Date).ToListAsync<PoseInfo>();
 
+            if (poseInfo.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return poseInfo;
+        }
         //获取指定老人的一段时间内的姿态信息
         // GET: api/PoseInfoes/getPoseInfo?id=1&minDate=2020-7-15&maxDate=2020-7-20
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoDays(long id,DateTime minDate,DateTime maxDate)
+        public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoDays(long id, DateTime minDate, DateTime maxDate)
         {
             var poseInfo = await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date >= minDate && x.Date < maxDate).ToListAsync<PoseInfo>();
 
@@ -132,7 +144,7 @@ namespace AgedPoseDatabse.Controllers
 
         private bool PoseInfoExists(long id)
         {
-            return _context.PoseInfos.Any(e => e.AgesInfoId == id && e.Date.Date==DateTime.Now.Date);
+            return _context.PoseInfos.Any(e => e.AgesInfoId == id && e.Date.Date == DateTime.Now.Date);
         }
     }
 }

@@ -25,5 +25,7 @@ namespace DataModel
         public string TimeIn { get; set; }
 
         public bool IsAlarm { get; set; }
+
+        public byte? Status { get; set; }
     }
 }

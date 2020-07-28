@@ -2,7 +2,6 @@ using BackendClient.Model;
 using BackendClient.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System.Net.Http;
 using System.Reflection;
 using System.Windows.Input;
 
