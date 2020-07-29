@@ -45,6 +45,7 @@
     <Compile Include="AgesInfo.cs" />
     <Compile Include="CameraInfo.cs" />
     <Compile Include="PoseInfo.cs" />
+    <Compile Include="PoseStateTypes.cs" />
     <Compile Include="RoomInfo.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="UserInfo.cs" />

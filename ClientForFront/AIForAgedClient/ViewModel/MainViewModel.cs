@@ -1,5 +1,15 @@
+using AIForAgedClient.Helper;
+using AIForAgedClient.View;
+using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace AIForAgedClient.ViewModel
@@ -18,9 +28,30 @@ namespace AIForAgedClient.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public FourVideoViewModel FourVideoVM
+        private HttpClient httpClient;
+        private ObservableCollection<PoseInfo> poseInfos = new ObservableCollection<PoseInfo>();
+        public ObservableCollection<PoseInfo> PoseInfos
         {
-            get; set;
+            get => poseInfos;
+        }
+
+        private PoseInfo _selectedPoseInfo;
+        public PoseInfo SelectedPoseInfo
+        {
+            get => _selectedPoseInfo;
+            set
+            {
+                if (_selectedPoseInfo != value)
+                {
+                    _selectedPoseInfo = value;
+                    LogHelper.Debug(_selectedPoseInfo.AgesInfoId.ToString());
+                }
+            }
+        }
+
+        public string WindowName
+        {
+            get=>Assembly.GetExecutingAssembly().GetName().Name;
         }
 
         private RelayCommand _onLoaded;
@@ -47,15 +78,34 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
+        private RelayCommand _goMonitorViewCmd;
+        public ICommand GoMonitorViewCmd
+        {
+            get
+            {
+                if (_goMonitorViewCmd == null)
+                {
+                    _goMonitorViewCmd = new RelayCommand(()=> {
+                        MonitorWindow monitorWindow = new MonitorWindow();
+                        monitorWindow.Owner = App.Current.MainWindow;
+                        monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+                        monitorWindow.ShowDialog();
+                    });
+                }
+                return _goMonitorViewCmd;
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(HttpClient httpClient)
         {
-            FourVideoVM = new FourVideoViewModel("http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",
-                "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
-                "http://ivi.bupt.edu.cn/hls/cctv2hd.m3u8",
-                "http://ivi.bupt.edu.cn/hls/cctv8hd.m3u8");
+            this.httpClient = httpClient;
+            //FourVideoVM = new FourVideoViewModel("http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",
+            //    "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
+            //    "http://ivi.bupt.edu.cn/hls/cctv2hd.m3u8",
+            //    "http://ivi.bupt.edu.cn/hls/cctv8hd.m3u8");
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -68,12 +118,58 @@ namespace AIForAgedClient.ViewModel
 
         private void OnWindowLoaded()
         {
-            FourVideoVM.Start();
+            GetAgedsAsync();
         }
 
         private void OnWindowClosing()
         {
-            FourVideoVM.Stop();
+           // FourVideoVM.Stop();
+        }
+
+        private async void GetAgedsAsync()
+        {
+            string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
+            string result;
+            try
+            {
+                result = await httpClient.GetStringAsync(url);
+            }
+            catch (HttpRequestException e)
+            {
+                LogHelper.Debug($"GetAgeds caught exception: {e.Message}");
+                result = null;
+            }
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                var ageds = JsonConvert.DeserializeObject<List<PoseInfo>>(result);
+                //检查有无新增
+                foreach (var item in ageds)
+                {
+                    if (!PoseInfos.Any(x => x.AgesInfoId == item.AgesInfoId))
+                    {
+                        PoseInfos.Add(item);
+                    }
+                }
+                //检查有无删减
+                for (int i = PoseInfos.Count - 1; i >= 0; i--)
+                {
+                    bool isExit = false;
+                    foreach (var item in ageds)
+                    {
+                        if (PoseInfos.ElementAt(i).AgesInfoId == item.AgesInfoId)
+                        {
+                            isExit = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExit)
+                    {
+                        PoseInfos.RemoveAt(i);
+                    }
+                }
+            }
         }
     }
 }

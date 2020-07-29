@@ -9,7 +9,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="{Binding WindowName}" Height="450" Width="800"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:FourVideoViewModel}">
@@ -29,21 +29,36 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <ListView Grid.Row="1" Grid.Column="0">
+        <ListView Grid.Row="1" ItemsSource="{Binding PoseInfos}" SelectedItem="{Binding SelectedPoseInfo}">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding}" Width="100"/>
-                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding}" Width="100"/>
-                        <GridViewColumn Header="状态" DisplayMemberBinding="{Binding}" Width="100"/>
+                        <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding AgesInfo.Name}" Width="60"/>
+                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="50"/>
+                        <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Status}" Width="50"/>
+                        <GridViewColumn Header="进入" DisplayMemberBinding="{Binding TimeIn}" Width="80"/>
+                        <GridViewColumn Header="站立" DisplayMemberBinding="{Binding TimeStand}" Width="80"/>
+                        <GridViewColumn Header="坐" DisplayMemberBinding="{Binding TimeSit}" Width="50"/>
+                        <GridViewColumn Header="躺" DisplayMemberBinding="{Binding TimeLie}" Width="50"/>
+                        <GridViewColumn Header="其他" DisplayMemberBinding="{Binding TimeOther}" Width="50"/>
+                        <GridViewColumn Header="操作" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Focusable="False" Command="{Binding GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
+                                        查看监控
+                                    </Button>
+                                    <!--<TextBlock>
+                                        <Hyperlink Command="{Binding GoMonitorViewCmd}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+                                            查看监控
+                                        </Hyperlink>
+                                    </TextBlock>-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ContentControl Content="{Binding  Path=FourVideoVM}" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Window>

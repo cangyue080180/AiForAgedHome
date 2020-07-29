@@ -29,7 +29,10 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoToday()
         {
-            var poseInfo = await _context.PoseInfos.Where(pose => pose.Date == DateTime.Now.Date).ToListAsync<PoseInfo>();
+            var poseInfo = await _context.PoseInfos.Where(pose => pose.Date == DateTime.Now.Date)
+                .Include(pose=>pose.AgesInfo)
+                .ThenInclude(ages=>ages.RoomInfo)
+                .ToListAsync<PoseInfo>();
 
             if (poseInfo.Count == 0)
             {
