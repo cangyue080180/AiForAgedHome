@@ -14,6 +14,7 @@
 
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Net.Http;
 
 namespace AIForAgedClient.ViewModel
@@ -41,9 +42,10 @@ namespace AIForAgedClient.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-            SimpleIoc.Default.Register(()=>new HttpClient());
+            SimpleIoc.Default.Register(() => new HttpClient());
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
+            SimpleIoc.Default.Register<FourVideoViewModel>();
         }
 
         public MainViewModel Main
@@ -56,7 +58,7 @@ namespace AIForAgedClient.ViewModel
 
         public MonitorViewModel Monitor
         {
-            get => ServiceLocator.Current.GetInstance<MonitorViewModel>();
+            get => ServiceLocator.Current.GetInstance<MonitorViewModel>(Guid.NewGuid().ToString());
         }
 
         public static void Cleanup()

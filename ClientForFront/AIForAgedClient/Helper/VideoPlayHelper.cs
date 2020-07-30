@@ -49,6 +49,20 @@ namespace AIForAgedClient.Helper
 
         public void Start()
         {
+            //清除上次遗留的图像
+            actionWidthVideo(null);
+            task.Start();
+        }
+
+        public void Stop()
+        {
+            cancellationTokenSource.Cancel();
+
+            capture.Dispose();
+        }
+
+        private void PlayVideo(CancellationToken token)
+        {
             capture.Open(videoUrl);
             if (!capture.IsOpened())
             {
@@ -56,42 +70,36 @@ namespace AIForAgedClient.Helper
                 return;
             }
 
-            task.Start();
-        }
-
-        public void Stop()
-        {
-            capture.Dispose();
-            cancellationTokenSource.Cancel();
-        }
-
-        private void PlayVideo(CancellationToken token)
-        {
             while (true)
             {
                 token.ThrowIfCancellationRequested();
                 if (capture.IsDisposed)
                     break;
-
-                using (var frameMat = capture.RetrieveMat())
+                try
                 {
-                    //var rects = cascadeClassifier.DetectMultiScale(frameMat, 1.1, 5, HaarDetectionType.ScaleImage, new OpenCvSharp.Size(30, 30));
-                    //if (rects.Length > 0)
-                    //{
-                    //    Cv2.Rectangle(frameMat, rects[0], Scalar.Red);
-                    //}
-
-                    // var frameBitmap = MatToBitmapImage(frameMat);
-                    try
+                    using (var frameMat = capture.RetrieveMat())
                     {
-                        var writeableBitmap = frameMat.ToWriteableBitmap();
-                        writeableBitmap.Freeze();
-                        actionWidthVideo(writeableBitmap);
-                    }
-                    catch (System.ArgumentException ex)
-                    {
+                        //var rects = cascadeClassifier.DetectMultiScale(frameMat, 1.1, 5, HaarDetectionType.ScaleImage, new OpenCvSharp.Size(30, 30));
+                        //if (rects.Length > 0)
+                        //{
+                        //    Cv2.Rectangle(frameMat, rects[0], Scalar.Red);
+                        //}
 
+                        // var frameBitmap = MatToBitmapImage(frameMat);
+                        try
+                        {
+                            var writeableBitmap = frameMat.ToWriteableBitmap();
+                            writeableBitmap.Freeze();
+                            actionWidthVideo(writeableBitmap);
+                        }
+                        catch (System.ArgumentException ex)
+                        {
+
+                        }
                     }
+                }catch(AccessViolationException ex)
+                {
+
                 }
                 Thread.Sleep(50);
             }

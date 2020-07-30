@@ -208,7 +208,7 @@ namespace AgedPoseDatabse.Migrations
             modelBuilder.Entity("AgedPoseDatabse.Models.CameraInfo", b =>
                 {
                     b.HasOne("AgedPoseDatabse.Models.RoomInfo", "RoomInfo")
-                        .WithMany()
+                        .WithMany("CameraInfos")
                         .HasForeignKey("RoomInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

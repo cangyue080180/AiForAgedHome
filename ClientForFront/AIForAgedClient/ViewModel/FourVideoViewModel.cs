@@ -1,6 +1,7 @@
 ﻿using AIForAgedClient.Helper;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -478,6 +479,11 @@ namespace AIForAgedClient.ViewModel
         public string Url3 { get; set; }
         public string Url4 { get; set; }
 
+        [PreferredConstructor]
+        public FourVideoViewModel()
+        {
+
+        }
         public FourVideoViewModel(string url1, string url2 = null, string url3 = null, string url4 = null)
         {
             Url1 = url1;
@@ -486,10 +492,7 @@ namespace AIForAgedClient.ViewModel
             Url4 = url4;
         }
 
-        public FourVideoViewModel()
-        {
 
-        }
 
         public void Start()
         {

@@ -72,11 +72,39 @@ namespace AgedPoseDatabse.Models
 
                 }
 
-                room1.AgesInfos = new List<AgesInfo>();
-                room1.AgesInfos.Add(aged1);
+                
 
-                room2.AgesInfos = new List<AgesInfo>();
-                room2.AgesInfos.Add(aged2);
+
+                CameraInfo camera1 = new CameraInfo()
+                {
+                    FactoryInfo = "海康威视",
+                    IpAddress = "192.168.1.10",
+                    VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",
+                };
+
+                CameraInfo camera2 = new CameraInfo()
+                {
+                    FactoryInfo = "海康威视",
+                    IpAddress = "192.168.1.11",
+                    //VideoAddress = "rtsp://admin:dan080180xy@@192.168.1.11:554",
+                    VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
+                };
+
+                CameraInfo camera3 = new CameraInfo()
+                {
+                    FactoryInfo = "海康威视",
+                    IpAddress = "192.168.1.12",
+                    VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv2hd.m3u8",
+                };
+
+                CameraInfo camera4 = new CameraInfo()
+                {
+                    FactoryInfo = "海康威视",
+                    IpAddress = "192.168.1.13",
+                    //VideoAddress = "rtsp://admin:dan080180xy@@192.168.1.11:554",
+                    VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv8hd.m3u8",
+                };
+
 
                 ServerInfo serverInfo1 = new ServerInfo()
                 {
@@ -93,29 +121,22 @@ namespace AgedPoseDatabse.Models
                     Ip = "192.168.1.61"
                 };
 
+                room1.AgesInfos = new List<AgesInfo>();
+                room1.AgesInfos.Add(aged1);
+                room1.CameraInfos = new List<CameraInfo>();
+                room1.CameraInfos.AddRange(new CameraInfo[] { camera1, camera2 });
 
-                CameraInfo camera1 = new CameraInfo()
-                {
-                    FactoryInfo = "海康威视",
-                    IpAddress = "192.168.1.10",
-                    VideoAddress = "rtsp://admin:dan080180xy@@192.168.1.10:554",
-                    ServerInfo = serverInfo1,
-                    RoomInfo = room1
-                };
+                room2.AgesInfos = new List<AgesInfo>();
+                room2.AgesInfos.Add(aged2);
+                room2.CameraInfos = new List<CameraInfo>();
+                room2.CameraInfos.AddRange(new CameraInfo[] { camera3, camera4 });
 
-                CameraInfo camera2 = new CameraInfo()
-                {
-                    FactoryInfo = "海康威视",
-                    IpAddress = "192.168.1.11",
-                    VideoAddress = "rtsp://admin:dan080180xy@@192.168.1.11:554",
-                    ServerInfo = serverInfo1,
-                    RoomInfo = room1
-                };
+                serverInfo1.CameraInfos = new List<CameraInfo>();
+                serverInfo1.CameraInfos.AddRange(new CameraInfo[] {camera1,camera2,camera3,camera4 });
 
 
                 context.RoomInfos.AddRange(room1, room2);
                 context.ServerInfos.AddRange(serverInfo1, serverInfo2);
-                context.CameraInfos.AddRange(camera1, camera2);
                 context.SaveChanges();
             }
         }

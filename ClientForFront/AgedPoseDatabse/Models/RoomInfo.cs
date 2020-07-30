@@ -15,5 +15,7 @@ namespace AgedPoseDatabse.Models
         [Range(0, 500)]
         public int RoomSize { get; set; }
         public List<AgesInfo> AgesInfos { get; set; }
+
+        public List<CameraInfo> CameraInfos { get; set; }
     }
 }

@@ -34,7 +34,7 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding AgesInfo.Name}" Width="60"/>
-                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="50"/>
+                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="100"/>
                         <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Status}" Width="50"/>
                         <GridViewColumn Header="进入" DisplayMemberBinding="{Binding TimeIn}" Width="80"/>
                         <GridViewColumn Header="站立" DisplayMemberBinding="{Binding TimeStand}" Width="80"/>
@@ -44,15 +44,10 @@
                         <GridViewColumn Header="操作" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Focusable="False" Command="{Binding GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    <Button Focusable="False" Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
                                         查看监控
                                     </Button>
-                                    <!--<TextBlock>
-                                        <Hyperlink Command="{Binding GoMonitorViewCmd}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
-                                            查看监控
-                                        </Hyperlink>
-                                    </TextBlock>-->
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

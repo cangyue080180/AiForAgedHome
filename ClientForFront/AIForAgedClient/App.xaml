@@ -20,7 +20,31 @@
             </DataTemplate>
             <Style TargetType="TextBlock">
                 <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
-    </ResourceDictionary>
+            <ControlTemplate TargetType="CheckBox" x:Key="baoJing">
+                <Ellipse Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Fill="{TemplateBinding Background}"/>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="CheckBox.IsChecked" Value="true">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard x:Name="shansuo">
+                                <Storyboard >
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.2" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="shansuo"/>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                    <Trigger Property="CheckBox.IsChecked" Value="false">
+                        <Setter Property="Opacity" Value="0"/>
+                    </Trigger>
+                    <Trigger Property="CheckBox.IsChecked" Value="{x:Null}">
+                        <Setter Property="Opacity" Value="0"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </ResourceDictionary>
   </Application.Resources>
 </Application>

@@ -1,16 +1,13 @@
-﻿using DataModel;
+﻿using AIForAgedClient.Helper;
+using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Ioc;
 using System.Windows.Input;
 
 namespace AIForAgedClient.ViewModel
 {
-    public class MonitorViewModel:ViewModelBase
+    public class MonitorViewModel : ViewModelBase
     {
         private FourVideoViewModel fourVideoViewModel;
         public FourVideoViewModel FourVideoVM
@@ -47,20 +44,29 @@ namespace AIForAgedClient.ViewModel
                 return _onClosing;
             }
         }
-        public MonitorViewModel(PoseInfo poseInfo)
+        public MonitorViewModel(PoseInfo poseInfo, FourVideoViewModel fourVideoViewModel)
         {
-            this._poseInfo=poseInfo;
-            fourVideoViewModel = new FourVideoViewModel();
+            this._poseInfo = poseInfo;
+            this.fourVideoViewModel = fourVideoViewModel;
         }
 
         private void OnWindowLoaded()
         {
+            if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
+            {
+                FourVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
+                FourVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[1].VideoAddress;
+                FourVideoVM.Url3 = null;
+                FourVideoVM.Url4 = null;
+            }
             FourVideoVM.Start();
         }
 
         private void OnWindowClosing()
         {
+            LogHelper.Debug(nameof(MonitorViewModel) + " Closing");
             FourVideoVM.Stop();
+            SimpleIoc.Default.Unregister<PoseInfo>();
         }
     }
 }

@@ -3,6 +3,7 @@ using AIForAgedClient.View;
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace AIForAgedClient.ViewModel
@@ -44,6 +46,7 @@ namespace AIForAgedClient.ViewModel
                 if (_selectedPoseInfo != value)
                 {
                     _selectedPoseInfo = value;
+                    RaisePropertyChanged(() => SelectedPoseInfo);
                     LogHelper.Debug(_selectedPoseInfo.AgesInfoId.ToString());
                 }
             }
@@ -51,7 +54,7 @@ namespace AIForAgedClient.ViewModel
 
         public string WindowName
         {
-            get=>Assembly.GetExecutingAssembly().GetName().Name;
+            get => Assembly.GetExecutingAssembly().GetName().Name;
         }
 
         private RelayCommand _onLoaded;
@@ -78,14 +81,19 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        private RelayCommand _goMonitorViewCmd;
+        private RelayCommand<Button> _goMonitorViewCmd;
         public ICommand GoMonitorViewCmd
         {
             get
             {
                 if (_goMonitorViewCmd == null)
                 {
-                    _goMonitorViewCmd = new RelayCommand(()=> {
+                    _goMonitorViewCmd = new RelayCommand<Button>((x) =>
+                    {
+                        var selectedItem = x.DataContext as PoseInfo;
+                        this.SelectedPoseInfo = selectedItem;
+                        SimpleIoc.Default.Register(() => SelectedPoseInfo);
+
                         MonitorWindow monitorWindow = new MonitorWindow();
                         monitorWindow.Owner = App.Current.MainWindow;
                         monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
@@ -123,7 +131,7 @@ namespace AIForAgedClient.ViewModel
 
         private void OnWindowClosing()
         {
-           // FourVideoVM.Stop();
+            // FourVideoVM.Stop();
         }
 
         private async void GetAgedsAsync()

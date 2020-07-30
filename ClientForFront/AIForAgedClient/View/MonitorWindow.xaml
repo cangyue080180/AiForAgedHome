@@ -21,7 +21,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Content="{Binding FourVideoVM}"/>
+        <ContentControl Content="{Binding FourVideoVM}" Margin="5"/>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

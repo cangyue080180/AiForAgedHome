@@ -14,5 +14,7 @@ namespace DataModel
         public int RoomSize { get; set; }
 
         public List<AgesInfo> AgesInfos { get; set; }
+
+        public List<CameraInfo> CameraInfos { get; set; }
     }
 }

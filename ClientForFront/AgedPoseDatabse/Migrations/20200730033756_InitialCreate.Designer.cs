@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    [Migration("20200728085204_InitialCreate")]
+    [Migration("20200730033756_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,7 +210,7 @@ namespace AgedPoseDatabse.Migrations
             modelBuilder.Entity("AgedPoseDatabse.Models.CameraInfo", b =>
                 {
                     b.HasOne("AgedPoseDatabse.Models.RoomInfo", "RoomInfo")
-                        .WithMany()
+                        .WithMany("CameraInfos")
                         .HasForeignKey("RoomInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
