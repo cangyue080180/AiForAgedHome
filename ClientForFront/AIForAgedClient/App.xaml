@@ -45,6 +45,7 @@
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+            <local:StatusConverter x:Key="statusConverter"/>
         </ResourceDictionary>
   </Application.Resources>
 </Application>

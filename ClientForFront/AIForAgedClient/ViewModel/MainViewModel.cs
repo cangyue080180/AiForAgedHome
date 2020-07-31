@@ -5,14 +5,18 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace AIForAgedClient.ViewModel
 {
@@ -31,25 +35,15 @@ namespace AIForAgedClient.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private HttpClient httpClient;
-        private ObservableCollection<PoseInfo> poseInfos = new ObservableCollection<PoseInfo>();
-        public ObservableCollection<PoseInfo> PoseInfos
-        {
-            get => poseInfos;
-        }
+        private DispatcherTimer dispatcherTimer;
+
+        public ObservableCollection<PoseInfo> PoseInfos { get; } = new ObservableCollection<PoseInfo>();
 
         private PoseInfo _selectedPoseInfo;
         public PoseInfo SelectedPoseInfo
         {
             get => _selectedPoseInfo;
-            set
-            {
-                if (_selectedPoseInfo != value)
-                {
-                    _selectedPoseInfo = value;
-                    RaisePropertyChanged(() => SelectedPoseInfo);
-                    LogHelper.Debug(_selectedPoseInfo.AgesInfoId.ToString());
-                }
-            }
+            set => Set(ref _selectedPoseInfo, value);
         }
 
         public string WindowName
@@ -110,31 +104,28 @@ namespace AIForAgedClient.ViewModel
         public MainViewModel(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-            //FourVideoVM = new FourVideoViewModel("http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",
-            //    "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
-            //    "http://ivi.bupt.edu.cn/hls/cctv2hd.m3u8",
-            //    "http://ivi.bupt.edu.cn/hls/cctv8hd.m3u8");
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
         }
 
-        private void OnWindowLoaded()
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             GetAgedsAsync();
         }
 
-        private void OnWindowClosing()
+        private async void OnWindowLoaded()
         {
-            // FourVideoVM.Stop();
+            await GetAgedsAsync();
+            dispatcherTimer.Start();
         }
 
-        private async void GetAgedsAsync()
+        private void OnWindowClosing()
+        {
+            dispatcherTimer.Stop();
+        }
+
+        private async Task GetAgedsAsync()
         {
             string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
             string result;
