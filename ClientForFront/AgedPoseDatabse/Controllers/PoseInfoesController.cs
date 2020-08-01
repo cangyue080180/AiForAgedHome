@@ -32,7 +32,7 @@ namespace AgedPoseDatabse.Controllers
             var poseInfo = await _context.PoseInfos.Where(pose => pose.Date == DateTime.Now.Date)
                 .Include(pose => pose.AgesInfo)
                 .ThenInclude(ages => ages.RoomInfo)
-                .ThenInclude(room=>room.CameraInfos)
+                .ThenInclude(room => room.CameraInfos)
                 .ToListAsync<PoseInfo>();
 
             if (poseInfo.Count == 0)

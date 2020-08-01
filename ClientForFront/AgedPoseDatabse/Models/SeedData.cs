@@ -72,7 +72,7 @@ namespace AgedPoseDatabse.Models
 
                 }
 
-                
+
 
 
                 CameraInfo camera1 = new CameraInfo()
@@ -132,7 +132,7 @@ namespace AgedPoseDatabse.Models
                 room2.CameraInfos.AddRange(new CameraInfo[] { camera3, camera4 });
 
                 serverInfo1.CameraInfos = new List<CameraInfo>();
-                serverInfo1.CameraInfos.AddRange(new CameraInfo[] {camera1,camera2,camera3,camera4 });
+                serverInfo1.CameraInfos.AddRange(new CameraInfo[] { camera1, camera2, camera3, camera4 });
 
 
                 context.RoomInfos.AddRange(room1, room2);

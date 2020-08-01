@@ -1,5 +1,4 @@
 ﻿using AIForAgedClient.Helper;
-using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;

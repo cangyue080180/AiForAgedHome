@@ -46,6 +46,7 @@
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <local:StatusConverter x:Key="statusConverter"/>
+            <local:SecondsTimeConverter x:Key="secondsTimeConverter"/>
         </ResourceDictionary>
   </Application.Resources>
 </Application>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PressureTestForDataServer
 {
-    //压力测试
+    //测试
     internal class Program
     {
         private int writeTaskCount = 10;
@@ -18,7 +18,7 @@ namespace PressureTestForDataServer
         {
             Console.WriteLine("Pressure Test is Start.");
             Task.Run(() => { TestWriteDb(); });
-            Task.Run(() => { TestReadDb(); });
+            //Task.Run(() => { TestReadDb(); });
             Console.ReadKey();
         }
 
@@ -39,11 +39,12 @@ namespace PressureTestForDataServer
                             AgesInfoId = item,
                             Date = DateTime.Now.Date,
                             TimeDown = random.Next(1, 3600),
-                            TimeIn = "",
+                            TimeIn = "08:35",
                             TimeLie = random.Next(1, 7200),
                             TimeOther = random.Next(1, 7200),
                             TimeSit = random.Next(1, 7300),
                             TimeStand = random.Next(1, 7200),
+                            Status = (byte)random.Next(0, 5),
                             IsAlarm = false
                         };
                         string jsonResult = JsonConvert.SerializeObject(poseInfo);

@@ -1,10 +1,6 @@
 ﻿using DataModel;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace AIForAgedClient
@@ -15,7 +11,8 @@ namespace AIForAgedClient
         {
             if (value == null)
                 return "";
-            PoseStateTypes type = (PoseStateTypes)value;
+            byte num = (byte)value;
+            PoseStateTypes type = (PoseStateTypes)num;
             switch (type)
             {
                 case PoseStateTypes.Down:

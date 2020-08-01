@@ -1,6 +1,5 @@
 using AIForAgedClient.Helper;
 using AIForAgedClient.View;
-using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
@@ -12,7 +11,6 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -157,6 +155,7 @@ namespace AIForAgedClient.ViewModel
                 {
                     tempPose.IsAlarm = item.IsAlarm;
                     tempPose.Status = item.Status;
+                    tempPose.TimeStand = item.TimeStand;
                     tempPose.TimeDown = item.TimeDown;
                     tempPose.TimeIn = item.TimeIn;
                     tempPose.TimeLie = item.TimeLie;

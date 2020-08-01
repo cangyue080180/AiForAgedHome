@@ -2,7 +2,7 @@
 {
     public enum PoseStateTypes
     {
-        Stand,
+        Stand = 0,
         Sit,
         Lie,
         Down,

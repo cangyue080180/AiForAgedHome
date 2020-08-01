@@ -97,7 +97,8 @@ namespace AIForAgedClient.Helper
 
                         }
                     }
-                }catch(AccessViolationException ex)
+                }
+                catch (AccessViolationException ex)
                 {
 
                 }
