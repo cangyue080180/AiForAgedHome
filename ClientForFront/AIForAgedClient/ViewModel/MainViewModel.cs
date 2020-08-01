@@ -37,10 +37,10 @@ namespace AIForAgedClient.ViewModel
         private HttpClient httpClient;
         private DispatcherTimer dispatcherTimer;
 
-        public ObservableCollection<PoseInfo> PoseInfos { get; } = new ObservableCollection<PoseInfo>();
+        public ObservableCollection<PoseInfoVM> PoseInfos { get; } = new ObservableCollection<PoseInfoVM>();
 
-        private PoseInfo _selectedPoseInfo;
-        public PoseInfo SelectedPoseInfo
+        private PoseInfoVM _selectedPoseInfo;
+        public PoseInfoVM SelectedPoseInfo
         {
             get => _selectedPoseInfo;
             set => Set(ref _selectedPoseInfo, value);
@@ -84,14 +84,11 @@ namespace AIForAgedClient.ViewModel
                 {
                     _goMonitorViewCmd = new RelayCommand<Button>((x) =>
                     {
-                        var selectedItem = x.DataContext as PoseInfo;
+                        var selectedItem = x.DataContext as PoseInfoVM;
                         this.SelectedPoseInfo = selectedItem;
                         SimpleIoc.Default.Register(() => SelectedPoseInfo);
 
-                        MonitorWindow monitorWindow = new MonitorWindow();
-                        monitorWindow.Owner = App.Current.MainWindow;
-                        monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
-                        monitorWindow.ShowDialog();
+                        ShowMonitorWindow();
                     });
                 }
                 return _goMonitorViewCmd;
@@ -111,12 +108,12 @@ namespace AIForAgedClient.ViewModel
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            GetAgedsAsync();
+            GetPosesAsync();
         }
 
         private async void OnWindowLoaded()
         {
-            await GetAgedsAsync();
+            await GetPosesAsync();
             dispatcherTimer.Start();
         }
 
@@ -125,7 +122,7 @@ namespace AIForAgedClient.ViewModel
             dispatcherTimer.Stop();
         }
 
-        private async Task GetAgedsAsync()
+        private async Task GetPosesAsync()
         {
             string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
             string result;
@@ -141,34 +138,58 @@ namespace AIForAgedClient.ViewModel
 
             if (!string.IsNullOrEmpty(result))
             {
-                var ageds = JsonConvert.DeserializeObject<List<PoseInfo>>(result);
-                //检查有无新增
-                foreach (var item in ageds)
-                {
-                    if (!PoseInfos.Any(x => x.AgesInfoId == item.AgesInfoId))
-                    {
-                        PoseInfos.Add(item);
-                    }
-                }
-                //检查有无删减
-                for (int i = PoseInfos.Count - 1; i >= 0; i--)
-                {
-                    bool isExit = false;
-                    foreach (var item in ageds)
-                    {
-                        if (PoseInfos.ElementAt(i).AgesInfoId == item.AgesInfoId)
-                        {
-                            isExit = true;
-                            break;
-                        }
-                    }
+                var datas = JsonConvert.DeserializeObject<List<PoseInfoVM>>(result);
+                UpdateDataSource(datas);
+            }
+        }
 
-                    if (!isExit)
-                    {
-                        PoseInfos.RemoveAt(i);
-                    }
+        private void UpdateDataSource(IEnumerable<PoseInfoVM> poseInfos)
+        {
+            //检查有无新增
+            foreach (var item in poseInfos)
+            {
+                var tempPose = PoseInfos.FirstOrDefault(x => x.AgesInfoId == item.AgesInfoId);
+                if (tempPose == null)
+                {
+                    PoseInfos.Add(item);
+                }
+                else
+                {
+                    tempPose.IsAlarm = item.IsAlarm;
+                    tempPose.Status = item.Status;
+                    tempPose.TimeDown = item.TimeDown;
+                    tempPose.TimeIn = item.TimeIn;
+                    tempPose.TimeLie = item.TimeLie;
+                    tempPose.TimeOther = item.TimeOther;
+                    tempPose.TimeSit = item.TimeSit;
                 }
             }
+            //检查有无删减
+            for (int i = PoseInfos.Count - 1; i >= 0; i--)
+            {
+                bool isExit = false;
+                foreach (var item in poseInfos)
+                {
+                    if (PoseInfos.ElementAt(i).AgesInfoId == item.AgesInfoId)
+                    {
+                        isExit = true;
+                        break;
+                    }
+                }
+
+                if (!isExit)
+                {
+                    PoseInfos.RemoveAt(i);
+                }
+            }
+        }
+
+        private void ShowMonitorWindow()
+        {
+            MonitorWindow monitorWindow = new MonitorWindow();
+            monitorWindow.Owner = App.Current.MainWindow;
+            monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            monitorWindow.ShowDialog();
         }
     }
 }

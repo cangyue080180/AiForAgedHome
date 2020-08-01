@@ -15,8 +15,8 @@ namespace AIForAgedClient.ViewModel
             get => fourVideoViewModel;
         }
 
-        private PoseInfo _poseInfo;
-        public PoseInfo PoseInfo
+        private PoseInfoVM _poseInfo;
+        public PoseInfoVM PoseInfo
         {
             get => _poseInfo;
         }
@@ -44,7 +44,7 @@ namespace AIForAgedClient.ViewModel
                 return _onClosing;
             }
         }
-        public MonitorViewModel(PoseInfo poseInfo, FourVideoViewModel fourVideoViewModel)
+        public MonitorViewModel(PoseInfoVM poseInfo, FourVideoViewModel fourVideoViewModel)
         {
             this._poseInfo = poseInfo;
             this.fourVideoViewModel = fourVideoViewModel;
@@ -66,7 +66,7 @@ namespace AIForAgedClient.ViewModel
         {
             LogHelper.Debug(nameof(MonitorViewModel) + " Closing");
             FourVideoVM.Stop();
-            SimpleIoc.Default.Unregister<PoseInfo>();
+            SimpleIoc.Default.Unregister<PoseInfoVM>();
         }
     }
 }
