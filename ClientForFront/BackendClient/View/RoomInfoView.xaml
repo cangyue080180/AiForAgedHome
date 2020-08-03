@@ -29,7 +29,7 @@
                 <Button>新建</Button>
             </StackPanel>
         </Border>
-        <ListView  ItemsSource="{Binding RoomInfoes}" Grid.Row="1">
+        <ListView  ItemsSource="{Binding RoomInfoes}" SelectedItem="{Binding SelectedItem}" Grid.Row="1">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
@@ -40,7 +40,8 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock>
-                                                    <Hyperlink>删除</Hyperlink>
+                                                    <Hyperlink Command="{Binding DataContext.DelCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">删除</Hyperlink>
                                         </TextBlock>
                                         <TextBlock Margin="10,0,0,0">
                                                     <Hyperlink>修改</Hyperlink>

@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace BackendClient.ViewModel
@@ -19,6 +20,13 @@ namespace BackendClient.ViewModel
         public ObservableCollection<RoomInfo> RoomInfoes
         {
             get => _roominfoes;
+        }
+
+        private RoomInfo _selectedItem;
+        public RoomInfo SelectedItem
+        {
+            get => _selectedItem;
+            set => Set(ref _selectedItem,value);
         }
 
         private RelayCommand _onLoadedCmd;
@@ -40,6 +48,23 @@ namespace BackendClient.ViewModel
                 if (_onUnloadedCmd == null)
                     _onUnloadedCmd = new RelayCommand(Unloaded);
                 return _onUnloadedCmd;
+            }
+        }
+
+        private RelayCommand<Hyperlink> _delCmd;
+        public ICommand DelCmd
+        {
+            get
+            {
+                if(_delCmd==null)
+                {
+                    _delCmd = new RelayCommand<Hyperlink>(x=> {
+                        var item = x.DataContext as RoomInfo;
+                        SelectedItem = item;
+                        DelItem();
+                    });
+                }
+                return _delCmd;
             }
         }
 
@@ -103,6 +128,11 @@ namespace BackendClient.ViewModel
                     }
                 }
             }
+        }
+
+        private void DelItem()
+        {
+            RoomInfoes.Remove(SelectedItem);
         }
     }
 }

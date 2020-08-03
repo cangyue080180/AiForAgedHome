@@ -44,7 +44,7 @@
                         <GridViewColumn Header="操作" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Focusable="False" Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
                                         查看监控
                                     </Button>
