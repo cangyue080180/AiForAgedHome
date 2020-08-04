@@ -1,4 +1,5 @@
-﻿using BackendClient.Model;
+﻿using AutoMapper;
+using BackendClient.Model;
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -17,10 +18,11 @@ using System.Windows.Input;
 
 namespace BackendClient.ViewModel
 {
-    public class DataViewVM : ViewModelBase
+    public class ChartViewVM : ViewModelBase
     {
         #region property and command
         private HttpClient httpClient;
+        private IMapper autoMapper;
         private Timer updateTimer;
 
         public PoseInfoVm PoseInfoVm_Now { get; set; }//当天的pose信息
@@ -87,8 +89,10 @@ namespace BackendClient.ViewModel
         }
         #endregion
 
-        public DataViewVM(HttpClient httpClient)
+        public ChartViewVM(HttpClient httpClient, Mapper autoMapper)
         {
+            this.autoMapper = autoMapper;
+
             var mapper = Mappers.Xy<MeasureModel>()
                .X(model => model.DateTime.Ticks)
                .Y(model => model.Value);
@@ -225,11 +229,7 @@ namespace BackendClient.ViewModel
             var poseinfo_day = poseInfos.FirstOrDefault(x => x.Date == DateTime.Now.Date);
             if (poseinfo_day != null)
             {
-                PoseInfoVm_Now.TimeDown = poseinfo_day.TimeDown;
-                PoseInfoVm_Now.TimeSit = poseinfo_day.TimeSit;
-                PoseInfoVm_Now.TimeLie = poseinfo_day.TimeLie;
-                PoseInfoVm_Now.TimeOther = poseinfo_day.TimeOther;
-                PoseInfoVm_Now.TimeStand = poseinfo_day.TimeStand;
+                autoMapper.Map(poseinfo_day,PoseInfoVm_Now);
             }
         }
         //更新最近一周的姿态信息饼图

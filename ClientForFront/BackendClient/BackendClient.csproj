@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -86,27 +89,28 @@
     <Compile Include="Model\LogHelper.cs" />
     <Compile Include="Model\MeasureModel.cs" />
     <Compile Include="Model\PoseInfoVm.cs" />
+    <Compile Include="Model\RoomInfoVM.cs" />
     <Compile Include="ViewModel\AgesInfoVM.cs" />
     <Compile Include="ViewModel\DataManagerVM.cs" />
-    <Compile Include="ViewModel\DataViewVM.cs" />
+    <Compile Include="ViewModel\ChartViewVM.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\RoomInfoVM.cs" />
+    <Compile Include="ViewModel\RoomInfoDatasVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\AgesInfoView.xaml.cs">
-      <DependentUpon>AgesInfoView.xaml</DependentUpon>
+    <Compile Include="View\AgesInfoDatasView.xaml.cs">
+      <DependentUpon>AgesInfoDatasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DataManagerView.xaml.cs">
       <DependentUpon>DataManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DataView.xaml.cs">
-      <DependentUpon>DataView.xaml</DependentUpon>
+    <Compile Include="View\ChartView.xaml.cs">
+      <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RoomInfoView.xaml.cs">
-      <DependentUpon>RoomInfoView.xaml</DependentUpon>
+    <Compile Include="View\RoomInfoDatasView.xaml.cs">
+      <DependentUpon>RoomInfoDatasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ServerInfoView.xaml.cs">
       <DependentUpon>ServerInfoView.xaml</DependentUpon>
@@ -123,7 +127,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\AgesInfoView.xaml">
+    <Page Include="View\AgesInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,7 +135,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\DataView.xaml">
+    <Page Include="View\ChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,7 +143,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RoomInfoView.xaml">
+    <Page Include="View\RoomInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

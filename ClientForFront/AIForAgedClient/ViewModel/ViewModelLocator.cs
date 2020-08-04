@@ -12,7 +12,9 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using AutoMapper;
 using CommonServiceLocator;
+using DataModel;
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Net.Http;
@@ -43,9 +45,21 @@ namespace AIForAgedClient.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
             SimpleIoc.Default.Register(() => new HttpClient());
+            SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
             SimpleIoc.Default.Register<FourVideoViewModel>();
+        }
+
+        public static MapperConfiguration CreateConfiguration()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                // Add all profiles in current assembly
+                cfg.CreateMap<PoseInfo, PoseInfoVM>();
+            });
+
+            return config;
         }
 
         public MainViewModel Main

@@ -1,5 +1,7 @@
 using AIForAgedClient.Helper;
 using AIForAgedClient.View;
+using AutoMapper;
+using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
@@ -33,6 +35,7 @@ namespace AIForAgedClient.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private HttpClient httpClient;
+        private IMapper mapper;
         private DispatcherTimer dispatcherTimer;
 
         public ObservableCollection<PoseInfoVM> PoseInfos { get; } = new ObservableCollection<PoseInfoVM>();
@@ -96,9 +99,10 @@ namespace AIForAgedClient.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(HttpClient httpClient)
+        public MainViewModel(HttpClient httpClient,Mapper mapper)
         {
             this.httpClient = httpClient;
+            this.mapper = mapper;
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
@@ -136,12 +140,12 @@ namespace AIForAgedClient.ViewModel
 
             if (!string.IsNullOrEmpty(result))
             {
-                var datas = JsonConvert.DeserializeObject<List<PoseInfoVM>>(result);
+                var datas = JsonConvert.DeserializeObject<List<PoseInfo>>(result);
                 UpdateDataSource(datas);
             }
         }
 
-        private void UpdateDataSource(IEnumerable<PoseInfoVM> poseInfos)
+        private void UpdateDataSource(IEnumerable<PoseInfo> poseInfos)
         {
             //检查有无新增
             foreach (var item in poseInfos)
@@ -149,18 +153,11 @@ namespace AIForAgedClient.ViewModel
                 var tempPose = PoseInfos.FirstOrDefault(x => x.AgesInfoId == item.AgesInfoId);
                 if (tempPose == null)
                 {
-                    PoseInfos.Add(item);
+                    PoseInfos.Add(mapper.Map<PoseInfoVM>(item));
                 }
                 else
                 {
-                    tempPose.IsAlarm = item.IsAlarm;
-                    tempPose.Status = item.Status;
-                    tempPose.TimeStand = item.TimeStand;
-                    tempPose.TimeDown = item.TimeDown;
-                    tempPose.TimeIn = item.TimeIn;
-                    tempPose.TimeLie = item.TimeLie;
-                    tempPose.TimeOther = item.TimeOther;
-                    tempPose.TimeSit = item.TimeSit;
+                    mapper.Map(item,tempPose);
                 }
             }
             //检查有无删减

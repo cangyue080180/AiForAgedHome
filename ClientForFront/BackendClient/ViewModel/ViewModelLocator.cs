@@ -12,7 +12,10 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using AutoMapper;
+using BackendClient.Model;
 using CommonServiceLocator;
+using DataModel;
 using GalaSoft.MvvmLight.Ioc;
 using System.Net.Http;
 
@@ -43,12 +46,24 @@ namespace BackendClient.ViewModel
             ////}
             //SimpleIoc.Default.Register(()=>new HttpClient());
             SimpleIoc.Default.Register(() => new HttpClient());
+            SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<DataViewVM>();
+            SimpleIoc.Default.Register<ChartViewVM>();
             SimpleIoc.Default.Register<HelpVM>();
             SimpleIoc.Default.Register<DataManagerVM>();
-            SimpleIoc.Default.Register<RoomInfoVM>();
+            SimpleIoc.Default.Register<RoomInfoDatasVM>();
             SimpleIoc.Default.Register<AgesInfoVM>();
+        }
+        public static MapperConfiguration CreateConfiguration()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                // Add all profiles in current assembly
+                cfg.CreateMap<PoseInfo, PoseInfoVm>();
+                cfg.CreateMap<RoomInfo, RoomInfoVM>();
+            });
+
+            return config;
         }
 
         public MainViewModel Main
@@ -59,11 +74,11 @@ namespace BackendClient.ViewModel
             }
         }
 
-        public DataViewVM DataViewVM
+        public ChartViewVM ChartViewVM
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<DataViewVM>();
+                return ServiceLocator.Current.GetInstance<ChartViewVM>();
             }
         }
         public DataManagerVM DataManagerVM
@@ -73,14 +88,14 @@ namespace BackendClient.ViewModel
                 return ServiceLocator.Current.GetInstance<DataManagerVM>();
             }
         }
-        public RoomInfoVM RoomInfoVM
+        public RoomInfoDatasVM RoomInfoDatasVM
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<RoomInfoVM>();
+                return ServiceLocator.Current.GetInstance<RoomInfoDatasVM>();
             }
         }
-        public AgesInfoVM AgesInfoVM
+        public AgesInfoVM AgesInfoDatasVM
         {
             get => ServiceLocator.Current.GetInstance<AgesInfoVM>();
         }

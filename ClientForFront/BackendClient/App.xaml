@@ -10,13 +10,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:BackendClient.ViewModel" />
-            <DataTemplate DataType="{x:Type vm:DataViewVM}">
+            <DataTemplate DataType="{x:Type vm:ChartViewVM}">
                 <v:DataView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:DataManagerVM}">
                 <v:DataManagerView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:RoomInfoVM}">
+            <DataTemplate DataType="{x:Type vm:RoomInfoDatasVM}">
                 <v:RoomInfoView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:AgesInfoVM}">

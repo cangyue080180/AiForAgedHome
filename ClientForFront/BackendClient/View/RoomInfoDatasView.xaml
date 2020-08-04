@@ -26,7 +26,8 @@
                 <TextBlock>房间名称：</TextBlock>
                 <TextBox MinWidth="120"></TextBox>
                 <Button Margin="10,0,20,0">查找</Button>
-                <Button>新建</Button>
+                <Button Margin="10,0,20,0">新建</Button>
+                <Button Command="{Binding UpdateCmd}">刷新</Button>
             </StackPanel>
         </Border>
         <ListView  ItemsSource="{Binding RoomInfoes}" SelectedItem="{Binding SelectedItem}" Grid.Row="1">

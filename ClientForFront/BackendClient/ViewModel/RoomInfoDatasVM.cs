@@ -1,4 +1,5 @@
-﻿using BackendClient.Model;
+﻿using AutoMapper;
+using BackendClient.Model;
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -13,17 +14,18 @@ using System.Windows.Input;
 
 namespace BackendClient.ViewModel
 {
-    public class RoomInfoVM : ViewModelBase
+    public class RoomInfoDatasVM : ViewModelBase
     {
         private HttpClient httpClient;
-        public ObservableCollection<RoomInfo> _roominfoes = new ObservableCollection<RoomInfo>();
-        public ObservableCollection<RoomInfo> RoomInfoes
+        private IMapper autoMapper;
+        public ObservableCollection<RoomInfoVM> _roominfoes = new ObservableCollection<RoomInfoVM>();
+        public ObservableCollection<RoomInfoVM> RoomInfoes
         {
             get => _roominfoes;
         }
 
-        private RoomInfo _selectedItem;
-        public RoomInfo SelectedItem
+        private RoomInfoVM _selectedItem;
+        public RoomInfoVM SelectedItem
         {
             get => _selectedItem;
             set => Set(ref _selectedItem,value);
@@ -50,6 +52,16 @@ namespace BackendClient.ViewModel
                 return _onUnloadedCmd;
             }
         }
+        private RelayCommand _updateCmd;
+        public ICommand UpdateCmd
+        {
+            get
+            {
+                if (_updateCmd == null)
+                    _updateCmd = new RelayCommand(()=>{ GetRoomInfoesAsync(); });
+                return _updateCmd;
+            }
+        }
 
         private RelayCommand<Hyperlink> _delCmd;
         public ICommand DelCmd
@@ -59,7 +71,7 @@ namespace BackendClient.ViewModel
                 if(_delCmd==null)
                 {
                     _delCmd = new RelayCommand<Hyperlink>(x=> {
-                        var item = x.DataContext as RoomInfo;
+                        var item = x.DataContext as RoomInfoVM;
                         SelectedItem = item;
                         DelItem();
                     });
@@ -68,9 +80,10 @@ namespace BackendClient.ViewModel
             }
         }
 
-        public RoomInfoVM(HttpClient httpClient)
+        public RoomInfoDatasVM(HttpClient httpClient,Mapper autoMapper)
         {
             this.httpClient = httpClient;
+            this.autoMapper = autoMapper;
         }
 
         private void Loaded()
@@ -104,9 +117,14 @@ namespace BackendClient.ViewModel
                 //检查有无新增
                 foreach (var item in roomInfos)
                 {
-                    if (!RoomInfoes.Any(x => x.Id == item.Id))
+                    var roomInfo = RoomInfoes.FirstOrDefault(x => x.Id == item.Id);
+                    if (roomInfo==null)
                     {
-                        RoomInfoes.Add(item);
+                        RoomInfoes.Add(autoMapper.Map<RoomInfoVM>(item));
+                    }
+                    else
+                    {
+                        autoMapper.Map(item,roomInfo);
                     }
                 }
                 //检查有无删减
