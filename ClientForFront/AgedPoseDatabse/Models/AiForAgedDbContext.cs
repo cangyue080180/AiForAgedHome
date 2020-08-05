@@ -16,6 +16,7 @@ namespace AgedPoseDatabse.Models
             // modelBuilder.Entity<PoseInfo>().Property(x => x.IsAlarm).HasDefaultValue(false);
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Ip).IsUnique();
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<UserInfo>().HasIndex(x => x.Name).IsUnique();
         }
 
         public DbSet<RoomInfo> RoomInfos { get; set; }

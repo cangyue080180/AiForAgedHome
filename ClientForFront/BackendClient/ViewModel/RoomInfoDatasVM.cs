@@ -148,9 +148,18 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private void DelItem()
+        private async void DelItem()
         {
-            RoomInfoes.Remove(SelectedItem);
+            string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
+            try
+            {
+                var result = await httpClient.DeleteAsync(url+$"/{SelectedItem.Id}");
+                RoomInfoes.Remove(SelectedItem);
+            }
+            catch (HttpRequestException e)
+            {
+                LogHelper.Debug($"Delete RoomInfoItem caught exception: {e.Message}");
+            }
         }
     }
 }

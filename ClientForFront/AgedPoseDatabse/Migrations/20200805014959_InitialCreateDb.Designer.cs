@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    [Migration("20200730033756_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200805014959_InitialCreateDb")]
+    partial class InitialCreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,18 +182,25 @@ namespace AgedPoseDatabse.Migrations
 
             modelBuilder.Entity("AgedPoseDatabse.Models.UserInfo", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<int>("Authority")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Password")
                         .HasColumnType("varchar(16)")
                         .HasMaxLength(16);
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("UserInfo");
                 });
