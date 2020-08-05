@@ -17,6 +17,7 @@ using BackendClient.Model;
 using CommonServiceLocator;
 using DataModel;
 using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Net.Http;
 
 namespace BackendClient.ViewModel
@@ -53,6 +54,7 @@ namespace BackendClient.ViewModel
             SimpleIoc.Default.Register<DataManagerVM>();
             SimpleIoc.Default.Register<RoomInfoDatasVM>();
             SimpleIoc.Default.Register<AgesInfoVM>();
+            SimpleIoc.Default.Register<NewRoomVM>();
         }
         public static MapperConfiguration CreateConfiguration()
         {
@@ -105,6 +107,14 @@ namespace BackendClient.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<HelpVM>();
+            }
+        }
+
+        public NewRoomVM NewRoomVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewRoomVM>(Guid.NewGuid().ToString());//每次都重新生成一个新的实例
             }
         }
 

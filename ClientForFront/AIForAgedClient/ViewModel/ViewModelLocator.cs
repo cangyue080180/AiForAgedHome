@@ -72,7 +72,7 @@ namespace AIForAgedClient.ViewModel
 
         public MonitorViewModel Monitor
         {
-            get => ServiceLocator.Current.GetInstance<MonitorViewModel>(Guid.NewGuid().ToString());
+            get => ServiceLocator.Current.GetInstance<MonitorViewModel>(Guid.NewGuid().ToString());//每次都重新生成一个新的实例
         }
 
         public static void Cleanup()

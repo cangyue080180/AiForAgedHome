@@ -95,6 +95,7 @@
     <Compile Include="ViewModel\ChartViewVM.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewRoomVM.cs" />
     <Compile Include="ViewModel\RoomInfoDatasVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\AgesInfoDatasView.xaml.cs">
@@ -108,6 +109,9 @@
     </Compile>
     <Compile Include="View\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewRoom.xaml.cs">
+      <DependentUpon>NewRoom.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RoomInfoDatasView.xaml.cs">
       <DependentUpon>RoomInfoDatasView.xaml</DependentUpon>
@@ -140,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

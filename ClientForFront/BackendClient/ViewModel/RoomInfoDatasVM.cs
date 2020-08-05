@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BackendClient.Model;
+using BackendClient.View;
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,8 +54,24 @@ namespace BackendClient.ViewModel
                 return _onUnloadedCmd;
             }
         }
+
+        private RelayCommand _newRoomCmd;
+        public RelayCommand NewRoomCmd
+        {
+            get
+            {
+                if (_newRoomCmd == null)
+                {
+                    _newRoomCmd = new RelayCommand(()=> {
+                        ShowNewRoomWindow();
+                    });
+                }
+                return _newRoomCmd;
+            }
+        }
+
         private RelayCommand _updateCmd;
-        public ICommand UpdateCmd
+        public ICommand UpdateCmd//刷新显示
         {
             get
             {
@@ -64,7 +82,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand<Hyperlink> _delCmd;
-        public ICommand DelCmd
+        public ICommand DelCmd//删除
         {
             get
             {
@@ -77,6 +95,24 @@ namespace BackendClient.ViewModel
                     });
                 }
                 return _delCmd;
+            }
+        }
+
+        private RelayCommand<Hyperlink> _changeCmd;
+        public ICommand ChangeCmd
+        {
+            get
+            {
+                if (_changeCmd == null)
+                {
+                    _changeCmd = new RelayCommand<Hyperlink>(x=> {
+                        var item = x.DataContext as RoomInfoVM;
+                        SelectedItem = item;
+                        SimpleIoc.Default.Register(() => SelectedItem);
+                        ShowNewRoomWindow();
+                    });
+                }
+                return _changeCmd;
             }
         }
 
@@ -160,6 +196,14 @@ namespace BackendClient.ViewModel
             {
                 LogHelper.Debug($"Delete RoomInfoItem caught exception: {e.Message}");
             }
+        }
+
+        private async void ShowNewRoomWindow()
+        {
+            NewRoom newRoom = new NewRoom();
+            newRoom.Owner = App.Current.MainWindow;
+            newRoom.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            newRoom.ShowDialog();
         }
     }
 }

@@ -26,7 +26,8 @@
                 <TextBlock>老人姓名：</TextBlock>
                 <TextBox MinWidth="120"></TextBox>
                 <Button Margin="10,0,20,0">查找</Button>
-                <Button>新建</Button>
+                <Button Margin="10,0,20,0">新建</Button>
+                <Button>刷新</Button>
             </StackPanel>
         </Border>
         <ListView  ItemsSource="{Binding AgesInfoes}" Grid.Row="1">
