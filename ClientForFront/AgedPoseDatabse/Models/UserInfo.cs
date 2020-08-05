@@ -6,7 +6,8 @@ namespace AgedPoseDatabse.Models
     [Table("UserInfo")]
     public class UserInfo
     {
-        [Key]
+        public int Id { get; set; }
+
         [StringLength(30)]
         public string Name { get; set; }
 

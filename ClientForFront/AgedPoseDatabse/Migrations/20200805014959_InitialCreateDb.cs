@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
-using System;
 
 namespace AgedPoseDatabse.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,13 +42,15 @@ namespace AgedPoseDatabse.Migrations
                 name: "UserInfo",
                 columns: table => new
                 {
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 30, nullable: true),
                     Password = table.Column<string>(maxLength: 16, nullable: true),
                     Authority = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInfo", x => x.Name);
+                    table.PrimaryKey("PK_UserInfo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +156,12 @@ namespace AgedPoseDatabse.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ServerInfo_Name",
                 table: "ServerInfo",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserInfo_Name",
+                table: "UserInfo",
                 column: "Name",
                 unique: true);
         }

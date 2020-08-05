@@ -4,6 +4,8 @@ namespace DataModel
 {
     public class UserInfo
     {
+        public int Id { get; set; }
+
         [StringLength(30)]
         public string Name { get; set; }
 

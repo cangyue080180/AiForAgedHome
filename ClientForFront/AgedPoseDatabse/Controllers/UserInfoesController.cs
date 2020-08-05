@@ -1,9 +1,11 @@
-﻿using AgedPoseDatabse.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AgedPoseDatabse.Models;
 
 namespace AgedPoseDatabse.Controllers
 {
@@ -25,9 +27,9 @@ namespace AgedPoseDatabse.Controllers
             return await _context.UserInfos.ToListAsync();
         }
 
-        // GET: api/UserInfoes/name
+        // GET: api/UserInfoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserInfo>> GetUserInfo(string id)
+        public async Task<ActionResult<UserInfo>> GetUserInfo(int id)
         {
             var userInfo = await _context.UserInfos.FindAsync(id);
 
@@ -39,13 +41,13 @@ namespace AgedPoseDatabse.Controllers
             return userInfo;
         }
 
-        // PUT: api/UserInfoes/name
+        // PUT: api/UserInfoes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserInfo(string id, UserInfo userInfo)
+        public async Task<IActionResult> PutUserInfo(int id, UserInfo userInfo)
         {
-            if (id != userInfo.Name)
+            if (id != userInfo.Id)
             {
                 return BadRequest();
             }
@@ -78,28 +80,14 @@ namespace AgedPoseDatabse.Controllers
         public async Task<ActionResult<UserInfo>> PostUserInfo(UserInfo userInfo)
         {
             _context.UserInfos.Add(userInfo);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (UserInfoExists(userInfo.Name))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserInfo", new { id = userInfo.Name }, userInfo);
+            return CreatedAtAction("GetUserInfo", new { id = userInfo.Id }, userInfo);
         }
 
         // DELETE: api/UserInfoes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserInfo>> DeleteUserInfo(string id)
+        public async Task<ActionResult<UserInfo>> DeleteUserInfo(int id)
         {
             var userInfo = await _context.UserInfos.FindAsync(id);
             if (userInfo == null)
@@ -113,9 +101,9 @@ namespace AgedPoseDatabse.Controllers
             return userInfo;
         }
 
-        private bool UserInfoExists(string id)
+        private bool UserInfoExists(int id)
         {
-            return _context.UserInfos.Any(e => e.Name == id);
+            return _context.UserInfos.Any(e => e.Id == id);
         }
     }
 }

@@ -180,18 +180,25 @@ namespace AgedPoseDatabse.Migrations
 
             modelBuilder.Entity("AgedPoseDatabse.Models.UserInfo", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<int>("Authority")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Password")
                         .HasColumnType("varchar(16)")
                         .HasMaxLength(16);
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("UserInfo");
                 });
