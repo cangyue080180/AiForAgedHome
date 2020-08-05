@@ -56,14 +56,14 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _newRoomCmd;
-        public RelayCommand NewRoomCmd
+        public RelayCommand NewRoomCmd//新建
         {
             get
             {
                 if (_newRoomCmd == null)
                 {
                     _newRoomCmd = new RelayCommand(()=> {
-                        ShowNewRoomWindow();
+                        ShowNewRoomWindow(true);
                     });
                 }
                 return _newRoomCmd;
@@ -109,7 +109,7 @@ namespace BackendClient.ViewModel
                         var item = x.DataContext as RoomInfoVM;
                         SelectedItem = item;
                         SimpleIoc.Default.Register(() => SelectedItem);
-                        ShowNewRoomWindow();
+                        ShowNewRoomWindow(false);
                     });
                 }
                 return _changeCmd;
@@ -198,12 +198,20 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private async void ShowNewRoomWindow()
+        private async void ShowNewRoomWindow(bool isNew)
         {
             NewRoom newRoom = new NewRoom();
             newRoom.Owner = App.Current.MainWindow;
             newRoom.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
             newRoom.ShowDialog();
+            
+            if(isNew)//新建
+            {
+                if (newRoom.DialogResult == true)//新建成功，刷新显示
+                {
+                    GetRoomInfoesAsync();
+                }
+            }
         }
     }
 }

@@ -63,6 +63,7 @@ namespace BackendClient.ViewModel
                 // Add all profiles in current assembly
                 cfg.CreateMap<PoseInfo, PoseInfoVm>();
                 cfg.CreateMap<RoomInfo, RoomInfoVM>();
+                cfg.CreateMap<RoomInfoVM, RoomInfo>();
             });
 
             return config;

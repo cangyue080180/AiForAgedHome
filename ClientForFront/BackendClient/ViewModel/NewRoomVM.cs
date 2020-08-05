@@ -79,7 +79,7 @@ namespace BackendClient.ViewModel
             {
                 if (_okCmd == null)
                 {
-                    _okCmd = new RelayCommand<Window>(win => { Ok(); win.Close(); });
+                    _okCmd = new RelayCommand<Window>(win => { Ok();win.DialogResult = true; win.Close();  });
                 }
                 return _okCmd;
             }
