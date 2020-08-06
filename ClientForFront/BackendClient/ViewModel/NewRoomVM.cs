@@ -79,7 +79,15 @@ namespace BackendClient.ViewModel
             {
                 if (_okCmd == null)
                 {
-                    _okCmd = new RelayCommand<Window>(win => { Ok();win.DialogResult = true; win.Close();  });
+                    _okCmd = new RelayCommand<Window>(
+                       async win => {
+                            bool result= await Ok();
+                           if (result)
+                           {
+                               win.DialogResult = true;
+                           }
+                           win.Close();
+                        });
                 }
                 return _okCmd;
             }
@@ -117,60 +125,16 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private void Ok()
+        
+        private async Task<bool> Ok()
         {
             if (isNew)
             {
-                PostNewRoom();
+                return await Common.PostNew(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], autoMapper.Map<RoomInfo>(roomInfoVM));
             }
             else
             {
-                PutRoom();
-            }
-        }
-
-        //TODO 将下列方法提取出到Common中去。
-        //修改
-        private async void PutRoom()
-        {
-            string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
-            url += $"/{roomInfoVM.Id}";
-
-            string jsonResult = JsonConvert.SerializeObject(autoMapper.Map<RoomInfo>(roomInfoVM));
-            HttpContent httpContent = new StringContent(jsonResult);
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            try
-            {
-                var result = await httpClient.PutAsync(url, httpContent);
-            }
-            catch (HttpRequestException e)
-            {
-                LogHelper.Debug("PutRoom exception. "+e.Message);
-            }
-            catch (ArgumentNullException)
-            {
-
-            }
-        }
-        //新建
-        private async void PostNewRoom()
-        {
-            string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
-
-            string jsonResult = JsonConvert.SerializeObject(autoMapper.Map<RoomInfo>(roomInfoVM));
-            HttpContent httpContent = new StringContent(jsonResult);
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            try
-            {
-                var result = await httpClient.PostAsync(url, httpContent);
-            }
-            catch (HttpRequestException e)
-            {
-                LogHelper.Debug("PostRoom exception. "+e.Message);
-            }
-            catch (ArgumentNullException)
-            {
-
+                return await Common.Put(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"],roomInfoVM.Id, autoMapper.Map<RoomInfo>(roomInfoVM));
             }
         }
 

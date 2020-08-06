@@ -84,19 +84,17 @@ namespace BackendClient.ViewModel
         {
             get
             {
-                if(_delCmd==null)
+                if (_delCmd == null)
                 {
-                    _delCmd = new RelayCommand<Hyperlink>(x=> {
+                    _delCmd = new RelayCommand<Hyperlink>(async x =>
+                    {
                         var item = x.DataContext as RoomInfoVM;
                         SelectedItem = item;
-                        Task.Run(async () =>
-                       {
-                           bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], item.Id);
-                           if (result)
-                           {
-                               RoomInfoes.Remove(SelectedItem);
-                           }
-                       });
+                        bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], item.Id);
+                        if (result)
+                        {
+                            RoomInfoes.Remove(SelectedItem);
+                        }
                     });
                 }
                 return _delCmd;
