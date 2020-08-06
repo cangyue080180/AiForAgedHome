@@ -26,11 +26,11 @@
                 <TextBlock>老人姓名：</TextBlock>
                 <TextBox MinWidth="120"></TextBox>
                 <Button Margin="10,0,20,0">查找</Button>
-                <Button Margin="10,0,20,0">新建</Button>
-                <Button>刷新</Button>
+                <Button Command="{Binding NewCmd}" Margin="10,0,20,0">新建</Button>
+                <Button Command="{Binding UpdateCmd}">刷新</Button>
             </StackPanel>
         </Border>
-        <ListView  ItemsSource="{Binding AgesInfoes}" Grid.Row="1">
+        <ListView  ItemsSource="{Binding AgesInfoes}" SelectedItem="{Binding SelectedItem}" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
@@ -44,10 +44,12 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock>
-                                                    <Hyperlink>删除</Hyperlink>
+                                                    <Hyperlink Command="{Binding DataContext.DelCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">删除</Hyperlink>
                                     </TextBlock>
                                     <TextBlock Margin="10,0,0,0">
-                                                    <Hyperlink>修改</Hyperlink>
+                                                    <Hyperlink Command="{Binding DataContext.ChangeCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">修改</Hyperlink>
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>

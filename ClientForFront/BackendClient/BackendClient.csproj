@@ -85,16 +85,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AgesInfoVM.cs" />
     <Compile Include="Model\IntConvertToChartValues.cs" />
     <Compile Include="Model\LogHelper.cs" />
     <Compile Include="Model\MeasureModel.cs" />
     <Compile Include="Model\PoseInfoVm.cs" />
     <Compile Include="Model\RoomInfoVM.cs" />
-    <Compile Include="ViewModel\AgesInfoVM.cs" />
+    <Compile Include="Model\Common.cs" />
+    <Compile Include="ViewModel\AgesInfoDatasVM.cs" />
     <Compile Include="ViewModel\DataManagerVM.cs" />
     <Compile Include="ViewModel\ChartViewVM.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewAgedVM.cs" />
     <Compile Include="ViewModel\NewRoomVM.cs" />
     <Compile Include="ViewModel\RoomInfoDatasVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -109,6 +112,9 @@
     </Compile>
     <Compile Include="View\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewAged.xaml.cs">
+      <DependentUpon>NewAged.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewRoom.xaml.cs">
       <DependentUpon>NewRoom.xaml</DependentUpon>
@@ -144,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewAged.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

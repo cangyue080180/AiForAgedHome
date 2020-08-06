@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -17,18 +18,18 @@ using System.Windows.Input;
 
 namespace BackendClient.ViewModel
 {
-    public class RoomInfoDatasVM : ViewModelBase
+    public class AgesInfoDatasVM : ViewModelBase
     {
         private HttpClient httpClient;
         private IMapper autoMapper;
 
-        public ObservableCollection<RoomInfoVM> RoomInfoes { get; } = new ObservableCollection<RoomInfoVM>();
+        public ObservableCollection<AgesInfoVM> AgesInfoes { get; } = new ObservableCollection<AgesInfoVM>();
 
-        private RoomInfoVM _selectedItem;
-        public RoomInfoVM SelectedItem
+        private AgesInfoVM _selectedItem;
+        public AgesInfoVM SelectedItem
         {
             get => _selectedItem;
-            set => Set(ref _selectedItem,value);
+            set => Set(ref _selectedItem, value);
         }
 
         private RelayCommand _onLoadedCmd;
@@ -60,8 +61,8 @@ namespace BackendClient.ViewModel
             {
                 if (_newCmd == null)
                 {
-                    _newCmd = new RelayCommand(()=> {
-                        Common.ShowWindow(new NewRoom(), true, Update);
+                    _newCmd = new RelayCommand(() => {
+                        Common.ShowWindow(new NewAged(), true,Update);
                     });
                 }
                 return _newCmd;
@@ -74,7 +75,7 @@ namespace BackendClient.ViewModel
             get
             {
                 if (_updateCmd == null)
-                    _updateCmd = new RelayCommand(()=>{ Update(); });
+                    _updateCmd = new RelayCommand(() => { Update(); });
                 return _updateCmd;
             }
         }
@@ -84,19 +85,19 @@ namespace BackendClient.ViewModel
         {
             get
             {
-                if(_delCmd==null)
+                if (_delCmd == null)
                 {
-                    _delCmd = new RelayCommand<Hyperlink>(x=> {
-                        var item = x.DataContext as RoomInfoVM;
+                    _delCmd = new RelayCommand<Hyperlink>(x => {
+                        var item = x.DataContext as AgesInfoVM;
                         SelectedItem = item;
                         Task.Run(async () =>
-                       {
-                           bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], item.Id);
-                           if (result)
-                           {
-                               RoomInfoes.Remove(SelectedItem);
-                           }
-                       });
+                        {
+                            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetAgedsUrl"], item.Id);
+                            if (result)
+                            {
+                                AgesInfoes.Remove(SelectedItem);
+                            }
+                        });
                     });
                 }
                 return _delCmd;
@@ -110,18 +111,18 @@ namespace BackendClient.ViewModel
             {
                 if (_changeCmd == null)
                 {
-                    _changeCmd = new RelayCommand<Hyperlink>(x=> {
-                        var item = x.DataContext as RoomInfoVM;
+                    _changeCmd = new RelayCommand<Hyperlink>(x => {
+                        var item = x.DataContext as AgesInfoVM;
                         SelectedItem = item;
                         SimpleIoc.Default.Register(() => SelectedItem);
-                        Common.ShowWindow(new NewRoom(),false,null);
+                        Common.ShowWindow(new NewAged(),false);
                     });
                 }
                 return _changeCmd;
             }
         }
 
-        public RoomInfoDatasVM(HttpClient httpClient,Mapper autoMapper)
+        public AgesInfoDatasVM(HttpClient httpClient, Mapper autoMapper)
         {
             this.httpClient = httpClient;
             this.autoMapper = autoMapper;
@@ -129,21 +130,21 @@ namespace BackendClient.ViewModel
 
         private void Loaded()
         {
-            LogHelper.Debug("RoomInfoView Loaded.");
+            LogHelper.Debug("AgesInfoView Loaded.");
             Update();
         }
 
         private void Unloaded()
         {
-            LogHelper.Debug("RoomInfoView UnLoaded.");
+            LogHelper.Debug("AgesInfoView UnLoaded.");
         }
 
         private void Update()
         {
-            UpdateSourceAsync(RoomInfoes);
+            UpdateSourceAsync(AgesInfoes);
         }
 
-        private async void UpdateSourceAsync(IList<RoomInfoVM> targetCollection)
+        private async void UpdateSourceAsync(IList<AgesInfoVM> targetCollection)
         {
             string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
             url += "/getagesinfoswithroominfo";
@@ -160,14 +161,14 @@ namespace BackendClient.ViewModel
 
             if (!string.IsNullOrEmpty(result))
             {
-                var sourceCollection = JsonConvert.DeserializeObject<List<RoomInfo>>(result);
+                var sourceCollection = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
                 //检查有无新增
                 foreach (var item in sourceCollection)
                 {
                     var exitInfo = targetCollection.FirstOrDefault(x => x.Id == item.Id);
                     if (exitInfo == null)
                     {
-                        targetCollection.Add(autoMapper.Map<RoomInfoVM>(item));
+                        targetCollection.Add(autoMapper.Map<AgesInfoVM>(item));
                     }
                     else
                     {

@@ -53,8 +53,9 @@ namespace BackendClient.ViewModel
             SimpleIoc.Default.Register<HelpVM>();
             SimpleIoc.Default.Register<DataManagerVM>();
             SimpleIoc.Default.Register<RoomInfoDatasVM>();
-            SimpleIoc.Default.Register<AgesInfoVM>();
+            SimpleIoc.Default.Register<AgesInfoDatasVM>();
             SimpleIoc.Default.Register<NewRoomVM>();
+            SimpleIoc.Default.Register<NewAgedVM>();
         }
         public static MapperConfiguration CreateConfiguration()
         {
@@ -64,6 +65,7 @@ namespace BackendClient.ViewModel
                 cfg.CreateMap<PoseInfo, PoseInfoVm>();
                 cfg.CreateMap<RoomInfo, RoomInfoVM>();
                 cfg.CreateMap<RoomInfoVM, RoomInfo>();
+                cfg.CreateMap<AgesInfo, AgesInfoVM>();
             });
 
             return config;
@@ -98,9 +100,9 @@ namespace BackendClient.ViewModel
                 return ServiceLocator.Current.GetInstance<RoomInfoDatasVM>();
             }
         }
-        public AgesInfoVM AgesInfoDatasVM
+        public AgesInfoDatasVM AgesInfoDatasVM
         {
-            get => ServiceLocator.Current.GetInstance<AgesInfoVM>();
+            get => ServiceLocator.Current.GetInstance<AgesInfoDatasVM>();
         }
 
         public HelpVM HelpVM
@@ -116,6 +118,14 @@ namespace BackendClient.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<NewRoomVM>(Guid.NewGuid().ToString());//每次都重新生成一个新的实例
+            }
+        }
+
+        public NewAgedVM NewAgedVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewAgedVM>(Guid.NewGuid().ToString());
             }
         }
 

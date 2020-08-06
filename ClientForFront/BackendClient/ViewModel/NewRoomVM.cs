@@ -129,6 +129,7 @@ namespace BackendClient.ViewModel
             }
         }
 
+        //TODO 将下列方法提取出到Common中去。
         //修改
         private async void PutRoom()
         {
