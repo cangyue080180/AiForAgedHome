@@ -66,6 +66,7 @@ namespace BackendClient.ViewModel
                 cfg.CreateMap<RoomInfo, RoomInfoVM>();
                 cfg.CreateMap<RoomInfoVM, RoomInfo>();
                 cfg.CreateMap<AgesInfo, AgesInfoVM>();
+                cfg.CreateMap<AgesInfoVM, AgesInfo>();
             });
 
             return config;

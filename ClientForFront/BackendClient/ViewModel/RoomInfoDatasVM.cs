@@ -19,8 +19,8 @@ namespace BackendClient.ViewModel
 {
     public class RoomInfoDatasVM : ViewModelBase
     {
-        private HttpClient httpClient;
-        private IMapper autoMapper;
+        private readonly HttpClient httpClient;
+        private readonly IMapper autoMapper;
 
         public ObservableCollection<RoomInfoVM> RoomInfoes { get; } = new ObservableCollection<RoomInfoVM>();
 
@@ -143,8 +143,7 @@ namespace BackendClient.ViewModel
 
         private async void UpdateSourceAsync(IList<RoomInfoVM> targetCollection)
         {
-            string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
-            url += "/getagesinfoswithroominfo";
+            string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
             string result;
             try
             {

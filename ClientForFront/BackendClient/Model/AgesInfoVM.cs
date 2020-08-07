@@ -48,6 +48,12 @@ namespace BackendClient.Model
             set => Set(ref _address,value);
         }
 
-        public RoomInfoVM RoomInfo { get; set; }
+        public long RoomInfoId { get; set; }
+
+        private RoomInfoVM roomInfo;
+        public RoomInfoVM RoomInfo {
+            get => roomInfo;
+            set => Set(ref roomInfo,value);
+        }
     }
 }

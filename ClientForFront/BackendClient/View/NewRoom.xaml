@@ -18,10 +18,11 @@
     </i:Interaction.Triggers>
     <Grid>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,15">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,15">
                 <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}"/>
                 <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0"/>
             </StackPanel>
+            <ScrollViewer Margin="0,0,0,10">
             <StackPanel Margin="10">
                 <StackPanel Visibility="{Binding IsNew}">
                     <TextBlock>Id</TextBlock>
@@ -36,6 +37,7 @@
                     <TextBox Text="{Binding RoomInfoVM.RoomSize}"/>
                 </StackPanel>
             </StackPanel>
+            </ScrollViewer>
         </DockPanel>
     </Grid>
 </Window>

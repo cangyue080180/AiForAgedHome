@@ -20,8 +20,8 @@ namespace BackendClient.ViewModel
 {
     public class AgesInfoDatasVM : ViewModelBase
     {
-        private HttpClient httpClient;
-        private IMapper autoMapper;
+        private readonly HttpClient httpClient;
+        private readonly IMapper autoMapper;
 
         public ObservableCollection<AgesInfoVM> AgesInfoes { get; } = new ObservableCollection<AgesInfoVM>();
 

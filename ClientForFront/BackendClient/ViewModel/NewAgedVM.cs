@@ -10,15 +10,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Configuration;
+using DataModel;
+using Newtonsoft.Json;
+using GalaSoft.MvvmLight;
+using System.Collections.ObjectModel;
 
 namespace BackendClient.ViewModel
 {
     public class NewAgedVM
     {
         //当为true时是新建对象，为false时是修改对象
-        private bool isNew = true;
-        private HttpClient httpClient;
-        private IMapper autoMapper;
+        private readonly bool isNew = true;
+        private readonly HttpClient httpClient;
+        private readonly IMapper autoMapper;
+        public ObservableCollection<RoomInfoVM> Rooms { get; } = new ObservableCollection<RoomInfoVM>();
+
+        public RoomInfoVM SelectedRoom { get; set; }
+
         public Visibility IsNew
         {
             get
@@ -30,12 +39,7 @@ namespace BackendClient.ViewModel
             }
         }
         public string Title { get; set; }
-
-        private AgesInfoVM _agesInfoVM;
-        public AgesInfoVM AgesInfoVM
-        {
-            get => _agesInfoVM;
-        }
+        public AgesInfoVM AgesInfoVM { get; }
 
         private RelayCommand _onLoadCmd;
         public ICommand OnLoadCmd
@@ -76,7 +80,15 @@ namespace BackendClient.ViewModel
             {
                 if (_okCmd == null)
                 {
-                    _okCmd = new RelayCommand<Window>(win => { Ok(); win.DialogResult = true; win.Close(); });
+                    _okCmd = new RelayCommand<Window>(
+                       async win => {
+                           bool result = await Ok();
+                           if (result)
+                           {
+                               win.DialogResult = true;
+                           }
+                           win.Close();
+                       });
                 }
                 return _okCmd;
             }
@@ -103,31 +115,38 @@ namespace BackendClient.ViewModel
             if (SimpleIoc.Default.IsRegistered<AgesInfoVM>())//修改
             {
                 isNew = false;
-                _agesInfoVM = SimpleIoc.Default.GetInstance<AgesInfoVM>();
+                AgesInfoVM = SimpleIoc.Default.GetInstance<AgesInfoVM>();
                 Title = "修改老人信息";
+                Rooms.Add(AgesInfoVM.RoomInfo);
+                SelectedRoom = AgesInfoVM.RoomInfo;
             }
             else
             {
                 isNew = true;
-                _agesInfoVM = new AgesInfoVM();
+                AgesInfoVM = new AgesInfoVM();
                 Title = "创建新人员";
             }
         }
 
-        private void Ok()
+        private async Task<bool> Ok()
         {
             if (isNew)
             {
-                PostNew();
+                AgesInfoVM.RoomInfoId = SelectedRoom.Id;
+                return await Common.PostNew(httpClient, ConfigurationManager.AppSettings["GetAgedsUrl"], autoMapper.Map<AgesInfo>(AgesInfoVM));
             }
             else
             {
-                Put();
+                AgesInfoVM.RoomInfoId = SelectedRoom.Id;
+                AgesInfoVM.RoomInfo = SelectedRoom;
+                return await Common.Put(httpClient, ConfigurationManager.AppSettings["GetAgedsUrl"], AgesInfoVM.Id, autoMapper.Map<AgesInfo>(AgesInfoVM));
             }
         }
+
         private void OnWindowLoaded()
         {
             LogHelper.Debug("OnNewAgedWindowLoaded()");
+            UpdateSourceAsync(Rooms);
         }
 
         private void OnWindowClosing()
@@ -139,14 +158,55 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private void Put()
+        private async void UpdateSourceAsync(IList<RoomInfoVM> targetCollection)
         {
-            throw new NotImplementedException();
-        }
+            string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
+            string result;
+            try
+            {
+                result = await httpClient.GetStringAsync(url);
+            }
+            catch (HttpRequestException e)
+            {
+                LogHelper.Debug($"GetAgesInfoes caught exception: {e.Message}");
+                result = null;
+            }
 
-        private void PostNew()
-        {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(result))
+            {
+                var sourceCollection = JsonConvert.DeserializeObject<List<RoomInfo>>(result);
+                //检查有无新增
+                foreach (var item in sourceCollection)
+                {
+                    var exitInfo = targetCollection.FirstOrDefault(x => x.Id == item.Id);
+                    if (exitInfo == null)
+                    {
+                        targetCollection.Add(autoMapper.Map<RoomInfoVM>(item));
+                    }
+                    else
+                    {
+                        autoMapper.Map(item, exitInfo);
+                    }
+                }
+                //检查有无删减
+                for (int i = targetCollection.Count - 1; i >= 0; i--)
+                {
+                    bool isExit = false;
+                    foreach (var item in sourceCollection)
+                    {
+                        if (targetCollection.ElementAt(i).Id == item.Id)
+                        {
+                            isExit = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExit)
+                    {
+                        targetCollection.RemoveAt(i);
+                    }
+                }
+            }
         }
     }
 }

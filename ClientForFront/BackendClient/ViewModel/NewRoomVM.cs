@@ -19,9 +19,9 @@ namespace BackendClient.ViewModel
     public class NewRoomVM
     {
         //当为true时是新建对象，为false时是修改对象
-        private bool isNew = true;
-        private HttpClient httpClient;
-        private IMapper autoMapper;
+        private readonly bool isNew = true;
+        private readonly HttpClient httpClient;
+        private readonly IMapper autoMapper;
         public Visibility IsNew
         {
             get
@@ -33,12 +33,7 @@ namespace BackendClient.ViewModel
             }
         }
         public string Title { get; set; }
-
-        private RoomInfoVM roomInfoVM=null;
-        public RoomInfoVM RoomInfoVM
-        {
-            get => roomInfoVM;
-        }
+        public RoomInfoVM RoomInfoVM { get; }
 
         private RelayCommand _onLoadCmd;
         public ICommand OnLoadCmd
@@ -114,27 +109,26 @@ namespace BackendClient.ViewModel
             if (SimpleIoc.Default.IsRegistered<RoomInfoVM>())//修改
             {
                 isNew = false;
-                roomInfoVM = SimpleIoc.Default.GetInstance<RoomInfoVM>();
+                RoomInfoVM = SimpleIoc.Default.GetInstance<RoomInfoVM>();
                 Title = "修改房间信息";
             }
             else
             {
                 isNew = true;
-                roomInfoVM = new RoomInfoVM();
+                RoomInfoVM = new RoomInfoVM();
                 Title = "创建新房间";
             }
         }
 
-        
         private async Task<bool> Ok()
         {
             if (isNew)
             {
-                return await Common.PostNew(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], autoMapper.Map<RoomInfo>(roomInfoVM));
+                return await Common.PostNew(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], autoMapper.Map<RoomInfo>(RoomInfoVM));
             }
             else
             {
-                return await Common.Put(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"],roomInfoVM.Id, autoMapper.Map<RoomInfo>(roomInfoVM));
+                return await Common.Put(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"],RoomInfoVM.Id, autoMapper.Map<RoomInfo>(RoomInfoVM));
             }
         }
 
