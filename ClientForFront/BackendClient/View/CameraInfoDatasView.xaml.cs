@@ -3,11 +3,11 @@
 namespace BackendClient.View
 {
     /// <summary>
-    /// AgesInfoView.xaml 的交互逻辑
+    /// CameraInfoDatasView.xaml 的交互逻辑
     /// </summary>
-    public partial class AgesInfoDatasView : UserControl
+    public partial class CameraInfoDatasView : UserControl
     {
-        public AgesInfoDatasView()
+        public CameraInfoDatasView()
         {
             InitializeComponent();
         }

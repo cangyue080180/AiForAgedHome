@@ -5,9 +5,9 @@ namespace BackendClient.View
     /// <summary>
     /// RoomInfoView.xaml 的交互逻辑
     /// </summary>
-    public partial class RoomInfoView : UserControl
+    public partial class RoomInfoDatasView : UserControl
     {
-        public RoomInfoView()
+        public RoomInfoDatasView()
         {
             InitializeComponent();
         }

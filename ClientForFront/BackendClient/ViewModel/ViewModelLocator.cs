@@ -47,15 +47,17 @@ namespace BackendClient.ViewModel
             ////}
             //SimpleIoc.Default.Register(()=>new HttpClient());
             SimpleIoc.Default.Register(() => new HttpClient());
-            SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
+            SimpleIoc.Default.Register(() => new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ChartViewVM>();
             SimpleIoc.Default.Register<HelpVM>();
             SimpleIoc.Default.Register<DataManagerVM>();
             SimpleIoc.Default.Register<RoomInfoDatasVM>();
             SimpleIoc.Default.Register<AgesInfoDatasVM>();
+            SimpleIoc.Default.Register<ServerInfoDatasVM>();
             SimpleIoc.Default.Register<NewRoomVM>();
             SimpleIoc.Default.Register<NewAgedVM>();
+            SimpleIoc.Default.Register<NewServerVM>();
         }
         public static MapperConfiguration CreateConfiguration()
         {
@@ -67,6 +69,8 @@ namespace BackendClient.ViewModel
                 cfg.CreateMap<RoomInfoVM, RoomInfo>();
                 cfg.CreateMap<AgesInfo, AgesInfoVM>();
                 cfg.CreateMap<AgesInfoVM, AgesInfo>();
+                cfg.CreateMap<ServerInfo, ServerInfoVM>();
+                cfg.CreateMap<ServerInfoVM, ServerInfo>();
             });
 
             return config;
@@ -106,6 +110,11 @@ namespace BackendClient.ViewModel
             get => ServiceLocator.Current.GetInstance<AgesInfoDatasVM>();
         }
 
+        public ServerInfoDatasVM ServerInfoDatasVM
+        {
+            get => ServiceLocator.Current.GetInstance<ServerInfoDatasVM>();
+        }
+
         public HelpVM HelpVM
         {
             get
@@ -130,6 +139,13 @@ namespace BackendClient.ViewModel
             }
         }
 
+        public NewServerVM NewServerVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewServerVM>(Guid.NewGuid().ToString());
+            }
+        }
 
         public static void Cleanup()
         {

@@ -86,23 +86,32 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\AgesInfoVM.cs" />
+    <Compile Include="Model\CameraInfoVM.cs" />
     <Compile Include="Model\IntConvertToChartValues.cs" />
     <Compile Include="Model\LogHelper.cs" />
     <Compile Include="Model\MeasureModel.cs" />
     <Compile Include="Model\PoseInfoVm.cs" />
     <Compile Include="Model\RoomInfoVM.cs" />
     <Compile Include="Model\Common.cs" />
+    <Compile Include="Model\ServerInfoVM.cs" />
     <Compile Include="ViewModel\AgesInfoDatasVM.cs" />
     <Compile Include="ViewModel\DataManagerVM.cs" />
     <Compile Include="ViewModel\ChartViewVM.cs" />
+    <Compile Include="ViewModel\DatasVMBase.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NewAgedVM.cs" />
+    <Compile Include="ViewModel\NewModelVMBase.cs" />
     <Compile Include="ViewModel\NewRoomVM.cs" />
+    <Compile Include="ViewModel\NewServerVM.cs" />
     <Compile Include="ViewModel\RoomInfoDatasVM.cs" />
+    <Compile Include="ViewModel\ServerInfoDatasVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\AgesInfoDatasView.xaml.cs">
       <DependentUpon>AgesInfoDatasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CameraInfoDatasView.xaml.cs">
+      <DependentUpon>CameraInfoDatasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DataManagerView.xaml.cs">
       <DependentUpon>DataManagerView.xaml</DependentUpon>
@@ -119,11 +128,14 @@
     <Compile Include="View\NewRoom.xaml.cs">
       <DependentUpon>NewRoom.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NewServer.xaml.cs">
+      <DependentUpon>NewServer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RoomInfoDatasView.xaml.cs">
       <DependentUpon>RoomInfoDatasView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ServerInfoView.xaml.cs">
-      <DependentUpon>ServerInfoView.xaml</DependentUpon>
+    <Compile Include="View\ServerInfoDatasView.xaml.cs">
+      <DependentUpon>ServerInfoDatasView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +150,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AgesInfoDatasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CameraInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,11 +177,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\NewServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RoomInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ServerInfoView.xaml">
+    <Page Include="View\ServerInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

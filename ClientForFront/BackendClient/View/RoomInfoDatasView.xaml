@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BackendClient.View.RoomInfoView"
+﻿<UserControl x:Class="BackendClient.View.RoomInfoDatasView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -30,30 +30,30 @@
                 <Button Command="{Binding UpdateCmd}">刷新</Button>
             </StackPanel>
         </Border>
-        <ListView  ItemsSource="{Binding RoomInfoes}" SelectedItem="{Binding SelectedItem}" Grid.Row="1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
-                        <GridViewColumn Header="房间名称" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="房间大小" Width="100" DisplayMemberBinding="{Binding RoomSize}"/>
-                        <GridViewColumn Header="操作" Width="200" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
+        <ListView  ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="房间名称" Width="100" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="房间大小" Width="100" DisplayMemberBinding="{Binding RoomSize}"/>
+                    <GridViewColumn Header="操作" Width="200" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>
                                                     <Hyperlink Command="{Binding DataContext.DelCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">删除</Hyperlink>
-                                        </TextBlock>
-                                        <TextBlock Margin="10,0,0,0">
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
                                                     <Hyperlink Command="{Binding DataContext.ChangeCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">修改</Hyperlink>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

@@ -2,143 +2,67 @@
 using BackendClient.Model;
 using BackendClient.View;
 using DataModel;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Documents;
-using System.Windows.Input;
 
 namespace BackendClient.ViewModel
 {
-    public class RoomInfoDatasVM : ViewModelBase
+    public class RoomInfoDatasVM : DatasVMBase<RoomInfoVM>
     {
         private readonly HttpClient httpClient;
         private readonly IMapper autoMapper;
 
-        public ObservableCollection<RoomInfoVM> RoomInfoes { get; } = new ObservableCollection<RoomInfoVM>();
-
-        private RoomInfoVM _selectedItem;
-        public RoomInfoVM SelectedItem
-        {
-            get => _selectedItem;
-            set => Set(ref _selectedItem,value);
-        }
-
-        private RelayCommand _onLoadedCmd;
-        public ICommand OnLoadedCmd
-        {
-            get
-            {
-                if (_onLoadedCmd == null)
-                    _onLoadedCmd = new RelayCommand(Loaded);
-                return _onLoadedCmd;
-            }
-        }
-
-        private RelayCommand _onUnloadedCmd;
-        public ICommand OnUnloadedCmd
-        {
-            get
-            {
-                if (_onUnloadedCmd == null)
-                    _onUnloadedCmd = new RelayCommand(Unloaded);
-                return _onUnloadedCmd;
-            }
-        }
-
-        private RelayCommand _newCmd;
-        public RelayCommand NewCmd//新建
-        {
-            get
-            {
-                if (_newCmd == null)
-                {
-                    _newCmd = new RelayCommand(()=> {
-                        Common.ShowWindow(new NewRoom(), true, Update);
-                    });
-                }
-                return _newCmd;
-            }
-        }
-
-        private RelayCommand _updateCmd;
-        public ICommand UpdateCmd//刷新显示
-        {
-            get
-            {
-                if (_updateCmd == null)
-                    _updateCmd = new RelayCommand(()=>{ Update(); });
-                return _updateCmd;
-            }
-        }
-
-        private RelayCommand<Hyperlink> _delCmd;
-        public ICommand DelCmd//删除
-        {
-            get
-            {
-                if (_delCmd == null)
-                {
-                    _delCmd = new RelayCommand<Hyperlink>(async x =>
-                    {
-                        var item = x.DataContext as RoomInfoVM;
-                        SelectedItem = item;
-                        bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], item.Id);
-                        if (result)
-                        {
-                            RoomInfoes.Remove(SelectedItem);
-                        }
-                    });
-                }
-                return _delCmd;
-            }
-        }
-
-        private RelayCommand<Hyperlink> _changeCmd;
-        public ICommand ChangeCmd
-        {
-            get
-            {
-                if (_changeCmd == null)
-                {
-                    _changeCmd = new RelayCommand<Hyperlink>(x=> {
-                        var item = x.DataContext as RoomInfoVM;
-                        SelectedItem = item;
-                        SimpleIoc.Default.Register(() => SelectedItem);
-                        Common.ShowWindow(new NewRoom(),false,null);
-                    });
-                }
-                return _changeCmd;
-            }
-        }
-
-        public RoomInfoDatasVM(HttpClient httpClient,Mapper autoMapper)
+        public RoomInfoDatasVM(HttpClient httpClient, Mapper autoMapper)
         {
             this.httpClient = httpClient;
             this.autoMapper = autoMapper;
         }
 
-        private void Loaded()
+        public override void Change(Hyperlink hyperlink)
+        {
+            var item = hyperlink.DataContext as RoomInfoVM;
+            SelectedItem = item;
+            SimpleIoc.Default.Register(() => SelectedItem);
+            Common.ShowWindow(new NewRoom(), false, null);
+        }
+
+        public async override Task Delete(Hyperlink hyperlink)
+        {
+            var item = hyperlink.DataContext as RoomInfoVM;
+            SelectedItem = item;
+
+            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], item.Id);
+            if (result)
+            {
+                ItemsSource.Remove(SelectedItem);
+            }
+        }
+
+        public override void Loaded()
         {
             LogHelper.Debug("RoomInfoView Loaded.");
             Update();
         }
 
-        private void Unloaded()
+        public override void New()
+        {
+            Common.ShowWindow(new NewRoom(), true, Update);
+        }
+
+        public override void Unloaded()
         {
             LogHelper.Debug("RoomInfoView UnLoaded.");
         }
 
-        private void Update()
+        public override void Update()
         {
-            UpdateSourceAsync(RoomInfoes);
+            UpdateSourceAsync(ItemsSource);
         }
 
         private async void UpdateSourceAsync(IList<RoomInfoVM> targetCollection)

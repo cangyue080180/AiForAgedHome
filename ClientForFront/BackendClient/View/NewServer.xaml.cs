@@ -3,11 +3,11 @@
 namespace BackendClient.View
 {
     /// <summary>
-    /// NewAged.xaml 的交互逻辑
+    /// NewServer.xaml 的交互逻辑
     /// </summary>
-    public partial class NewAged : Window
+    public partial class NewServer : Window
     {
-        public NewAged()
+        public NewServer()
         {
             InitializeComponent();
         }

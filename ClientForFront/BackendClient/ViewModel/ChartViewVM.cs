@@ -229,7 +229,7 @@ namespace BackendClient.ViewModel
             var poseinfo_day = poseInfos.FirstOrDefault(x => x.Date == DateTime.Now.Date);
             if (poseinfo_day != null)
             {
-                autoMapper.Map(poseinfo_day,PoseInfoVm_Now);
+                autoMapper.Map(poseinfo_day, PoseInfoVm_Now);
             }
         }
         //更新最近一周的姿态信息饼图

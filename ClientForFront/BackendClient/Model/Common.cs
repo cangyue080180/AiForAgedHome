@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -34,7 +31,7 @@ namespace BackendClient.Model
         }
 
         //删除
-        public static async Task<bool> DelItem(HttpClient httpClient, string url,long id)
+        public static async Task<bool> DelItem(HttpClient httpClient, string url, long id)
         {
             try
             {
@@ -73,7 +70,7 @@ namespace BackendClient.Model
         }
 
         //显示子窗体
-        public static void ShowWindow(Window view,bool isNew,Action actionAfterClose=null)
+        public static void ShowWindow(Window view, bool isNew, Action actionAfterClose = null)
         {
             view.Owner = App.Current.MainWindow;
             view.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;

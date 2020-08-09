@@ -17,10 +17,13 @@
                 <v:DataManagerView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RoomInfoDatasVM}">
-                <v:RoomInfoView/>
+                <v:RoomInfoDatasView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:AgesInfoDatasVM}">
-                <v:AgesInfoView/>
+                <v:AgesInfoDatasView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ServerInfoDatasVM}">
+                <v:ServerInfoDatasView/>
             </DataTemplate>
             <Style TargetType="TabItem" x:Key="tabItemStyle">
                 <Setter Property="Padding" Value="5" />

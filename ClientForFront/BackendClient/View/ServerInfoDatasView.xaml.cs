@@ -3,11 +3,11 @@
 namespace BackendClient.View
 {
     /// <summary>
-    /// ServerInfoView.xaml 的交互逻辑
+    /// ServerInfoDatasView.xaml 的交互逻辑
     /// </summary>
-    public partial class ServerInfoView : UserControl
+    public partial class ServerInfoDatasView : UserControl
     {
-        public ServerInfoView()
+        public ServerInfoDatasView()
         {
             InitializeComponent();
         }

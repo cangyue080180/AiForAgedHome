@@ -8,32 +8,29 @@ using System.Threading.Tasks;
 
 namespace BackendClient.ViewModel
 {
-    public class NewRoomVM : NewModelVMBase<RoomInfoVM>
+    public class NewServerVM : NewModelVMBase<ServerInfoVM>
     {
-        //当为true时是新建对象，为false时是修改对象
         private readonly bool isNew = true;
         private readonly HttpClient httpClient;
         private readonly IMapper autoMapper;
 
-        public NewRoomVM(HttpClient httpClient, Mapper autoMapper)
+        public NewServerVM(HttpClient httpClient, Mapper mapper)
         {
             this.httpClient = httpClient;
-            this.autoMapper = autoMapper;
-
-            if (SimpleIoc.Default.IsRegistered<RoomInfoVM>())//修改
+            this.autoMapper = mapper;
+            if (SimpleIoc.Default.IsRegistered<ServerInfoVM>())//修改
             {
                 isNew = false;
-                Model = SimpleIoc.Default.GetInstance<RoomInfoVM>();
-                Title = "修改房间信息";
+                Model = SimpleIoc.Default.GetInstance<ServerInfoVM>();
+                Title = "修改服务器信息";
             }
             else
             {
                 isNew = true;
-                Model = new RoomInfoVM();
-                Title = "创建新房间";
+                Model = new ServerInfoVM();
+                Title = "创建新服务器";
             }
         }
-
         public override bool IsNewModel()
         {
             return isNew;
@@ -43,26 +40,26 @@ namespace BackendClient.ViewModel
         {
             if (isNew)
             {
-                return await Common.PostNew(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], autoMapper.Map<RoomInfo>(Model));
+                return await Common.PostNew(httpClient, ConfigurationManager.AppSettings["GetServerInfoUrl"], autoMapper.Map<ServerInfo>(Model));
             }
             else
             {
-                return await Common.Put(httpClient, ConfigurationManager.AppSettings["GetRoomInfoUrl"], Model.Id, autoMapper.Map<RoomInfo>(Model));
+                return await Common.Put(httpClient, ConfigurationManager.AppSettings["GetServerInfoUrl"], Model.Id, autoMapper.Map<ServerInfo>(Model));
             }
         }
 
         public override void OnWindowClosing()
         {
-            LogHelper.Debug("OnNewRoomWindowClosing()");
+            LogHelper.Debug("OnNewServerWindowClosing()");
             if (!isNew)
             {
-                SimpleIoc.Default.Unregister<RoomInfoVM>();
+                SimpleIoc.Default.Unregister<ServerInfoVM>();
             }
         }
 
         public override void OnWindowLoaded()
         {
-            LogHelper.Debug("OnNewRoomWindowLoaded()");
+            LogHelper.Debug("OnNewServerWindowLoaded()");
         }
     }
 }

@@ -13,31 +13,31 @@ using System.Windows.Documents;
 
 namespace BackendClient.ViewModel
 {
-    public class AgesInfoDatasVM : DatasVMBase<AgesInfoVM>
+    public class ServerInfoDatasVM : DatasVMBase<ServerInfoVM>
     {
         private readonly HttpClient httpClient;
         private readonly IMapper autoMapper;
 
-        public AgesInfoDatasVM(HttpClient httpClient, Mapper autoMapper)
+        public ServerInfoDatasVM(HttpClient httpClient, Mapper mapper)
         {
             this.httpClient = httpClient;
-            this.autoMapper = autoMapper;
+            this.autoMapper = mapper;
         }
 
         public override void Change(Hyperlink hyperlink)
         {
-            var item = hyperlink.DataContext as AgesInfoVM;
+            var item = hyperlink.DataContext as ServerInfoVM;
             SelectedItem = item;
             SimpleIoc.Default.Register(() => SelectedItem);
-            Common.ShowWindow(new NewAged(), false, null);
+            Common.ShowWindow(new NewServer(), false, null);
         }
 
         public async override Task Delete(Hyperlink hyperlink)
         {
-            var item = hyperlink.DataContext as AgesInfoVM;
+            var item = hyperlink.DataContext as ServerInfoVM;
             SelectedItem = item;
 
-            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetAgedsUrl"], item.Id);
+            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetServerInfoUrl"], item.Id);
             if (result)
             {
                 ItemsSource.Remove(SelectedItem);
@@ -46,18 +46,17 @@ namespace BackendClient.ViewModel
 
         public override void Loaded()
         {
-            LogHelper.Debug("AgesInfoView Loaded.");
+            LogHelper.Debug("ServerInfoView Loaded.");
             Update();
+        }
+        public override void Unloaded()
+        {
+            LogHelper.Debug("ServerInfoView UnLoaded.");
         }
 
         public override void New()
         {
-            Common.ShowWindow(new NewAged(), true, Update);
-        }
-
-        public override void Unloaded()
-        {
-            LogHelper.Debug("AgesInfoView UnLoaded.");
+            Common.ShowWindow(new NewServer(), true, Update);
         }
 
         public override void Update()
@@ -65,10 +64,9 @@ namespace BackendClient.ViewModel
             UpdateSourceAsync(ItemsSource);
         }
 
-        private async void UpdateSourceAsync(IList<AgesInfoVM> targetCollection)
+        private async void UpdateSourceAsync(IList<ServerInfoVM> targetCollection)
         {
-            string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
-            url += "/getagesinfoswithroominfo";
+            string url = ConfigurationManager.AppSettings["GetServerInfoUrl"];
             string result;
             try
             {
@@ -76,20 +74,20 @@ namespace BackendClient.ViewModel
             }
             catch (HttpRequestException e)
             {
-                LogHelper.Debug($"GetAgesInfoes caught exception: {e.Message}");
+                LogHelper.Debug($"GetServerInfoes caught exception: {e.Message}");
                 result = null;
             }
 
             if (!string.IsNullOrEmpty(result))
             {
-                var sourceCollection = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
+                var sourceCollection = JsonConvert.DeserializeObject<List<ServerInfo>>(result);
                 //检查有无新增
                 foreach (var item in sourceCollection)
                 {
                     var exitInfo = targetCollection.FirstOrDefault(x => x.Id == item.Id);
                     if (exitInfo == null)
                     {
-                        targetCollection.Add(autoMapper.Map<AgesInfoVM>(item));
+                        targetCollection.Add(autoMapper.Map<ServerInfoVM>(item));
                     }
                     else
                     {
