@@ -1,0 +1,55 @@
+﻿<Window x:Class="BackendClient.View.NewCamera"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:local="clr-namespace:BackendClient.View"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Name="window" Height="340" Width="330" DataContext="{Binding Source={StaticResource Locator}, Path=NewCameraVM}" WindowStyle="ToolWindow">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadCmd}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCmd}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,15">
+                <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}"/>
+                <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0"/>
+            </StackPanel>
+            <ScrollViewer Margin="0,0,0,10">
+                <StackPanel Margin="10">
+                    <StackPanel Visibility="{Binding IsNew}">
+                        <TextBlock>Id</TextBlock>
+                        <TextBlock Text="{Binding Model.Id}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>房间</TextBlock>
+                        <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>服务器</TextBlock>
+                        <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding ServerInfoes}" SelectedItem="{Binding SelectedServerInfo}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>厂家信息</TextBlock>
+                        <TextBox Text="{Binding Model.FactoryInfo}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>IP地址</TextBlock>
+                        <TextBox Text="{Binding Model.IpAddress}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>视频地址</TextBlock>
+                        <TextBox Text="{Binding Model.VideoAddress}"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</Window>

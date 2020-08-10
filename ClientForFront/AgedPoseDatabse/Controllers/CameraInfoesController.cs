@@ -25,6 +25,15 @@ namespace AgedPoseDatabse.Controllers
             return await _context.CameraInfos.ToListAsync();
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<CameraInfo>>> GetCameraInfosWithRelead()
+        {
+            return await _context.CameraInfos
+                .Include(cam => cam.RoomInfo)
+                .Include(cam=>cam.ServerInfo)
+                .ToListAsync();
+        }
+
         // GET: api/CameraInfoes/id
         [HttpGet("{id}")]
         public async Task<ActionResult<CameraInfo>> GetCameraInfo(long id)

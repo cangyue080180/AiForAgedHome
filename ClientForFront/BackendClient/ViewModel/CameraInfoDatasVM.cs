@@ -13,12 +13,12 @@ using System.Windows.Documents;
 
 namespace BackendClient.ViewModel
 {
-    public class AgesInfoDatasVM : DatasVMBase<AgesInfoVM>
+    public class CameraInfoDatasVM : DatasVMBase<CameraInfoVM>
     {
         private readonly HttpClient httpClient;
         private readonly IMapper autoMapper;
 
-        public AgesInfoDatasVM(HttpClient httpClient, Mapper autoMapper)
+        public CameraInfoDatasVM(HttpClient httpClient, Mapper autoMapper)
         {
             this.httpClient = httpClient;
             this.autoMapper = autoMapper;
@@ -26,18 +26,18 @@ namespace BackendClient.ViewModel
 
         public override void Change(Hyperlink hyperlink)
         {
-            var item = hyperlink.DataContext as AgesInfoVM;
+            var item = hyperlink.DataContext as CameraInfoVM;
             SelectedItem = item;
             SimpleIoc.Default.Register(() => SelectedItem);
-            Common.ShowWindow(new NewAged(), false, null);
+            Common.ShowWindow(new NewCamera(), false, null);
         }
 
         public async override Task Delete(Hyperlink hyperlink)
         {
-            var item = hyperlink.DataContext as AgesInfoVM;
+            var item = hyperlink.DataContext as CameraInfoVM;
             SelectedItem = item;
 
-            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetAgedsUrl"], item.Id);
+            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetCameraInfoUrl"], item.Id);
             if (result)
             {
                 ItemsSource.Remove(SelectedItem);
@@ -46,18 +46,18 @@ namespace BackendClient.ViewModel
 
         public override void Loaded()
         {
-            LogHelper.Debug("AgesInfoView Loaded.");
+            LogHelper.Debug("CameraInfoView Loaded.");
             Update();
         }
 
         public override void New()
         {
-            Common.ShowWindow(new NewAged(), true, Update);
+            Common.ShowWindow(new NewCamera(), true, Update);
         }
 
         public override void Unloaded()
         {
-            LogHelper.Debug("AgesInfoView UnLoaded.");
+            LogHelper.Debug("CameraInfoView UnLoaded.");
         }
 
         public override void Update()
@@ -65,10 +65,10 @@ namespace BackendClient.ViewModel
             UpdateSourceAsync(ItemsSource);
         }
 
-        private async void UpdateSourceAsync(IList<AgesInfoVM> targetCollection)
+        private async void UpdateSourceAsync(IList<CameraInfoVM> targetCollection)
         {
-            string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
-            url += "/GetAgesInfosWithRoomInfo";
+            string url = ConfigurationManager.AppSettings["GetCameraInfoUrl"];
+            url += "/GetCameraInfosWithRelead";
             string result;
             try
             {
@@ -82,14 +82,14 @@ namespace BackendClient.ViewModel
 
             if (!string.IsNullOrEmpty(result))
             {
-                var sourceCollection = JsonConvert.DeserializeObject<List<AgesInfo>>(result);
+                var sourceCollection = JsonConvert.DeserializeObject<List<CameraInfo>>(result);
                 //检查有无新增
                 foreach (var item in sourceCollection)
                 {
                     var exitInfo = targetCollection.FirstOrDefault(x => x.Id == item.Id);
                     if (exitInfo == null)
                     {
-                        targetCollection.Add(autoMapper.Map<AgesInfoVM>(item));
+                        targetCollection.Add(autoMapper.Map<CameraInfoVM>(item));
                     }
                     else
                     {

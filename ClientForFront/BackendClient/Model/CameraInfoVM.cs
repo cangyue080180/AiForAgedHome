@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
-    class CameraInfoVM : ViewModelBase
+    public class CameraInfoVM : ViewModelBase
     {
         public long Id { get; set; }
 

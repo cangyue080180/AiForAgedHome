@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Border Background="AntiqueWhite">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
-                <TextBlock>房间名称：</TextBlock>
+                <TextBlock>房间：</TextBlock>
                 <TextBox MinWidth="120"></TextBox>
                 <Button Margin="10,0,20,0">查找</Button>
                 <Button Command="{Binding NewCmd}" Margin="10,0,20,0">新建</Button>
@@ -34,8 +34,11 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="房间名称" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="房间大小" Width="100" DisplayMemberBinding="{Binding RoomSize}"/>
+                    <GridViewColumn Header="房间" Width="100" DisplayMemberBinding="{Binding RoomInfo.Name}"/>
+                    <GridViewColumn Header="服务器" Width="100" DisplayMemberBinding="{Binding ServerInfo.Name}"/>
+                    <GridViewColumn Header="厂家信息" Width="100" DisplayMemberBinding="{Binding FactoryInfo}"/>
+                    <GridViewColumn Header="IP地址" Width="100" DisplayMemberBinding="{Binding IpAddress}"/>
+                    <GridViewColumn Header="视频地址" Width="100" DisplayMemberBinding="{Binding VideoAddress}"/>
                     <GridViewColumn Header="操作" Width="200" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

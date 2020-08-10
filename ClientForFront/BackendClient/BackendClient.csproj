@@ -95,12 +95,14 @@
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\ServerInfoVM.cs" />
     <Compile Include="ViewModel\AgesInfoDatasVM.cs" />
+    <Compile Include="ViewModel\CameraInfoDatasVM.cs" />
     <Compile Include="ViewModel\DataManagerVM.cs" />
     <Compile Include="ViewModel\ChartViewVM.cs" />
     <Compile Include="ViewModel\DatasVMBase.cs" />
     <Compile Include="ViewModel\HelpVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NewAgedVM.cs" />
+    <Compile Include="ViewModel\NewCameraVM.cs" />
     <Compile Include="ViewModel\NewModelVMBase.cs" />
     <Compile Include="ViewModel\NewRoomVM.cs" />
     <Compile Include="ViewModel\NewServerVM.cs" />
@@ -124,6 +126,9 @@
     </Compile>
     <Compile Include="View\NewAged.xaml.cs">
       <DependentUpon>NewAged.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewCamera.xaml.cs">
+      <DependentUpon>NewCamera.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewRoom.xaml.cs">
       <DependentUpon>NewRoom.xaml</DependentUpon>
@@ -170,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewAged.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewCamera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
