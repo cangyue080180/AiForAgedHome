@@ -99,6 +99,21 @@ namespace BackendClient.ViewModel
             }
         }
 
+        private RelayCommand<string> _searchCmd;
+        public RelayCommand<string> SearchCmd
+        {
+            get
+            {
+                if (_searchCmd == null)
+                {
+                    _searchCmd = new RelayCommand<string>((para) => { Search(para); });
+                }
+                return _searchCmd;
+            }
+        }
+
+        public abstract void Search(string content);
+
         public abstract void Loaded();
 
         public abstract void Unloaded();

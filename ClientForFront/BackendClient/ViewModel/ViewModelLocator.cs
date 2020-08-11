@@ -56,10 +56,12 @@ namespace BackendClient.ViewModel
             SimpleIoc.Default.Register<AgesInfoDatasVM>();
             SimpleIoc.Default.Register<ServerInfoDatasVM>();
             SimpleIoc.Default.Register<CameraInfoDatasVM>();
+            SimpleIoc.Default.Register<UserInfoDatasVM>();
             SimpleIoc.Default.Register<NewRoomVM>();
             SimpleIoc.Default.Register<NewAgedVM>();
             SimpleIoc.Default.Register<NewServerVM>();
             SimpleIoc.Default.Register<NewCameraVM>();
+            SimpleIoc.Default.Register<NewUserVM>();
         }
         public static MapperConfiguration CreateConfiguration()
         {
@@ -75,6 +77,8 @@ namespace BackendClient.ViewModel
                 cfg.CreateMap<ServerInfoVM, ServerInfo>();
                 cfg.CreateMap<CameraInfo, CameraInfoVM>();
                 cfg.CreateMap<CameraInfoVM, CameraInfo>();
+                cfg.CreateMap<UserInfo, UserInfoVM>();
+                cfg.CreateMap<UserInfoVM, UserInfo>();
             });
 
             return config;
@@ -124,6 +128,11 @@ namespace BackendClient.ViewModel
             get => ServiceLocator.Current.GetInstance<CameraInfoDatasVM>();
         }
 
+        public UserInfoDatasVM UserInfoDatasVM
+        {
+            get => ServiceLocator.Current.GetInstance<UserInfoDatasVM>();
+        }
+
         public HelpVM HelpVM
         {
             get
@@ -159,6 +168,11 @@ namespace BackendClient.ViewModel
         public NewCameraVM NewCameraVM
         {
             get => ServiceLocator.Current.GetInstance<NewCameraVM>(Guid.NewGuid().ToString());
+        }
+
+        public NewUserVM NewUserVM
+        {
+            get => ServiceLocator.Current.GetInstance<NewUserVM>(Guid.NewGuid().ToString());
         }
 
         public static void Cleanup()

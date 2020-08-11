@@ -94,6 +94,7 @@
     <Compile Include="Model\RoomInfoVM.cs" />
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\ServerInfoVM.cs" />
+    <Compile Include="Model\UserInfoVM.cs" />
     <Compile Include="ViewModel\AgesInfoDatasVM.cs" />
     <Compile Include="ViewModel\CameraInfoDatasVM.cs" />
     <Compile Include="ViewModel\DataManagerVM.cs" />
@@ -106,8 +107,10 @@
     <Compile Include="ViewModel\NewModelVMBase.cs" />
     <Compile Include="ViewModel\NewRoomVM.cs" />
     <Compile Include="ViewModel\NewServerVM.cs" />
+    <Compile Include="ViewModel\NewUserVM.cs" />
     <Compile Include="ViewModel\RoomInfoDatasVM.cs" />
     <Compile Include="ViewModel\ServerInfoDatasVM.cs" />
+    <Compile Include="ViewModel\UserInfoDatasVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\AgesInfoDatasView.xaml.cs">
       <DependentUpon>AgesInfoDatasView.xaml</DependentUpon>
@@ -136,11 +139,17 @@
     <Compile Include="View\NewServer.xaml.cs">
       <DependentUpon>NewServer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NewUser.xaml.cs">
+      <DependentUpon>NewUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RoomInfoDatasView.xaml.cs">
       <DependentUpon>RoomInfoDatasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ServerInfoDatasView.xaml.cs">
       <DependentUpon>ServerInfoDatasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserInfoDatasView.xaml.cs">
+      <DependentUpon>UserInfoDatasView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -190,11 +199,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\NewUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RoomInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ServerInfoDatasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserInfoDatasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

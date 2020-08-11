@@ -1,0 +1,52 @@
+﻿<Window x:Class="BackendClient.View.NewUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackendClient.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Name="window" Height="340" Width="330" DataContext="{Binding Source={StaticResource Locator}, Path=NewUserVM}" WindowStyle="ToolWindow">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadCmd}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCmd}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,15">
+                <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}"/>
+                <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0"/>
+            </StackPanel>
+            <ScrollViewer Margin="0,0,0,10">
+                <StackPanel Margin="10">
+                    <StackPanel Visibility="{Binding IsNew}">
+                        <TextBlock>Id</TextBlock>
+                        <TextBlock Text="{Binding Model.Id}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>用户名</TextBlock>
+                        <TextBox Text="{Binding Model.Name}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>密码</TextBlock>
+                        <TextBox Text="{Binding Model.Password}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock>权限</TextBlock>
+                        <TextBox Text="{Binding Model.Authority, StringFormat={}{0:D2}}"/>
+                        <TextBlock Text="20：前台只读+后台无权限"/>
+                        <TextBlock Text="30：前台读写+后台无权限"/>
+                        <TextBlock Text="03：前台无权限+后台读写"/>
+                        <TextBlock Text="33：前台读写+后台读写"/>
+                        <TextBlock Text="32：前台读写+后台只读"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</Window>

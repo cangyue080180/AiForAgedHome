@@ -25,7 +25,9 @@
             <TabItem Header="摄像头信息">
                 <ContentControl Content="{Binding Source={StaticResource Locator}, Path=CameraInfoDatasVM}"/>
             </TabItem>
-            <TabItem Header="用户信息"/>
+            <TabItem Header="用户信息">
+                <ContentControl Content="{Binding Source={StaticResource Locator},Path=UserInfoDatasVM}"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

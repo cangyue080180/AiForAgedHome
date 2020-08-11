@@ -14,31 +14,31 @@ using System.Windows.Documents;
 
 namespace BackendClient.ViewModel
 {
-    public class CameraInfoDatasVM : DatasVMBase<CameraInfoVM>
+    public class UserInfoDatasVM : DatasVMBase<UserInfoVM>
     {
         private readonly HttpClient httpClient;
         private readonly IMapper autoMapper;
 
-        public CameraInfoDatasVM(HttpClient httpClient, Mapper autoMapper)
+        public UserInfoDatasVM(HttpClient httpClient, Mapper mapper)
         {
             this.httpClient = httpClient;
-            this.autoMapper = autoMapper;
+            this.autoMapper = mapper;
         }
 
         public override void Change(Hyperlink hyperlink)
         {
-            var item = hyperlink.DataContext as CameraInfoVM;
+            var item = hyperlink.DataContext as UserInfoVM;
             SelectedItem = item;
             SimpleIoc.Default.Register(() => SelectedItem);
-            Common.ShowWindow(new NewCamera(), false, null);
+            Common.ShowWindow(new NewUser(), false, null);
         }
 
         public async override Task Delete(Hyperlink hyperlink)
         {
-            var item = hyperlink.DataContext as CameraInfoVM;
+            var item = hyperlink.DataContext as UserInfoVM;
             SelectedItem = item;
 
-            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetCameraInfoUrl"], item.Id);
+            bool result = await Common.DelItem(httpClient, ConfigurationManager.AppSettings["GetUserInfoUrl"], item.Id);
             if (result)
             {
                 ItemsSource.Remove(SelectedItem);
@@ -47,13 +47,13 @@ namespace BackendClient.ViewModel
 
         public override void Loaded()
         {
-            LogHelper.Debug("CameraInfoView Loaded.");
+            LogHelper.Debug("UserInfoView Loaded.");
             Update();
         }
 
         public override void New()
         {
-            Common.ShowWindow(new NewCamera(), true, Update);
+            Common.ShowWindow(new NewUser(), true, Update);
         }
 
         public override void Search(string content)
@@ -63,8 +63,8 @@ namespace BackendClient.ViewModel
             {
                 listCollectionView.Filter = (obj) =>
                 {
-                    CameraInfoVM tempInfoVM = obj as CameraInfoVM;
-                    return (tempInfoVM.RoomInfo.Name == content);
+                    UserInfoVM tempInfoVM = obj as UserInfoVM;
+                    return (tempInfoVM.Name == content);
                 };
             }
             else
@@ -75,7 +75,7 @@ namespace BackendClient.ViewModel
 
         public override void Unloaded()
         {
-            LogHelper.Debug("CameraInfoView UnLoaded.");
+            LogHelper.Debug("UserInfoView UnLoaded.");
         }
 
         public override void Update()
@@ -83,10 +83,9 @@ namespace BackendClient.ViewModel
             UpdateSourceAsync(ItemsSource);
         }
 
-        private async void UpdateSourceAsync(IList<CameraInfoVM> targetCollection)
+        private async void UpdateSourceAsync(IList<UserInfoVM> targetCollection)
         {
-            string url = ConfigurationManager.AppSettings["GetCameraInfoUrl"];
-            url += "/GetCameraInfosWithRelead";
+            string url = ConfigurationManager.AppSettings["GetUserInfoUrl"];
             string result;
             try
             {
@@ -94,20 +93,20 @@ namespace BackendClient.ViewModel
             }
             catch (HttpRequestException e)
             {
-                LogHelper.Debug($"GetAgesInfoes caught exception: {e.Message}");
+                LogHelper.Debug($"GetServerInfoes caught exception: {e.Message}");
                 result = null;
             }
 
             if (!string.IsNullOrEmpty(result))
             {
-                var sourceCollection = JsonConvert.DeserializeObject<List<CameraInfo>>(result);
+                var sourceCollection = JsonConvert.DeserializeObject<List<UserInfo>>(result);
                 //检查有无新增
                 foreach (var item in sourceCollection)
                 {
                     var exitInfo = targetCollection.FirstOrDefault(x => x.Id == item.Id);
                     if (exitInfo == null)
                     {
-                        targetCollection.Add(autoMapper.Map<CameraInfoVM>(item));
+                        targetCollection.Add(autoMapper.Map<UserInfoVM>(item));
                     }
                     else
                     {

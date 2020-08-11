@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Documents;
 
 namespace BackendClient.ViewModel
@@ -112,6 +113,23 @@ namespace BackendClient.ViewModel
                         targetCollection.RemoveAt(i);
                     }
                 }
+            }
+        }
+
+        public override void Search(string content)
+        {
+            ListCollectionView listCollectionView = (ListCollectionView)CollectionViewSource.GetDefaultView(ItemsSource);
+            if (!string.IsNullOrEmpty(content))
+            {
+                listCollectionView.Filter = (obj) =>
+                {
+                    ServerInfoVM tempInfoVM = obj as ServerInfoVM;
+                    return (tempInfoVM.Name == content);
+                };
+            }
+            else
+            {
+                listCollectionView.Filter = null;
             }
         }
     }

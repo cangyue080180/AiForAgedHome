@@ -23,9 +23,9 @@
         </Grid.RowDefinitions>
         <Border Background="AntiqueWhite">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
-                <!--<TextBlock>名称：</TextBlock>
-                <TextBox MinWidth="120"></TextBox>
-                <Button Margin="10,0,20,0">查找</Button>-->
+                <TextBlock>名称：</TextBlock>
+                <TextBox MinWidth="120" x:Name="searchText"></TextBox>
+                <Button Command="{Binding SearchCmd}" CommandParameter="{Binding ElementName=searchText, Path=Text}" Margin="10,0,20,0">查找</Button>
                 <Button Command="{Binding NewCmd}" Margin="10,0,20,0">新建</Button>
                 <Button Command="{Binding UpdateCmd}">刷新</Button>
             </StackPanel>

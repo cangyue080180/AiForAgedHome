@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Documents;
 
 namespace BackendClient.ViewModel
@@ -53,6 +54,23 @@ namespace BackendClient.ViewModel
         public override void New()
         {
             Common.ShowWindow(new NewRoom(), true, Update);
+        }
+
+        public override void Search(string content)
+        {
+            ListCollectionView listCollectionView = (ListCollectionView)CollectionViewSource.GetDefaultView(ItemsSource);
+            if (!string.IsNullOrEmpty(content))
+            {
+                listCollectionView.Filter = (obj) =>
+                {
+                    RoomInfoVM tempInfoVM = obj as RoomInfoVM;
+                    return (tempInfoVM.Name == content);
+                };
+            }
+            else
+            {
+                listCollectionView.Filter = null;
+            }
         }
 
         public override void Unloaded()
