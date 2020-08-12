@@ -27,7 +27,7 @@ namespace AgedPoseDatabse.Controllers
         }
 
         // GET: api/ServerInfoes/id
-        [HttpGet("{id:long}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(long id)
         {
             var serverInfo = await _context.ServerInfos.FindAsync(id);
@@ -40,7 +40,7 @@ namespace AgedPoseDatabse.Controllers
             return serverInfo;
         }
 
-        //Get:api/ServerInfoes/ip
+        //Get:api/ServerInfoes?ip=192.168.1.14
         [HttpGet("[action]")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(string ip)
         {

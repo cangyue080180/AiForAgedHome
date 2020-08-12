@@ -3,6 +3,8 @@ import Conf
 from DataModel import *
 import HttpHelper
 
+'''此文件是数据访问接口的测试样例程序，提供简单的接口访问方法演示，核心是http的使用'''
+
 
 # demo
 # 获取房间信息
