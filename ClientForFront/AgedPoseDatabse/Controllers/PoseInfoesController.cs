@@ -72,6 +72,22 @@ namespace AgedPoseDatabse.Controllers
             return poseInfo;
         }
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateOrCreatePoseInfo(PoseInfo poseInfo)
+        {
+            var id = poseInfo.AgesInfoId;
+            if (!PoseInfoExists(id))
+            {
+                await PostPoseInfo(poseInfo);
+                return NoContent();
+            }
+            else
+            {
+                return await PutPoseInfo(id,poseInfo);
+            }
+        }
+
+
         // PUT: api/PoseInfoes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
