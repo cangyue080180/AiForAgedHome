@@ -30,6 +30,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ListView Grid.Row="1" ItemsSource="{Binding PoseInfos}" SelectedItem="{Binding SelectedPoseInfo}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsAlarm}" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
