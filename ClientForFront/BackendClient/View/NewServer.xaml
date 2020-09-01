@@ -28,21 +28,21 @@
                         <TextBlock>Id</TextBlock>
                         <TextBlock Text="{Binding Model.Id}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>名称</TextBlock>
-                        <TextBox Text="{Binding Model.Name}"/>
+                        <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>IP</TextBlock>
-                        <TextBox Text="{Binding Model.Ip}"/>
+                        <TextBox Text="{Binding Model.Ip,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>厂商信息</TextBlock>
-                        <TextBox Text="{Binding Model.FactoryInfo}"/>
+                        <TextBox Text="{Binding Model.FactoryInfo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>支持摄像头数</TextBlock>
-                        <TextBox Text="{Binding Model.MaxCameraCount}"/>
+                        <TextBox Text="{Binding Model.MaxCameraCount,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

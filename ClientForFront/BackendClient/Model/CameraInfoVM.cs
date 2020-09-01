@@ -3,12 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
-    public class CameraInfoVM : ViewModelBase
+    public class CameraInfoVM : ViewModelValidationBase
     {
+        public CameraInfoVM()
+        {
+            ValidationKey(new string[] { nameof(IpAddress), nameof(VideoAddress),nameof(FactoryInfo) });
+            this.PropertyChanged += delegate { IsBeginValidation = true; };
+        }
         public long Id { get; set; }
 
         private string _factoryInfo;
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "最大长度100字符")]
         public string FactoryInfo
         {
             get => _factoryInfo;
@@ -16,7 +21,7 @@ namespace BackendClient.Model
         }
 
         private string _IpAddress;
-        [StringLength(15)]
+        [StringLength(15,ErrorMessage ="IP地址不正确")]
         public string IpAddress
         {
             get => _IpAddress;
@@ -24,7 +29,8 @@ namespace BackendClient.Model
         }
 
         private string _videoAddress;
-        [StringLength(100)]
+        [Required(ErrorMessage ="不能为空")]
+        [StringLength(100,ErrorMessage ="最大长度100字符")]
         public string VideoAddress
         {
             get => _videoAddress;

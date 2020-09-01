@@ -3,12 +3,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
-    public class ServerInfoVM : ViewModelBase
+    public class ServerInfoVM : ViewModelValidationBase
     {
+        public ServerInfoVM()
+        {
+            ValidationKey(new string[] { nameof(Name), nameof(FactoryInfo),nameof(Ip) });
+            this.PropertyChanged += delegate { IsBeginValidation = true; };
+        }
         public long Id { get; set; }
 
         private string _name;
-        [StringLength(20)]
+        [Required(ErrorMessage ="不能为空")]
+        [StringLength(20,ErrorMessage ="最大字符长度为20")]
         public string Name
         {
             get => _name;
@@ -16,7 +22,7 @@ namespace BackendClient.Model
         }
 
         private string _factoryInfo;
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "最大字符长度为20")]
         public string FactoryInfo
         {
             get => _factoryInfo;
@@ -30,7 +36,7 @@ namespace BackendClient.Model
             set => Set(nameof(MaxCameraCount), ref _maxCameraCount, value);
         }
 
-        [StringLength(15)]
+        [StringLength(15, ErrorMessage = "地址格式不正确")]
         public string Ip { get; set; }
     }
 }

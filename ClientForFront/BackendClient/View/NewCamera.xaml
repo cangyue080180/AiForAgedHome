@@ -28,25 +28,25 @@
                         <TextBlock>Id</TextBlock>
                         <TextBlock Text="{Binding Model.Id}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>房间</TextBlock>
                         <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>服务器</TextBlock>
                         <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding ServerInfoes}" SelectedItem="{Binding SelectedServerInfo}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>厂家信息</TextBlock>
-                        <TextBox Text="{Binding Model.FactoryInfo}"/>
+                        <TextBox Text="{Binding Model.FactoryInfo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>IP地址</TextBlock>
-                        <TextBox Text="{Binding Model.IpAddress}"/>
+                        <TextBox Text="{Binding Model.IpAddress,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>视频地址</TextBlock>
-                        <TextBox Text="{Binding Model.VideoAddress}"/>
+                        <TextBox Text="{Binding Model.VideoAddress,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

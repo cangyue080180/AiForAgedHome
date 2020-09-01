@@ -28,27 +28,27 @@
                         <TextBlock>Id</TextBlock>
                         <TextBlock Text="{Binding Model.Id}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>名称</TextBlock>
-                        <TextBox Text="{Binding Model.Name}"/>
+                        <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>联系人</TextBlock>
-                        <TextBox Text="{Binding Model.ContacterName}"/>
+                        <TextBox Text="{Binding Model.ContacterName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>联系人电话</TextBlock>
-                        <TextBox Text="{Binding Model.ContacterPhone}"/>
+                        <TextBox Text="{Binding Model.ContacterPhone,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>看护人</TextBlock>
-                        <TextBox Text="{Binding Model.NurseName}"/>
+                        <TextBox Text="{Binding Model.NurseName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>家庭住址</TextBlock>
-                        <TextBox Text="{Binding Model.Address}"/>
+                        <TextBox Text="{Binding Model.Address,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>房间</TextBlock>
                         <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}"/>
                     </StackPanel>

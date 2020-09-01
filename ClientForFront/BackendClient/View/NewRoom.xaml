@@ -28,13 +28,13 @@
                     <TextBlock>Id</TextBlock>
                     <TextBlock Text="{Binding Model.Id}"/>
                 </StackPanel>
-                <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                     <TextBlock>名称</TextBlock>
-                    <TextBox Text="{Binding Model.Name}"/>
+                        <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                 </StackPanel>
-                <StackPanel Margin="0,5,0,0">
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                     <TextBlock>房间大小</TextBlock>
-                    <TextBox Text="{Binding Model.RoomSize}"/>
+                        <TextBox Text="{Binding Model.RoomSize,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                 </StackPanel>
             </StackPanel>
             </ScrollViewer>

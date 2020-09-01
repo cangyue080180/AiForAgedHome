@@ -95,6 +95,7 @@
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\ServerInfoVM.cs" />
     <Compile Include="Model\UserInfoVM.cs" />
+    <Compile Include="Model\ViewModelValidationBase.cs" />
     <Compile Include="ViewModel\AgesInfoDatasVM.cs" />
     <Compile Include="ViewModel\CameraInfoDatasVM.cs" />
     <Compile Include="ViewModel\DataManagerVM.cs" />

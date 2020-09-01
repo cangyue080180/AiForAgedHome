@@ -3,12 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
-    public class AgesInfoVM : ViewModelBase
+    public class AgesInfoVM : ViewModelValidationBase
     {
+        public AgesInfoVM()
+        {
+            ValidationKey(new string[] {nameof(Name),nameof(ContacterName),nameof(ContacterPhone),nameof(NurseName),nameof(Address) });
+            this.PropertyChanged += delegate { IsBeginValidation = true; };
+        }
+
         public long Id { get; set; }
 
         private string _name;
-        [StringLength(20)]
+        [Required(ErrorMessage ="不能为空")]
+        [StringLength(20,ErrorMessage ="最大长度为20字符")]
         public string Name
         {
             get => _name;
@@ -16,7 +23,7 @@ namespace BackendClient.Model
         }
 
         private string _contacterName;
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage = "最大长度为20字符")]
         public string ContacterName
         {
             get => _contacterName;
@@ -24,7 +31,7 @@ namespace BackendClient.Model
         }
 
         private string _contacterPhone;
-        [StringLength(11)]
+        [StringLength(11, ErrorMessage = "号码长度不正确")]
         public string ContacterPhone
         {
             get => _contacterPhone;
@@ -32,7 +39,7 @@ namespace BackendClient.Model
         }
 
         private string _nurseName;
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage = "最大长度为20字符")]
         public string NurseName
         {
             get => _nurseName;
@@ -40,7 +47,7 @@ namespace BackendClient.Model
         }
 
         private string _address;
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "最大长度为100字符")]
         public string Address
         {
             get => _address;
