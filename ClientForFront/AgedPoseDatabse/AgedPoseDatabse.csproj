@@ -34,6 +34,8 @@
     <Compile Remove="Migrations\20200730033756_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200805010548_InitialCreate.cs" />
     <Compile Remove="Migrations\20200805010548_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200820120131_changeServerInfoController.cs" />
+    <Compile Remove="Migrations\20200820120131_changeServerInfoController.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

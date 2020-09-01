@@ -23,11 +23,12 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServerInfo>>> GetServerInfos()
         {
-            return await _context.ServerInfos.ToListAsync();
+            return await _context.ServerInfos
+                .ToListAsync();
         }
 
         // GET: api/ServerInfoes/id
-        [HttpGet("{id:long}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(long id)
         {
             var serverInfo = await _context.ServerInfos.FindAsync(id);
@@ -40,7 +41,7 @@ namespace AgedPoseDatabse.Controllers
             return serverInfo;
         }
 
-        //Get:api/ServerInfoes/ip
+        //Get:api/ServerInfoes?ip=192.168.1.14
         [HttpGet("[action]")]
         public async Task<ActionResult<ServerInfo>> GetServerInfo(string ip)
         {
@@ -48,7 +49,11 @@ namespace AgedPoseDatabse.Controllers
             {
                 return BadRequest();
             }
-            var serverInfo = await _context.ServerInfos.FirstAsync(x => x.Ip == ip);
+            var serverInfo = await _context.ServerInfos
+                .Include(serverInfo=>serverInfo.CameraInfos)
+                .ThenInclude(camera=>camera.RoomInfo)
+                .ThenInclude(room=>room.AgesInfos)
+                .FirstOrDefaultAsync(x=>x.Ip==ip);
 
             if (serverInfo == null)
             {

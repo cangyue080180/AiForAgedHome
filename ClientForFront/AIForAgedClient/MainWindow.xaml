@@ -34,7 +34,7 @@
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Background" Value="White"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=IsAlarm}" Value="True">
+                        <DataTrigger Binding="{Binding IsAlarm}" Value="True">
                             <Setter Property="Background" Value="Red"/>
                         </DataTrigger>
                     </Style.Triggers>

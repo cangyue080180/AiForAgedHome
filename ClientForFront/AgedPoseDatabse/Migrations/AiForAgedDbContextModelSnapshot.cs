@@ -95,7 +95,7 @@ namespace AgedPoseDatabse.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("Date");
 
-                    b.Property<bool>("IsAlarm")
+                    b.Property<short>("IsAlarm")
                         .HasColumnType("bit");
 
                     b.Property<byte?>("Status")

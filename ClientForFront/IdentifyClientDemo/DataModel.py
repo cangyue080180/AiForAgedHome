@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 from enum import Enum
 
+'''此文件提供数据访问过程中使用到的数据模型'''
+
 
 class AgesInfo:
-    def __init__(self, id, name, contacterName, contacterPhone, nurseName, address, roomInfoId, roomINfo, poseInfos):
+    def __init__(self, id, name, roomInfoId, contacterName=None, contacterPhone=None, nurseName=None, address=None, roomInfo=None, poseInfos=None):
         self.id = id
         self.name = name
         self.contactername = contacterName
@@ -11,12 +13,12 @@ class AgesInfo:
         self.nursename = nurseName
         self.address = address
         self.roominfoid = roomInfoId
-        self.roominfo = roomINfo
+        self.roominfo = roomInfo
         self.poseinfos = poseInfos
 
 
 class CameraInfo:
-    def __init__(self, id, factoryInfo, ipAddress, videoAddress, serverInfoId, serverInfo, roomInfoId, roomInfo):
+    def __init__(self, id, ipAddress, videoAddress, serverInfoId, roomInfoId, serverInfo=None, factoryInfo=None, roomInfo=None):
         self.id = id
         self.factoryinfo = factoryInfo
         self.ipaddress = ipAddress
@@ -28,8 +30,8 @@ class CameraInfo:
 
 
 class PoseInfo:
-    def __init__(self, agesInfoId, agesInfo, date, timeStand, timeSit, timeLie, timeDown, timeOther, timeIn, isAlarm,
-                 status):
+    def __init__(self, agesInfoId, date, timeStand=0, timeSit=0, timeLie=0, timeDown=0, timeOther=0, timeIn=None, isAlarm=False,
+                 status=None, agesInfo=None,):
         self.agesinfoid = agesInfoId
         self.agesinfo = agesInfo
         self.date = date  # formart is "2020_08_05T00:00:00"
@@ -52,7 +54,7 @@ class PoseStatus(Enum):
 
 
 class RoomInfo:
-    def __init__(self, id, name, roomSize, agesInfos=None, cameraInfos=None):
+    def __init__(self, id, name, roomSize=0, agesInfos=None, cameraInfos=None):
         self.id = id
         self.name = name
         self.roomsize = roomSize
@@ -61,7 +63,7 @@ class RoomInfo:
 
 
 class ServerInfo:
-    def __init__(self, id, name, factoryInfo, maxCameraCount, ip, cameraInfos):
+    def __init__(self, id, name, ip, factoryInfo=None, maxCameraCount=5, cameraInfos=None):
         self.id = id
         self.name = name
         self.factoryinfo = factoryInfo
