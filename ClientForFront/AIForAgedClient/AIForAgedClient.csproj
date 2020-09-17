@@ -147,6 +147,7 @@
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Helper\StatusConverter.cs" />
     <Compile Include="Helper\VideoPlayHelper.cs" />
+    <Compile Include="ViewModel\BaseFourVideoVM.cs" />
     <Compile Include="ViewModel\FourVideoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonitorViewModel.cs" />

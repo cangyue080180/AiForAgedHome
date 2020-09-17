@@ -54,9 +54,12 @@ namespace AIForAgedClient.ViewModel
             if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
             {
                 FourVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
-                FourVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[1].VideoAddress;
-                FourVideoVM.Url3 = null;
-                FourVideoVM.Url4 = null;
+                if(PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count>1)
+                    FourVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[1].VideoAddress;
+                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 2)
+                    FourVideoVM.Url3 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[2].VideoAddress;
+                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 3)
+                    FourVideoVM.Url4 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[3].VideoAddress;
             }
             FourVideoVM.Start();
         }
