@@ -8,6 +8,10 @@ using System.Windows.Media.Imaging;
 
 namespace AIForAgedClient.ViewModel
 {
+    /// <summary>
+    /// 用于显示远端视频流
+    /// 需要设置视频流地址Url1，Url2,Url3,Url4，序号代表显示框的位置。
+    /// </summary>
     public class FourVideoViewModel : BaseFourVideoVM
     {
         private VideoPlayHelper videoPlayHelper1;

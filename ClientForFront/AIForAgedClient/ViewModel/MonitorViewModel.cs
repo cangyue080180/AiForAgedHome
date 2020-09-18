@@ -8,8 +8,8 @@ namespace AIForAgedClient.ViewModel
 {
     public class MonitorViewModel : ViewModelBase
     {
-        private FourVideoViewModel fourVideoViewModel;
-        public FourVideoViewModel FourVideoVM
+        private BaseFourVideoVM fourVideoViewModel;
+        public BaseFourVideoVM FourVideoVM
         {
             get => fourVideoViewModel;
         }
@@ -43,7 +43,7 @@ namespace AIForAgedClient.ViewModel
                 return _onClosing;
             }
         }
-        public MonitorViewModel(PoseInfoVM poseInfo, FourVideoViewModel fourVideoViewModel)
+        public MonitorViewModel(PoseInfoVM poseInfo, BaseFourVideoVM fourVideoViewModel)
         {
             this._poseInfo = poseInfo;
             this.fourVideoViewModel = fourVideoViewModel;
@@ -51,16 +51,38 @@ namespace AIForAgedClient.ViewModel
 
         private void OnWindowLoaded()
         {
-            if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
+            if (this.fourVideoViewModel is FourVideoViewModel)
             {
-                FourVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
-                if(PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count>1)
-                    FourVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[1].VideoAddress;
-                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 2)
-                    FourVideoVM.Url3 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[2].VideoAddress;
-                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 3)
-                    FourVideoVM.Url4 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[3].VideoAddress;
+                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
+                {
+                    FourVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
+                    if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 1)
+                        FourVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[1].VideoAddress;
+                    if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 2)
+                        FourVideoVM.Url3 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[2].VideoAddress;
+                    if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 3)
+                        FourVideoVM.Url4 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[3].VideoAddress;
+                }
+            }else if (this.fourVideoViewModel is HuoChaiRenFourVideoVM)
+            {
+                HuoChaiRenFourVideoVM huoChaiRenFourVideoVM = fourVideoViewModel as HuoChaiRenFourVideoVM;
+                huoChaiRenFourVideoVM.RoomId = (uint)PoseInfo.AgesInfo.RoomInfoId;
+                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
+                {
+                    huoChaiRenFourVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].Id.ToString();
+                    if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 1)
+                        huoChaiRenFourVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[1].Id.ToString();
+                    if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 2)
+                        huoChaiRenFourVideoVM.Url3 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[2].Id.ToString();
+                    if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 3)
+                        huoChaiRenFourVideoVM.Url4 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[3].Id.ToString();
+                }
             }
+            else
+            {
+
+            }
+
             FourVideoVM.Start();
         }
 

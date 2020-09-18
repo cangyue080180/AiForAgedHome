@@ -17,6 +17,7 @@ using CommonServiceLocator;
 using DataModel;
 using GalaSoft.MvvmLight.Ioc;
 using System;
+using System.Configuration;
 using System.Net.Http;
 
 namespace AIForAgedClient.ViewModel
@@ -48,7 +49,13 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
-            SimpleIoc.Default.Register<FourVideoViewModel>();
+            string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
+            if (video_type == "orignal")
+                SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
+            else if (video_type == "huo_chai_ren")
+                SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
+            else
+                SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
         }
 
         public static MapperConfiguration CreateConfiguration()
