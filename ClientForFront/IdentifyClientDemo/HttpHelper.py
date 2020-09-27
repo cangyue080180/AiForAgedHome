@@ -8,25 +8,9 @@ from ObjectJsonHelper import *
 一般来说Http方法的返回结果是200多的话是执行成功，以400或者500开始的结果是有错误发生。'''
 
 
-# 获取数据记录
+# 获取指定Id的数据记录信息
 def get_items(url):
     response = requests.get(url)
-    items = json.loads(response.content, object_hook=model_decoder)
-    return items
-
-
-# 获取指定Id的数据记录信息
-def get_item_by_id(url, select_id):
-    response = requests.get(url+f"/{select_id}")
-    item = json.loads(response.content, object_hook=model_decoder)
-    # print(items)
-    return item
-
-
-# get带参数的url
-# 例如 http://154.8.225.243/api/serverinfoes/GetServerInfo?ip=192.168.1.60 是获取ip=192.168.1.60的服务器记录
-def get_item_by_param(url, param):
-    response = requests.get(url+f"?{param}")
     items = json.loads(response.content, object_hook=model_decoder)
     # print(items)
     return items
