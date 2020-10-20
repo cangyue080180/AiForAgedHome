@@ -44,7 +44,7 @@
             <Label Content="进入时间：" Grid.Row="2" />
             <TextBlock Text="{Binding PoseInfo.TimeIn}" Grid.Row="2" Grid.Column="1"/>
             <Label Content="当前状态：" Grid.Row="3"/>
-            <TextBlock Text="{Binding PoseInfo.Status,Converter={StaticResource statusConverter}}" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Text="{Binding PoseInfo.Status,Converter={StaticResource statusConverter}}" Foreground="{Binding IsStatusChanged,Converter={StaticResource statusColorConverter}}" Grid.Row="3" Grid.Column="1"/>
             <Label Content="站立时间：" Grid.Row="4"/>
             <TextBlock Text="{Binding PoseInfo.TimeStand,Converter={StaticResource secondsTimeConverter}}" Grid.Row="4" Grid.Column="1"/>
             <Label Content="坐姿时间：" Grid.Row="5"/>

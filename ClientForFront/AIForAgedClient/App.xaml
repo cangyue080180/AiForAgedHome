@@ -47,6 +47,7 @@
             </ControlTemplate>
             <local:StatusConverter x:Key="statusConverter"/>
             <local:SecondsTimeConverter x:Key="secondsTimeConverter"/>
+            <local:StatusColorConverter x:Key="statusColorConverter"/>
         </ResourceDictionary>
   </Application.Resources>
 </Application>

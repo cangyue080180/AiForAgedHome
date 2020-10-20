@@ -67,7 +67,7 @@ namespace AIForAgedClient
         public byte? Status
         {
             get => _status;
-            set => Set(ref _status, value);
+            set => Set(()=>Status,ref _status, value);
         }
     }
 }

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AIForAgedClient.ViewModel
@@ -47,6 +48,38 @@ namespace AIForAgedClient.ViewModel
         {
             this._poseInfo = poseInfo;
             this.fourVideoViewModel = fourVideoViewModel;
+            this._poseInfo.PropertyChanged += _poseInfo_PropertyChanged;
+        }
+
+        private bool _isStatusChanged = false;
+        public bool IsStatusChanged
+        {
+            get
+            {
+                return _isStatusChanged;
+            }
+            set
+            {
+                if (_isStatusChanged != value)
+                {
+                    _isStatusChanged = value;
+                    RaisePropertyChanged(nameof(IsStatusChanged));
+                }
+            }
+        }
+        //监测PoseInfoVM的属性更改事件，添加需要在此页面进行的附加操作
+        private void _poseInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //状态改变时，进行界面更改，突出变化，告知客户发生更改
+            if (e.PropertyName == "Status")
+            {
+                IsStatusChanged = true;
+                //1秒后恢复原来的状态
+                Task.Run(async()=> {
+                    await Task.Delay(1000);
+                    IsStatusChanged = false;
+                });
+            }
         }
 
         private void OnWindowLoaded()
