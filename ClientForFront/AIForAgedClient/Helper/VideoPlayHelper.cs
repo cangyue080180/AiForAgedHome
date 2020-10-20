@@ -29,7 +29,11 @@ namespace AIForAgedClient.Helper
 
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
-            task = new Task(() => { PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
+            task = new Task(() => {PlayVideo(cancellationTokenSource.Token);
+            }, cancellationTokenSource.Token);
+            task.ContinueWith((task) => {
+                capture.Dispose();
+            });
         }
 
         /// <summary>
@@ -44,7 +48,10 @@ namespace AIForAgedClient.Helper
 
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
-            task = new Task(() => { PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
+            task = new Task(() => {PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
+            task.ContinueWith((task)=> {
+                capture.Dispose();   
+            });
         }
 
         public void Start()
@@ -57,8 +64,6 @@ namespace AIForAgedClient.Helper
         public void Stop()
         {
             cancellationTokenSource.Cancel();
-
-            capture.Dispose();
         }
 
         private void PlayVideo(CancellationToken token)
@@ -73,8 +78,6 @@ namespace AIForAgedClient.Helper
             while (true)
             {
                 token.ThrowIfCancellationRequested();
-                if (capture.IsDisposed)
-                    break;
                 try
                 {
                     using (var frameMat = capture.RetrieveMat())
