@@ -36,6 +36,8 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Label Content="姓名：" />
             <TextBlock Text="{Binding PoseInfo.AgesInfo.Name}" Grid.Column="1"/>
@@ -53,6 +55,9 @@
             <TextBlock Text="{Binding PoseInfo.TimeLie,Converter={StaticResource secondsTimeConverter}}" Grid.Row="6" Grid.Column="1"/>
             <Label Content="其他时间：" Grid.Row="7"/>
             <TextBlock Text="{Binding PoseInfo.TimeOther,Converter={StaticResource secondsTimeConverter}}" Grid.Row="7" Grid.Column="1"/>
+            <Border Grid.Row="9" Grid.ColumnSpan="2" CornerRadius="10" Background="CadetBlue" BorderThickness="1" Margin="5">
+                <TextBlock Text="期颐玖樟"  Foreground="White" TextAlignment="Center" FontSize="20" Margin="0,4,0,4"/>
+            </Border>
         </Grid>
     </Grid>
 </Window>
