@@ -124,6 +124,7 @@ namespace AIForAgedClient.ViewModel
             LogHelper.Debug(nameof(MonitorViewModel) + " Closing");
             FourVideoVM.Stop();
             SimpleIoc.Default.Unregister<PoseInfoVM>();
+            SimpleIoc.Default.Unregister<BaseFourVideoVM>();
         }
     }
 }

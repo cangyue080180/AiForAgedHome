@@ -49,13 +49,13 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
-            string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
-            if (video_type == "orignal")
-                SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
-            else if (video_type == "huo_chai_ren")
-                SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
-            else
-                SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
+            //string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
+            //if (video_type == "orignal")
+            //    SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
+            //else if (video_type == "huo_chai_ren")
+            //    SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
+            //else
+            //    SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
         }
 
         public static MapperConfiguration CreateConfiguration()

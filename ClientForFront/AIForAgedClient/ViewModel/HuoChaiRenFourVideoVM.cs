@@ -23,9 +23,11 @@ namespace AIForAgedClient.ViewModel
         CancellationTokenSource cancellationTokenSource;
         int remote_port = 8008;
         string remote_ip = "127.0.0.1";
+        bool is_recving = false;
 
         private async Task<byte[]> tcp_recv(NetworkStream stream,int data_len)
         {
+            Console.WriteLine("tcp_recv...");
             byte[] tempBuffer = new byte[data_len];
             int recv_len = await stream.ReadAsync(tempBuffer, 0, tempBuffer.Length);
             
@@ -39,6 +41,12 @@ namespace AIForAgedClient.ViewModel
 
         public override void Start()
         {
+            //清空上次的显示
+            Image1 = null;
+            Image2 = null;
+            Image3 = null;
+            Image4 = null;
+
             remote_ip = ConfigurationManager.AppSettings["TcpServerIp"];
             Console.WriteLine($"tcp_server_ip: {remote_ip}");
             tcpClient = new TcpClient(remote_ip,remote_port);
@@ -48,71 +56,99 @@ namespace AIForAgedClient.ViewModel
             Role role = new Role(3,1,1);
             byte[] send_bytes = StructToBytes<Role>(role);
             stream.WriteAsync(send_bytes,0,send_bytes.Length);
+            Console.WriteLine("send_role_packet");
 
             //发送获取图像请求命令包
             VideoCmd videoCmd = new VideoCmd(1,5,RoomId,1);
             byte[] videoCmd_bytes = StructToBytes<VideoCmd>(videoCmd);
             stream.WriteAsync(videoCmd_bytes,0,videoCmd_bytes.Length);
-
+            Console.WriteLine("send_get_video_packet");
             //接收图像数据并显示
             cancellationTokenSource = new CancellationTokenSource();
-            Task recvVideoTask = new Task(()=>RecvVideo(cancellationTokenSource.Token),cancellationTokenSource.Token);
+            Task recvVideoTask = new Task(async()=> {
+                try
+                {
+                    await RecvVideo(cancellationTokenSource.Token);
+                }
+                catch (OperationCanceledException)
+                {
+
+                }
+                stream?.Close();
+                tcpClient?.Close();
+            },cancellationTokenSource.Token);
+           
             recvVideoTask.Start();
+            
         }
 
-        private async void RecvVideo(CancellationToken token)
+        private async Task RecvVideo(CancellationToken token)
         {
             while (true)
             {
                 token.ThrowIfCancellationRequested();
 
+                is_recving = true;
+                Console.WriteLine("start recv video_header_bytes");
                 byte[] video_header_bytes = await tcp_recv(stream, 9);
                 VideoHeader videoHeader = BytesToStruct<VideoHeader>(video_header_bytes);
                 if (videoHeader.type == 2)
                 {
+                    Console.WriteLine("start recv video_bytes");
                     byte[] video_image_bytes = await tcp_recv(stream, (int)(videoHeader.len) - 4);
+                    Console.WriteLine("recv: "+video_image_bytes.Length);
+                    is_recving = false;
+                    BitmapImage bitmap = null;
+                    try
+                    {
+                        bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.StreamSource = new MemoryStream(video_image_bytes);
+                        bitmap.EndInit();
 
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = new MemoryStream(video_image_bytes);
-                    bitmap.EndInit();
-                    bitmap.Freeze();
+                        if (videoHeader.cameraId == uint.Parse(Url1))
+                        {
+                            Image1 = bitmap;
+                        }
+                        else if (videoHeader.cameraId == uint.Parse(Url2))
+                        {
+                            Image2 = bitmap;
+                        }
+                        else if (videoHeader.cameraId == uint.Parse(Url3))
+                        {
+                            Image3 = bitmap;
+                        }
+                        else if (videoHeader.cameraId == uint.Parse(Url4))
+                        {
+                            Image4 = bitmap;
+                        }
+                        else
+                        {
 
-                    if (videoHeader.cameraId == uint.Parse(Url1))
-                    {
-                        Image1 = bitmap;
+                        }
                     }
-                    else if (videoHeader.cameraId == uint.Parse(Url2))
+                    catch (System.NotSupportedException)
                     {
-                        Image2 = bitmap;
+                        Console.WriteLine("bitmap not support");
                     }
-                    else if (videoHeader.cameraId == uint.Parse(Url3))
+                    finally
                     {
-                        Image3 = bitmap;
-                    }
-                    else if (videoHeader.cameraId == uint.Parse(Url4))
-                    {
-                        Image4 = bitmap;
-                    }
-                    else
-                    {
-
+                        bitmap.Freeze();
                     }
                 }
             }
+            
         }
 
         public override void Stop()
         {
-            cancellationTokenSource.Cancel();
-
             //发送关闭图像命令
             VideoCmd videoCmd = new VideoCmd(1, 5, RoomId, 0);
             byte[] videoCmd_bytes = StructToBytes<VideoCmd>(videoCmd);
             stream.WriteAsync(videoCmd_bytes, 0, videoCmd_bytes.Length);
-
-            stream?.Close(); 
-            tcpClient?.Close();
+            
+            cancellationTokenSource.Cancel();
+            
         }
 
         //结构体转数组

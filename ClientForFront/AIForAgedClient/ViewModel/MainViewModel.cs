@@ -89,6 +89,14 @@ namespace AIForAgedClient.ViewModel
                         this.SelectedPoseInfo = selectedItem;
                         SimpleIoc.Default.Register(() => SelectedPoseInfo);
 
+                        string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
+                        if (video_type == "orignal")
+                            SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
+                        else if (video_type == "huo_chai_ren")
+                            SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
+                        else
+                            SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
+
                         ShowMonitorWindow();
                     });
                 }
