@@ -21,35 +21,41 @@ namespace AIForAgedClient.ViewModel
         TcpClient tcpClient;
         NetworkStream stream;
         CancellationTokenSource cancellationTokenSource;
-        int remote_port = 8008;
+        readonly int remote_port = 8008;
         string remote_ip = "127.0.0.1";
-        bool is_recving = false;
 
         private async Task<byte[]> tcp_recv(NetworkStream stream,int data_len)
         {
-            Console.WriteLine("tcp_recv...");
             byte[] tempBuffer = new byte[data_len];
-            int recv_len = await stream.ReadAsync(tempBuffer, 0, tempBuffer.Length);
-            
-            while (recv_len < data_len)
+            try
             {
-                int temp_recv_len = await stream.ReadAsync(tempBuffer,recv_len,data_len-recv_len);
-                recv_len += temp_recv_len;
+                int recv_len = await stream.ReadAsync(tempBuffer, 0, tempBuffer.Length);
+
+                while (recv_len < data_len)
+                {
+                    int temp_recv_len = await stream.ReadAsync(tempBuffer, recv_len, data_len - recv_len);
+                    recv_len += temp_recv_len;
+                }
+            }catch(Exception)
+            {
+                Console.WriteLine("网络断开！");
+                //TODO: 提示用户网络存在问题，无法继续通信。
             }
             return tempBuffer;
         }
 
         public override void Start()
         {
-            //清空上次的显示
+            //清空上次的显示内容
             Image1 = null;
             Image2 = null;
             Image3 = null;
             Image4 = null;
 
             remote_ip = ConfigurationManager.AppSettings["TcpServerIp"];
-            Console.WriteLine($"tcp_server_ip: {remote_ip}");
             tcpClient = new TcpClient(remote_ip,remote_port);
+            Console.WriteLine($"tcp connect: ({remote_ip}, {remote_port})");
+
             stream = tcpClient.GetStream();
 
             //发送角色数据包
@@ -63,6 +69,7 @@ namespace AIForAgedClient.ViewModel
             byte[] videoCmd_bytes = StructToBytes<VideoCmd>(videoCmd);
             stream.WriteAsync(videoCmd_bytes,0,videoCmd_bytes.Length);
             Console.WriteLine("send_get_video_packet");
+
             //接收图像数据并显示
             cancellationTokenSource = new CancellationTokenSource();
             Task recvVideoTask = new Task(async()=> {
@@ -88,16 +95,12 @@ namespace AIForAgedClient.ViewModel
             {
                 token.ThrowIfCancellationRequested();
 
-                is_recving = true;
-                Console.WriteLine("start recv video_header_bytes");
                 byte[] video_header_bytes = await tcp_recv(stream, 9);
                 VideoHeader videoHeader = BytesToStruct<VideoHeader>(video_header_bytes);
                 if (videoHeader.type == 2)
                 {
-                    Console.WriteLine("start recv video_bytes");
                     byte[] video_image_bytes = await tcp_recv(stream, (int)(videoHeader.len) - 4);
                     Console.WriteLine("recv: "+video_image_bytes.Length);
-                    is_recving = false;
                     BitmapImage bitmap = null;
                     try
                     {
