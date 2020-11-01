@@ -109,19 +109,19 @@ namespace AIForAgedClient.ViewModel
                         bitmap.StreamSource = new MemoryStream(video_image_bytes);
                         bitmap.EndInit();
 
-                        if (videoHeader.cameraId == uint.Parse(Url1))
+                        if (Url1!=null && videoHeader.cameraId == uint.Parse(Url1))
                         {
                             Image1 = bitmap;
                         }
-                        else if (videoHeader.cameraId == uint.Parse(Url2))
+                        else if (Url2!=null && videoHeader.cameraId == uint.Parse(Url2))
                         {
                             Image2 = bitmap;
                         }
-                        else if (videoHeader.cameraId == uint.Parse(Url3))
+                        else if (Url3 != null && videoHeader.cameraId == uint.Parse(Url3))
                         {
                             Image3 = bitmap;
                         }
-                        else if (videoHeader.cameraId == uint.Parse(Url4))
+                        else if (Url4 != null && videoHeader.cameraId == uint.Parse(Url4))
                         {
                             Image4 = bitmap;
                         }
