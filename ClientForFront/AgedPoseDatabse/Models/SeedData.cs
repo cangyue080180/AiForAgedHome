@@ -72,9 +72,6 @@ namespace AgedPoseDatabse.Models
 
                 }
 
-
-
-
                 CameraInfo camera1 = new CameraInfo()
                 {
                     FactoryInfo = "海康威视",

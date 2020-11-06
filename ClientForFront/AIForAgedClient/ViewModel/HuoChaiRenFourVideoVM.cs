@@ -108,6 +108,7 @@ namespace AIForAgedClient.ViewModel
                         bitmap.BeginInit();
                         bitmap.StreamSource = new MemoryStream(video_image_bytes);
                         bitmap.EndInit();
+                        bitmap.Freeze();
 
                         if (Url1!=null && videoHeader.cameraId == uint.Parse(Url1))
                         {
@@ -133,10 +134,6 @@ namespace AIForAgedClient.ViewModel
                     catch (System.NotSupportedException)
                     {
                         Console.WriteLine("bitmap not support");
-                    }
-                    finally
-                    {
-                        bitmap.Freeze();
                     }
                 }
             }
