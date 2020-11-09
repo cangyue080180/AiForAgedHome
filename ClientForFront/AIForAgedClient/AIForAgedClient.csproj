@@ -144,12 +144,14 @@
     </ApplicationDefinition>
     <Compile Include="Helper\SecondsTimeConverter.cs" />
     <Compile Include="Helper\StatusColorConverter.cs" />
+    <Compile Include="Helper\StructToBytesHelper.cs" />
     <Compile Include="Model\PoseInfoVM.cs" />
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Helper\StatusConverter.cs" />
     <Compile Include="Helper\VideoPlayHelper.cs" />
     <Compile Include="ViewModel\BaseFourVideoVM.cs" />
     <Compile Include="ViewModel\FourVideoViewModel.cs" />
+    <Compile Include="ViewModel\HuoChaiAndOriginVideoVM.cs" />
     <Compile Include="ViewModel\HuoChaiRenFourVideoVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonitorViewModel.cs" />

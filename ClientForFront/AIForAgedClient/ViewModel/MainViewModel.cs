@@ -94,6 +94,8 @@ namespace AIForAgedClient.ViewModel
                             SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
                         else if (video_type == "huo_chai_ren")
                             SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
+                        else if(video_type == "huochai_and_origin")
+                            SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiAndOriginVideoVM>();
                         else
                             SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
 

@@ -9,17 +9,8 @@ namespace AIForAgedClient.ViewModel
 {
     public class MonitorViewModel : ViewModelBase
     {
-        private BaseFourVideoVM fourVideoViewModel;
-        public BaseFourVideoVM FourVideoVM
-        {
-            get => fourVideoViewModel;
-        }
-
-        private PoseInfoVM _poseInfo;
-        public PoseInfoVM PoseInfo
-        {
-            get => _poseInfo;
-        }
+        public BaseFourVideoVM FourVideoVM { get; }
+        public PoseInfoVM PoseInfo { get; }
 
         private RelayCommand _onLoaded;
         public ICommand OnLoadedCommand
@@ -46,9 +37,9 @@ namespace AIForAgedClient.ViewModel
         }
         public MonitorViewModel(PoseInfoVM poseInfo, BaseFourVideoVM fourVideoViewModel)
         {
-            this._poseInfo = poseInfo;
-            this.fourVideoViewModel = fourVideoViewModel;
-            this._poseInfo.PropertyChanged += _poseInfo_PropertyChanged;
+            this.PoseInfo = poseInfo;
+            this.FourVideoVM = fourVideoViewModel;
+            this.PoseInfo.PropertyChanged += _poseInfo_PropertyChanged;
         }
 
         private bool _isStatusChanged = false;
@@ -84,7 +75,7 @@ namespace AIForAgedClient.ViewModel
 
         private void OnWindowLoaded()
         {
-            if (this.fourVideoViewModel is FourVideoViewModel)
+            if (this.FourVideoVM is FourVideoViewModel)
             {
                 if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
                 {
@@ -96,9 +87,10 @@ namespace AIForAgedClient.ViewModel
                     if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 3)
                         FourVideoVM.Url4 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[3].VideoAddress;
                 }
-            }else if (this.fourVideoViewModel is HuoChaiRenFourVideoVM)
+            }
+            else if (this.FourVideoVM is HuoChaiRenFourVideoVM)
             {
-                HuoChaiRenFourVideoVM huoChaiRenFourVideoVM = fourVideoViewModel as HuoChaiRenFourVideoVM;
+                HuoChaiRenFourVideoVM huoChaiRenFourVideoVM = FourVideoVM as HuoChaiRenFourVideoVM;
                 huoChaiRenFourVideoVM.RoomId = (uint)PoseInfo.AgesInfo.RoomInfoId;
                 if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 0)
                 {
@@ -109,6 +101,20 @@ namespace AIForAgedClient.ViewModel
                         huoChaiRenFourVideoVM.Url3 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[2].Id.ToString();
                     if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count > 3)
                         huoChaiRenFourVideoVM.Url4 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[3].Id.ToString();
+                }
+            }
+            else if (this.FourVideoVM is HuoChaiAndOriginVideoVM)
+            {
+                HuoChaiAndOriginVideoVM huoChaiAndOriginVideoVM = FourVideoVM as HuoChaiAndOriginVideoVM;
+                huoChaiAndOriginVideoVM.RoomId = (uint)PoseInfo.AgesInfo.RoomInfoId;
+                if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count == 1)
+                {
+                    huoChaiAndOriginVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].Id.ToString();
+                    huoChaiAndOriginVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
+                }
+                else
+                {
+                    System.Console.WriteLine("当前不支持一个房间多个摄像头");
                 }
             }
             else
