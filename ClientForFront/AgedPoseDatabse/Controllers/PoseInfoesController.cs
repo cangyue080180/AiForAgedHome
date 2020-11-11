@@ -47,7 +47,7 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoDays(long id, DateTime minDate, DateTime maxDate)
         {
-            var poseInfo = await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date >= minDate && x.Date < maxDate).ToListAsync<PoseInfo>();
+            var poseInfo = await _context.PoseInfos.Where(x => x.AgesInfoId == id && x.Date >= minDate && x.Date < maxDate).ToListAsync();
 
             if (poseInfo.Count == 0)
             {

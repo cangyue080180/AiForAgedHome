@@ -1,6 +1,7 @@
 ﻿using AgedPoseDatabse.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,56 +21,38 @@ namespace AgedPoseDatabse.Controllers
 
         // GET: api/DetailPoseInfoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetailPoseInfo>>> GetDeatilPoseInfos()
+        public async Task<ActionResult<IEnumerable<DetailPoseInfo>>> GetDetailPoseInfos()
         {
-            return await _context.DeatilPoseInfos.ToListAsync();
+            return await _context.DeatilPoseInfos.Take(10).ToListAsync();//为了防止数据过大，限制只返回10条数据
         }
 
-        // GET: api/DetailPoseInfoes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DetailPoseInfo>> GetDetailPoseInfo(long id)
+        [HttpGet("[action]")]
+        public async Task<ActionResult<DetailPoseInfo>> GetDetailPoseInfo(long id, DateTime datetime)
         {
-            var detailPoseInfo = await _context.DeatilPoseInfos.FindAsync(id);
+            var deatilPoseInfo = await _context.DeatilPoseInfos.FirstOrDefaultAsync(x => x.AgesInfoId == id && x.DateTime == datetime);
 
-            if (detailPoseInfo == null)
+            if (deatilPoseInfo == null)
             {
                 return NotFound();
             }
 
-            return detailPoseInfo;
+            return deatilPoseInfo;
         }
 
-        // PUT: api/DetailPoseInfoes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDetailPoseInfo(long id, DetailPoseInfo detailPoseInfo)
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<DetailPoseInfo>>> GetDetailPoseInfosByDay(long id , string date)
         {
-            if (id != detailPoseInfo.AgesInfoId)
+            DateTime startTime = DateTime.Parse(date);
+            var deatilPoseInfoes = await _context.DeatilPoseInfos.Where(x => x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24)).ToListAsync();
+
+            if (deatilPoseInfoes.Count == 0)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(detailPoseInfo).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DetailPoseInfoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return deatilPoseInfoes;
         }
+
 
         // POST: api/DetailPoseInfoes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -84,7 +67,7 @@ namespace AgedPoseDatabse.Controllers
             }
             catch (DbUpdateException)
             {
-                if (DetailPoseInfoExists(detailPoseInfo.AgesInfoId))
+                if (DetailPoseInfoExists(detailPoseInfo.AgesInfoId, detailPoseInfo.DateTime))
                 {
                     return Conflict();
                 }
@@ -94,28 +77,29 @@ namespace AgedPoseDatabse.Controllers
                 }
             }
 
-            return CreatedAtAction("GetDetailPoseInfo", new { id = detailPoseInfo.AgesInfoId }, detailPoseInfo);
+            return CreatedAtAction("GetDetailPoseInfo", new { id = detailPoseInfo.AgesInfoId, datetime=detailPoseInfo.DateTime }, detailPoseInfo);
         }
 
-        // DELETE: api/DetailPoseInfoes/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<DetailPoseInfo>> DeleteDetailPoseInfo(long id)
+
+        [HttpDelete("[action]")]
+        public async Task<ActionResult> DeleteDetailPoseInfoByDay(long id, string date)
         {
-            var detailPoseInfo = await _context.DeatilPoseInfos.FindAsync(id);
-            if (detailPoseInfo == null)
+            DateTime startTime = DateTime.Parse(date);
+            var detailPoseInfoes = await _context.DeatilPoseInfos.Where(x=>x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24)).ToListAsync();
+            if (detailPoseInfoes.Count == 0)
             {
                 return NotFound();
             }
 
-            _context.DeatilPoseInfos.Remove(detailPoseInfo);
+            _context.DeatilPoseInfos.RemoveRange(detailPoseInfoes);
             await _context.SaveChangesAsync();
 
-            return detailPoseInfo;
+            return Ok();
         }
 
-        private bool DetailPoseInfoExists(long id)
+        private bool DetailPoseInfoExists(long id, DateTime date)
         {
-            return _context.DeatilPoseInfos.Any(e => e.AgesInfoId == id);
+            return _context.DeatilPoseInfos.Any(e => e.AgesInfoId == id && e.DateTime == date);
         }
     }
 }
