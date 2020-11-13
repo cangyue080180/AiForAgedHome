@@ -1,4 +1,5 @@
-﻿using AgedPoseDatabse.Models;
+﻿using AgedPoseDatabse.Helper;
+using AgedPoseDatabse.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -40,17 +41,14 @@ namespace AgedPoseDatabse.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<DetailPoseInfo>>> GetDetailPoseInfosByDay(long id , string date)
+        public async Task<ActionResult<PaginatedList<DetailPoseInfo>>> GetDetailPoseInfosByDay(long id , string date, int pageIndex, int pageSize)
         {
             DateTime startTime = DateTime.Parse(date);
-            var deatilPoseInfoes = await _context.DeatilPoseInfos.Where(x => x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24)).ToListAsync();
+            var detailPoseInfoes = _context.DeatilPoseInfos.Where(x => x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24));
 
-            if (deatilPoseInfoes.Count == 0)
-            {
-                return NotFound();
-            }
+            var queryDetailPoseInfoes =await PaginatedList<DetailPoseInfo>.CreateAsync(detailPoseInfoes,pageIndex,pageSize);
 
-            return deatilPoseInfoes;
+            return queryDetailPoseInfoes;
         }
 
 
