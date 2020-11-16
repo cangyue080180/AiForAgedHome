@@ -106,6 +106,25 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
+        private RelayCommand<Button> _goDetailViewCmd;
+        public ICommand GoDetailViewCmd
+        {
+            get
+            {
+                if (_goDetailViewCmd == null)
+                {
+                    _goDetailViewCmd = new RelayCommand<Button>(btn=> {
+                        var selectedItem = btn.DataContext as PoseInfoVM;
+                        this.SelectedPoseInfo = selectedItem;
+                        SimpleIoc.Default.Register(() => SelectedPoseInfo);
+
+                        ShowDetailPoseInfoWindow();
+                    });
+                }
+                return _goDetailViewCmd;
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -196,6 +215,13 @@ namespace AIForAgedClient.ViewModel
             monitorWindow.Owner = App.Current.MainWindow;
             monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
             monitorWindow.ShowDialog();
+        }
+        private void ShowDetailPoseInfoWindow()
+        {
+            DetailPoseInfoWindow tempWindow = new DetailPoseInfoWindow();
+            tempWindow.Owner = App.Current.MainWindow;
+            tempWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            tempWindow.ShowDialog();
         }
     }
 }

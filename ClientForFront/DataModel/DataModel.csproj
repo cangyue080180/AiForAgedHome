@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AgesInfo.cs" />
     <Compile Include="CameraInfo.cs" />
+    <Compile Include="DetailPoseInfo.cs" />
     <Compile Include="PoseInfo.cs" />
     <Compile Include="PoseStateTypes.cs" />
     <Compile Include="RoomInfo.cs" />

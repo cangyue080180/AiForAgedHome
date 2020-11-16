@@ -1,0 +1,53 @@
+﻿<Window x:Class="AIForAgedClient.View.DetailPoseInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:local="clr-namespace:AIForAgedClient.View"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="800" DataContext="{Binding Path=DetailPoseInfo, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock></TextBlock>
+            <TextBlock>日行为详细记录</TextBlock>
+            <Button Margin="20,0,0,0">前一天</Button>
+            <Button Margin="10,0,0,0">后一天</Button>
+        </StackPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding}">
+            <GridView>
+                <GridView.Columns>
+                    <GridViewColumn Header="时间" DisplayMemberBinding="{Binding}" Width="60"/>
+                    <GridViewColumn Header="姿态" DisplayMemberBinding="{Binding}" Width="100"/>
+                </GridView.Columns>
+            </GridView>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <TextBlock>
+                <Hyperlink>
+                    上一页
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock>5/30</TextBlock>
+            <TextBlock>
+                <Hyperlink>
+                   下一页
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

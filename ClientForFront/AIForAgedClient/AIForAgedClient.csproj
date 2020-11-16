@@ -145,17 +145,22 @@
     <Compile Include="Helper\SecondsTimeConverter.cs" />
     <Compile Include="Helper\StatusColorConverter.cs" />
     <Compile Include="Helper\StructToBytesHelper.cs" />
+    <Compile Include="Model\PaginatedList.cs" />
     <Compile Include="Model\PoseInfoVM.cs" />
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Helper\StatusConverter.cs" />
     <Compile Include="Helper\VideoPlayHelper.cs" />
     <Compile Include="ViewModel\BaseFourVideoVM.cs" />
+    <Compile Include="ViewModel\DetailPoseInfoVM.cs" />
     <Compile Include="ViewModel\FourVideoViewModel.cs" />
     <Compile Include="ViewModel\HuoChaiAndOriginVideoVM.cs" />
     <Compile Include="ViewModel\HuoChaiRenFourVideoVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonitorViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\DetailPoseInfoWindow.xaml.cs">
+      <DependentUpon>DetailPoseInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FourVideoControl.xaml.cs">
       <DependentUpon>FourVideoControl.xaml</DependentUpon>
     </Compile>
@@ -174,6 +179,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DetailPoseInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FourVideoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

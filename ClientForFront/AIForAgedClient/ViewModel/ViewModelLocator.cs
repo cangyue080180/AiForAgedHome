@@ -49,6 +49,7 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
+            SimpleIoc.Default.Register<DetailPoseInfoVM>();
             //string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
             //if (video_type == "orignal")
             //    SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
@@ -80,6 +81,11 @@ namespace AIForAgedClient.ViewModel
         public MonitorViewModel Monitor
         {
             get => ServiceLocator.Current.GetInstance<MonitorViewModel>(Guid.NewGuid().ToString());//每次都重新生成一个新的实例
+        }
+
+        public DetailPoseInfoVM DetailPoseInfo
+        {
+            get => ServiceLocator.Current.GetInstance<DetailPoseInfoVM>(Guid.NewGuid().ToString());//每次都重新生成一个新的实例
         }
 
         public static void Cleanup()

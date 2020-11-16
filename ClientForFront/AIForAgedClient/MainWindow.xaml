@@ -46,18 +46,24 @@
                         <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding AgesInfo.Name}" Width="60"/>
                         <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="100"/>
                         <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="50"/>
-                        <GridViewColumn Header="进入" DisplayMemberBinding="{Binding TimeIn}" Width="80"/>
+                        <!--<GridViewColumn Header="进入" DisplayMemberBinding="{Binding TimeIn}" Width="80"/>-->
                         <GridViewColumn Header="站立" DisplayMemberBinding="{Binding TimeStand,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
                         <GridViewColumn Header="坐" DisplayMemberBinding="{Binding TimeSit,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
                         <GridViewColumn Header="躺" DisplayMemberBinding="{Binding TimeLie,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
                         <GridViewColumn Header="其他" DisplayMemberBinding="{Binding TimeOther,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
-                        <GridViewColumn Header="操作" Width="100">
+                        <GridViewColumn Header="操作" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
-                                        查看监控
-                                    </Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
+                                            查看监控
+                                        </Button>
+                                        <Button Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
+                                            查看详情
+                                        </Button>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
