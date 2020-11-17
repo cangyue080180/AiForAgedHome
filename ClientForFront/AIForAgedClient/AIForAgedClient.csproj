@@ -157,6 +157,7 @@
     <Compile Include="ViewModel\HuoChaiRenFourVideoVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonitorViewModel.cs" />
+    <Compile Include="ViewModel\PaginatedListVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\DetailPoseInfoWindow.xaml.cs">
       <DependentUpon>DetailPoseInfoWindow.xaml</DependentUpon>

@@ -28,22 +28,31 @@
             <Button Margin="20,0,0,0">前一天</Button>
             <Button Margin="10,0,0,0">后一天</Button>
         </StackPanel>
-        <ListView Grid.Row="1" ItemsSource="{Binding}">
-            <GridView>
-                <GridView.Columns>
-                    <GridViewColumn Header="时间" DisplayMemberBinding="{Binding}" Width="60"/>
-                    <GridViewColumn Header="姿态" DisplayMemberBinding="{Binding}" Width="100"/>
-                </GridView.Columns>
-            </GridView>
+        <ListView Grid.Row="1" ItemsSource="{Binding PaginatedListContext.Items}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="时间" DisplayMemberBinding="{Binding DateTime}" Width="200"/>
+                        <GridViewColumn Header="姿态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="100"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-            <TextBlock>
+            <TextBlock IsEnabled="{Binding PaginatedListContext.HasPreviousPage}">
                 <Hyperlink>
                     上一页
                 </Hyperlink>
             </TextBlock>
-            <TextBlock>5/30</TextBlock>
-            <TextBlock>
+            <TextBlock >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}  {0}/{1}  ">
+                        <Binding Path="PaginatedListContext.PageIndex"/>
+                        <Binding Path="PaginatedListContext.TotalPages"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock IsEnabled="{Binding PaginatedListContext.HasNextPage}">
                 <Hyperlink>
                    下一页
                 </Hyperlink>

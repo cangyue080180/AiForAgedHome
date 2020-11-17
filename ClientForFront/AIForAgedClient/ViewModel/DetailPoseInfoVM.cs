@@ -22,6 +22,8 @@ namespace AIForAgedClient.ViewModel
         public string Title { get; private set; }
         public PoseInfoVM PoseInfoVM { get; private set; }
 
+        public PaginatedListVM<DetailPoseInfo> PaginatedListContext { get; private set; }
+
         private RelayCommand _onLoaded;
         public ICommand OnLoadedCommand
         {
@@ -51,6 +53,8 @@ namespace AIForAgedClient.ViewModel
         {
             this.httpClient = httpClient;
             PoseInfoVM = poseInfoVM;
+            PaginatedListContext = new PaginatedListVM<DetailPoseInfo>();
+            PaginatedListContext.Items = null;
             Title = PoseInfoVM.AgesInfo.Name + "的姿态详情记录";
         }
 
@@ -75,12 +79,18 @@ namespace AIForAgedClient.ViewModel
             if (!string.IsNullOrEmpty(result))
             {
                 var datas = JsonConvert.DeserializeObject<PaginatedList<DetailPoseInfo>>(result);
+                PaginatedListContext.HasNextPage = datas.HasNextPage;
+                PaginatedListContext.HasPreviousPage = datas.HasPreviousPage;
+                PaginatedListContext.Items = datas.Items;
+                PaginatedListContext.PageIndex = datas.PageIndex;
+                PaginatedListContext.TotalPages = datas.TotalPages;
             }
         }
 
         private void OnWindowLoaded()
         {
             LogHelper.Debug(nameof(DetailPoseInfoVM) + " Loaded");
+            GetPosesAsync(PoseInfoVM.AgesInfoId, PoseInfoVM.Date.ToShortDateString(), 1, 20);
         }
 
         private void OnWindowClosing()
