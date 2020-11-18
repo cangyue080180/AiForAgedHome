@@ -23,16 +23,16 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="10">
-            <TextBlock></TextBlock>
+            <TextBlock Text="{Binding DateSelected, StringFormat=yyyy/MM/dd}" />
             <TextBlock>日行为详细记录</TextBlock>
-            <Button Margin="20,0,0,0">前一天</Button>
-            <Button Margin="10,0,0,0">后一天</Button>
+            <Button Margin="20,0,0,0" Command="{Binding OnPreDayCmd}">前一天</Button>
+            <Button Margin="10,0,0,0" Command="{Binding OnNextDayCmd}">后一天</Button>
         </StackPanel>
         <ListView Grid.Row="1" ItemsSource="{Binding PaginatedListContext.Items}">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="时间" DisplayMemberBinding="{Binding DateTime}" Width="200"/>
+                        <GridViewColumn Header="时间" DisplayMemberBinding="{Binding DateTime,StringFormat=HH:mm:ss}" Width="150"/>
                         <GridViewColumn Header="姿态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="100"/>
                     </GridView.Columns>
                 </GridView>
@@ -40,7 +40,7 @@
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <TextBlock IsEnabled="{Binding PaginatedListContext.HasPreviousPage}">
-                <Hyperlink>
+                <Hyperlink Command="{Binding PrePageCmd}">
                     上一页
                 </Hyperlink>
             </TextBlock>
@@ -53,7 +53,7 @@
                 </TextBlock.Text>
             </TextBlock>
             <TextBlock IsEnabled="{Binding PaginatedListContext.HasNextPage}">
-                <Hyperlink>
+                <Hyperlink Command="{Binding NextPageCmd}">
                    下一页
                 </Hyperlink>
             </TextBlock>

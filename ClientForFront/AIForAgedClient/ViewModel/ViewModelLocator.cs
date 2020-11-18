@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using AIForAgedClient.Model;
 using AutoMapper;
 using CommonServiceLocator;
 using DataModel;
@@ -65,6 +66,7 @@ namespace AIForAgedClient.ViewModel
             {
                 // Add all profiles in current assembly
                 cfg.CreateMap<PoseInfo, PoseInfoVM>();
+                cfg.CreateMap<PaginatedList<DetailPoseInfo>, PaginatedListVM<DetailPoseInfo>>();
             });
 
             return config;

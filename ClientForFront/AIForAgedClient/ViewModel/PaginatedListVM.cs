@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AIForAgedClient.ViewModel
 {
@@ -19,11 +20,22 @@ namespace AIForAgedClient.ViewModel
             set => Set(()=>TotalPages,ref _totalPages,value);
         }
 
-        private List<T> _items;
-        public List<T> Items
+        private ObservableCollection<T> _items=new ObservableCollection<T>();
+        public ObservableCollection<T> Items
         {
             get => _items;
-            set => Set(()=>Items,ref _items,value);
+            set
+            {
+                if (_items!=value && value!=null)
+                {
+                    _items.Clear();
+
+                    foreach (var item in value)
+                    {
+                        _items.Add(item);
+                    }
+                }
+            }
         }
 
         private bool _hasPreviousPage;
