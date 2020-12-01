@@ -3,14 +3,16 @@ using System;
 using AgedPoseDatabse.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    partial class AiForAgedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201130072702_CameraInfoAddSafeRegion")]
+    partial class CameraInfoAddSafeRegion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,16 +73,10 @@ namespace AgedPoseDatabse.Migrations
                     b.Property<bool>("IsUseSafeRegion")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LeftTopPointX")
+                    b.Property<int>("LeftTopPoint")
                         .HasColumnType("int");
 
-                    b.Property<int>("LeftTopPointY")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RightBottomPointX")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RightBottomPointY")
+                    b.Property<int>("RightBottomPoint")
                         .HasColumnType("int");
 
                     b.Property<long>("RoomInfoId")

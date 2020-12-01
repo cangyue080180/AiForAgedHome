@@ -48,6 +48,25 @@
                         <TextBlock>视频地址</TextBlock>
                         <TextBox Text="{Binding Model.VideoAddress,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                     </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
+                        <CheckBox IsChecked="{Binding Model.IsUseSafeRegion}" Content="启用安全区域"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
+                        <TextBlock>左上角X坐标值</TextBlock>
+                        <TextBox Text="{Binding Model.LeftTopPointX,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
+                        <TextBlock>左上角Y坐标值</TextBlock>
+                        <TextBox Text="{Binding Model.LeftTopPointY,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
+                        <TextBlock>右下角X坐标值</TextBlock>
+                        <TextBox Text="{Binding Model.RightBottomPointX,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
+                        <TextBlock>右小角Y坐标值</TextBlock>
+                        <TextBox Text="{Binding Model.RightBottomPointY,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>

@@ -37,6 +37,41 @@ namespace BackendClient.Model
             set => Set(() => VideoAddress, ref _videoAddress, value);
         }
 
+        private bool _isUseSafeRegion;
+        public bool IsUseSafeRegion
+        {
+            get => _isUseSafeRegion;
+            set => Set(()=>IsUseSafeRegion,ref _isUseSafeRegion,value);
+        }
+
+        private int _leftTopPointX;
+        public int LeftTopPointX
+        {
+            get => _leftTopPointX;
+            set => Set(()=>LeftTopPointX,ref _leftTopPointX,value);
+        }
+
+        private int _leftTopPointY;
+        public int LeftTopPointY
+        {
+            get => _leftTopPointY;
+            set => Set(()=>LeftTopPointY,ref _leftTopPointY,value);
+        }
+
+        private int _rightBottomPointX;
+        public int RightBottomPointX
+        {
+            get => _rightBottomPointX;
+            set => Set(()=>RightBottomPointX,ref _rightBottomPointX,value);
+        }
+
+        private int _rightBottomPointY;
+        public int RightBottomPointY
+        {
+            get => _rightBottomPointY;
+            set => Set(()=>RightBottomPointY,ref _rightBottomPointY,value);
+        }
+
         public long ServerInfoId
         {
             get; set;

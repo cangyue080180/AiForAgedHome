@@ -21,5 +21,11 @@ namespace DataModel
 
         public long RoomInfoId { get; set; }
         public RoomInfo RoomInfo { get; set; }
+
+        public bool IsUseSafeRegion { get; set; }
+        public int LeftTopPointX { get; set; }
+        public int LeftTopPointY { get; set; }
+        public int RightBottomPointX { get; set; }
+        public int RightBottomPointY { get; set; }
     }
 }

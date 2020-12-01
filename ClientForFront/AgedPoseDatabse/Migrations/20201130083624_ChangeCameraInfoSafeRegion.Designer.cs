@@ -3,14 +3,16 @@ using System;
 using AgedPoseDatabse.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    partial class AiForAgedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201130083624_ChangeCameraInfoSafeRegion")]
+    partial class ChangeCameraInfoSafeRegion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
