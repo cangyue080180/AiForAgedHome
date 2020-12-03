@@ -149,7 +149,7 @@ namespace AIForAgedClient.ViewModel
             //发送关闭图像命令
             VideoCmd videoCmd = new VideoCmd(1, 5, RoomId, 0);
             byte[] videoCmd_bytes = StructToBytesHelper.StructToBytes<VideoCmd>(videoCmd);
-            stream.WriteAsync(videoCmd_bytes, 0, videoCmd_bytes.Length);
+            stream.Write(videoCmd_bytes, 0, videoCmd_bytes.Length);
 
             cancellationTokenSource.Cancel();
 
