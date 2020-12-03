@@ -16,7 +16,7 @@ namespace AIForAgedClient
             switch (type)
             {
                 case PoseStateTypes.Down:
-                    return "地上";
+                    return "跌倒";
                 case PoseStateTypes.Lie:
                     return "躺";
                 case PoseStateTypes.Sit:
