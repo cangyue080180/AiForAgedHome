@@ -57,6 +57,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
@@ -68,17 +69,19 @@
             <TextBlock Text="{Binding PoseInfo.TimeIn}" Grid.Row="2" Grid.Column="1"/>
             <Label Content="当前状态：" Grid.Row="3"/>
             <TextBlock Text="{Binding PoseInfo.Status,Converter={StaticResource statusConverter}}" Foreground="{Binding IsStatusChanged,Converter={StaticResource statusColorConverter}}" Grid.Row="3" Grid.Column="1"/>
-            <Label Content="站立时间：" Grid.Row="4"/>
+            <Label Content="站姿时间：" Grid.Row="4"/>
             <TextBlock Text="{Binding PoseInfo.TimeStand,Converter={StaticResource secondsTimeConverter}}" Grid.Row="4" Grid.Column="1"/>
             <Label Content="坐姿时间：" Grid.Row="5"/>
             <TextBlock Text="{Binding PoseInfo.TimeSit,Converter={StaticResource secondsTimeConverter}}" Grid.Row="5" Grid.Column="1"/>
-            <Label Content="躺卧时间：" Grid.Row="6"/>
+            <Label Content="躺姿时间：" Grid.Row="6"/>
             <TextBlock Text="{Binding PoseInfo.TimeLie,Converter={StaticResource secondsTimeConverter}}" Grid.Row="6" Grid.Column="1"/>
-            <Label Content="其他时间：" Grid.Row="7"/>
-            <TextBlock Text="{Binding PoseInfo.TimeOther,Converter={StaticResource secondsTimeConverter}}" Grid.Row="7" Grid.Column="1"/>
-            <Border Grid.Row="9" Grid.ColumnSpan="2" CornerRadius="10" Background="CadetBlue" BorderThickness="1" Margin="5">
+            <Label Content="跌倒时间：" Grid.Row="7"/>
+            <TextBlock Text="{Binding PoseInfo.TimeDown,Converter={StaticResource secondsTimeConverter}}" Grid.Row="7" Grid.Column="1"/>
+            <Label Content="其他时间：" Grid.Row="8"/>
+            <TextBlock Text="{Binding PoseInfo.TimeOther,Converter={StaticResource secondsTimeConverter}}" Grid.Row="8" Grid.Column="1"/>
+            <!--<Border Grid.Row="10" Grid.ColumnSpan="2" CornerRadius="10" Background="CadetBlue" BorderThickness="1" Margin="5">
                 <TextBlock Text="期颐玖樟"  Foreground="White" TextAlignment="Center" FontSize="20" Margin="0,4,0,4"/>
-            </Border>
+            </Border>-->
         </Grid>
     </Grid>
 </Window>
