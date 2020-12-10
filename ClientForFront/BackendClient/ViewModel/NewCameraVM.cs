@@ -1,18 +1,22 @@
 ﻿using AutoMapper;
 using BackendClient.Model;
 using DataModel;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace BackendClient.ViewModel
 {
-    public class NewCameraVM : NewModelVMBase<CameraInfoVM>
+    public class NewCameraVM : NewModelVMBase<CameraInfoVM>,INotifyPropertyChanged
     {
         private readonly bool isNew = true;
         private readonly HttpClient httpClient;
@@ -45,13 +49,149 @@ namespace BackendClient.ViewModel
                 Title = "创建新摄像头";
             }
         }
+
+        private RelayCommand _testVideoUrlCmd;
+        public RelayCommand TestVideoUrlCmd
+        {
+            get
+            {
+                if (_testVideoUrlCmd == null)
+                    _testVideoUrlCmd = new RelayCommand(TestVideoUrl);
+                return _testVideoUrlCmd;
+            }
+        }
+
+        private BitmapSource _img1;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public BitmapSource Image1
+        {
+            get
+            {
+                return _img1;
+            }
+            set
+            {
+                if (_img1 != value)
+                {
+                    _img1 = value;
+                    RaisePropertyChanged(nameof(Image1));
+                }
+            }
+        }
+
+        private void RaisePropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
+        }
+
         public override bool IsNewModel()
         {
             return isNew;
         }
 
+        private double bitmapWidth=1920, bitmapHeight=1080;
+        private double _height = 300;
+        public double Height
+        {
+            get => _height;
+            set
+            {
+                if (value != _height)
+                {
+                    _height = value;
+
+                    RaisePropertyChanged(nameof(Height));
+                    RegionTop = Model.LeftTopPointY * Height / (bitmapHeight / 2);
+                    RegionLeft = Model.LeftTopPointX * Width / (bitmapWidth / 2);
+                    RegionWidth = (Model.RightBottomPointX - Model.LeftTopPointX) * Width / (bitmapWidth / 2);
+                    RegionHeight = (Model.RightBottomPointY - Model.LeftTopPointY) * Height / (bitmapHeight / 2);
+                }
+            }
+        }
+
+
+        public double Width => 400;
+
+        private double _regionTop=100;
+        public double RegionTop
+        {
+            get =>_regionTop;
+            set{
+                if (_regionTop != value)
+                {
+                    _regionTop = value;
+                    RaisePropertyChanged(nameof(RegionTop));
+                }
+            }
+        }
+
+        private double _regionLeft=100;
+        public double RegionLeft
+        {
+            get => _regionLeft;
+            set
+            {
+                if (_regionLeft != value)
+                {
+                    _regionLeft = value;
+                    RaisePropertyChanged(nameof(RegionLeft));
+                }
+            }
+        }
+
+        private double _regionWidth=20;
+        public double RegionWidth
+        {
+            get => _regionWidth;
+            set
+            {
+                if (_regionWidth != value)
+                {
+                    _regionWidth = value;
+                    RaisePropertyChanged(nameof(RegionWidth));
+                }
+            }
+        }
+
+        private double _regionHeight=20;
+        public double RegionHeight
+        {
+            get => _regionHeight;
+            set
+            {
+                if (_regionHeight != value)
+                {
+                    _regionHeight = value;
+                    RaisePropertyChanged(nameof(RegionHeight));
+                }
+            }
+        }
+
+        VideoPlayHelper playHelper;
+        private void TestVideoUrl()
+        {
+            playHelper?.Stop();
+            playHelper = new VideoPlayHelper(Model.VideoAddress,(x)=> { Image1 = x;
+                if (x != null)
+                {
+                    Height = x.Height * 400 / x.Width;
+                    bitmapHeight = x.Height;
+                    bitmapWidth = x.Width;
+                }
+
+            });
+            playHelper.Start();
+        }
+
         public async override Task<bool> Ok()
         {
+            Model.LeftTopPointY = (int)(_regionTop * (bitmapHeight / 2) / Height);
+            Model.LeftTopPointX = (int)(_regionLeft * (bitmapWidth / 2) / Width);
+            Model.RightBottomPointX = (int)((_regionWidth + _regionLeft) * (bitmapWidth / 2) / Width);
+            Model.RightBottomPointY = (int)((_regionHeight + _regionTop) * (bitmapHeight / 2) / Height);
+
             if (isNew)
             {
                 Model.RoomInfoId = SelectedRoom.Id;
@@ -71,6 +211,9 @@ namespace BackendClient.ViewModel
         public override void OnWindowClosing()
         {
             LogHelper.Debug("OnNewAgedWindowClosing()");
+
+            playHelper?.Stop();
+
             if (!isNew)
             {
                 SimpleIoc.Default.Unregister<CameraInfoVM>();
