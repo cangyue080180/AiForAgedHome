@@ -168,6 +168,9 @@
     <Compile Include="View\MonitorWindow.xaml.cs">
       <DependentUpon>MonitorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RoomsWindow.xaml.cs">
+      <DependentUpon>RoomsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MonitorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RoomsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
