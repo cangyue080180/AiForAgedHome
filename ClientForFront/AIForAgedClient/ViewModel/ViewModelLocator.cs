@@ -51,6 +51,8 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
             SimpleIoc.Default.Register<DetailPoseInfoVM>();
+            SimpleIoc.Default.Register<RoomViewModel>();
+            SimpleIoc.Default.Register<ManyPersonMonitorVM>();
             //string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
             //if (video_type == "orignal")
             //    SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
@@ -77,6 +79,22 @@ namespace AIForAgedClient.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public RoomViewModel RoomVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RoomViewModel>();
+            }
+        }
+
+        public ManyPersonMonitorVM ManyPersonMonitorVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ManyPersonMonitorVM>();
             }
         }
 

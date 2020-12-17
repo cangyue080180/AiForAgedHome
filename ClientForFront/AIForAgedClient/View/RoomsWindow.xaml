@@ -3,24 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AIForAgedClient.View"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:local="clr-namespace:AIForAgedClient.View"
         mc:Ignorable="d"
-        Title="{Binding WindowName}" Height="450" Width="800" 
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-    <Window.Resources>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
-            </i:EventTrigger>
-            <i:EventTrigger EventName="Closing">
-                <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
-    </Window.Resources>
+        Title="{Binding WindowName}" Height="450" Width="500" 
+        DataContext="{Binding Source={StaticResource Locator}, Path=RoomVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <ListView ItemsSource="{Binding PoseInfos}" SelectedItem="{Binding SelectedPoseInfo}">
+        <ListView ItemsSource="{Binding RoomInfoes}" SelectedItem="{Binding SelectedRoom}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Background" Value="White"/>
@@ -34,14 +32,7 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding AgesInfo.Name}" Width="60"/>
-                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="100"/>
-                        <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="50"/>
-                        <!--<GridViewColumn Header="进入" DisplayMemberBinding="{Binding TimeIn}" Width="80"/>-->
-                        <GridViewColumn Header="站立" DisplayMemberBinding="{Binding TimeStand,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
-                        <GridViewColumn Header="坐" DisplayMemberBinding="{Binding TimeSit,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
-                        <GridViewColumn Header="躺" DisplayMemberBinding="{Binding TimeLie,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
-                        <GridViewColumn Header="其他" DisplayMemberBinding="{Binding TimeOther,Converter={StaticResource secondsTimeConverter}}" Width="80"/>
+                        <GridViewColumn Header="房间名称" DisplayMemberBinding="{Binding Name}" Width="150"/>
                         <GridViewColumn Header="操作" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -49,10 +40,6 @@
                                         <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
                                                 CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
                                             查看监控
-                                        </Button>
-                                        <Button Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
-                                            查看详情
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
