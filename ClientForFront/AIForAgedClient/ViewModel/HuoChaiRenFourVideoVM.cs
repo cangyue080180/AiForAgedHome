@@ -19,11 +19,11 @@ namespace AIForAgedClient.ViewModel
     {
         public UInt32 RoomId { get; set; }
 
-        TcpClient tcpClient;
-        NetworkStream stream;
-        CancellationTokenSource cancellationTokenSource;
-        readonly int remote_port = 8008;
-        string remote_ip = "127.0.0.1";
+        private TcpClient tcpClient;
+        private NetworkStream stream;
+        private CancellationTokenSource cancellationTokenSource;
+        private readonly int remote_port = 8008;
+        private string remote_ip = "127.0.0.1";
 
         private async Task<byte[]> tcp_recv(NetworkStream stream,int data_len)
         {

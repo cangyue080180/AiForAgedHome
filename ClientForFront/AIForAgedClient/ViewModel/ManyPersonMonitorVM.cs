@@ -12,7 +12,6 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -212,7 +211,7 @@ namespace AIForAgedClient.ViewModel
         private void ShowDetailPoseInfoWindow()
         {
             DetailPoseInfoWindow tempWindow = new DetailPoseInfoWindow();
-            tempWindow.Owner = App.Current.MainWindow;
+            //tempWindow.Owner = App.Current.MainWindow;
             tempWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
             tempWindow.ShowDialog();
         }

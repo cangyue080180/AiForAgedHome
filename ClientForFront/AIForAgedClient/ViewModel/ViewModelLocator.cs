@@ -18,7 +18,6 @@ using CommonServiceLocator;
 using DataModel;
 using GalaSoft.MvvmLight.Ioc;
 using System;
-using System.Configuration;
 using System.Net.Http;
 
 namespace AIForAgedClient.ViewModel

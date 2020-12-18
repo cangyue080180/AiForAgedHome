@@ -22,7 +22,9 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomInfo>>> GetRoomInfos()
         {
-            return await _context.RoomInfos.ToListAsync();
+            return await _context.RoomInfos
+                .Include(room=>room.CameraInfos)
+                .ToListAsync();
         }
 
         // GET: api/RoomInfoes/id

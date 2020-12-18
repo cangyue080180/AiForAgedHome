@@ -47,7 +47,6 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding AgesInfo.Name}" Width="60"/>
-                        <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="100"/>
                         <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="50"/>
                         <!--<GridViewColumn Header="进入" DisplayMemberBinding="{Binding TimeIn}" Width="80"/>-->
                         <GridViewColumn Header="站立" DisplayMemberBinding="{Binding TimeStand,Converter={StaticResource secondsTimeConverter}}" Width="80"/>

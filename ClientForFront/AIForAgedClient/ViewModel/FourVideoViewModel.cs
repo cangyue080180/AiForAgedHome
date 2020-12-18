@@ -1,10 +1,4 @@
 ﻿using AIForAgedClient.Helper;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace AIForAgedClient.ViewModel
 {

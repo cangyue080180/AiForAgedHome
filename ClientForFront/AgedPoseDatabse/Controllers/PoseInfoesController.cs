@@ -60,7 +60,10 @@ namespace AgedPoseDatabse.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoByRoomId(long id)
         {
-            var poseInfoes = await _context.PoseInfos.Where(pose => pose.Date == DateTime.Now.Date && _context.RoomInfos.First(x => x.Id == id).AgesInfos.Any(y => y.Id == pose.AgesInfoId)).ToListAsync();
+            var poseInfoes = await _context.PoseInfos
+                .Where(pose => pose.Date == DateTime.Now.Date && _context.RoomInfos.First(x => x.Id == id).AgesInfos.Any(y => y.Id == pose.AgesInfoId))
+                .Include(pose=>pose.AgesInfo)
+                .ToListAsync();
             if (poseInfoes.Count == 0)
             {
                 return NotFound();
