@@ -10,7 +10,9 @@ namespace AIForAgedClient.ViewModel
     public abstract class BaseFourVideoVM : ViewModelBase
     {
         #region 设置Image Source属性
+
         private BitmapSource _img1;
+
         public BitmapSource Image1
         {
             get
@@ -28,6 +30,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private BitmapSource _img2;
+
         public BitmapSource Image2
         {
             get
@@ -45,6 +48,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private BitmapSource _img3;
+
         public BitmapSource Image3
         {
             get
@@ -62,6 +66,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private BitmapSource _img4;
+
         public BitmapSource Image4
         {
             get
@@ -77,10 +82,13 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion 设置Image Source属性
 
         #region 设置Image Row 和Image Column 属性
+
         private int _img1Row = 0;
+
         public int Img1Row
         {
             get
@@ -96,7 +104,9 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
+
         private int _img1Column = 0;
+
         public int Img1Column
         {
             get
@@ -114,6 +124,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img2Row = 0;
+
         public int Img2Row
         {
             get
@@ -129,7 +140,9 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
+
         private int _img2Column = 1;
+
         public int Img2Column
         {
             get
@@ -147,6 +160,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img3Row = 1;
+
         public int Img3Row
         {
             get
@@ -162,7 +176,9 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
+
         private int _img3Column = 0;
+
         public int Img3Column
         {
             get
@@ -180,6 +196,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img4Row = 1;
+
         public int Img4Row
         {
             get
@@ -197,6 +214,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img4Column = 1;
+
         public int Img4Column
         {
             get
@@ -212,10 +230,13 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion 设置Image Row 和Image Column 属性
 
         #region 设置Image RowSpan 和 ColumnSpan属性
+
         private int _img1RowSpan = 1;
+
         public int Img1RowSpan
         {
             get
@@ -233,6 +254,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img1ColumnSpan = 1;
+
         public int Img1ColumnSpan
         {
             get
@@ -250,6 +272,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img2RowSpan = 1;
+
         public int Img2RowSpan
         {
             get
@@ -267,6 +290,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img2ColumnSpan = 1;
+
         public int Img2ColumnSpan
         {
             get
@@ -284,6 +308,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img3RowSpan = 1;
+
         public int Img3RowSpan
         {
             get
@@ -301,6 +326,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img3ColumnSpan = 1;
+
         public int Img3ColumnSpan
         {
             get
@@ -318,6 +344,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img4RowSpan = 1;
+
         public int Img4RowSpan
         {
             get
@@ -335,6 +362,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private int _img4ColumnSpan = 1;
+
         public int Img4ColumnSpan
         {
             get
@@ -350,10 +378,13 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion 设置Image RowSpan 和 ColumnSpan属性
 
         #region 设置Image Visibility属性
+
         private Visibility _img1Visibility = Visibility.Visible;
+
         public Visibility Img1Visibility
         {
             get
@@ -371,6 +402,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private Visibility _img2Visibility = Visibility.Visible;
+
         public Visibility Img2Visibility
         {
             get
@@ -388,6 +420,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private Visibility _img3Visibility = Visibility.Visible;
+
         public Visibility Img3Visibility
         {
             get
@@ -405,6 +438,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private Visibility _img4Visibility = Visibility.Visible;
+
         public Visibility Img4Visibility
         {
             get
@@ -420,10 +454,13 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion 设置Image Visibility属性
 
         #region 设置Image doubleClick 命令
+
         private RelayCommand _img1Dbclick;
+
         public ICommand Img1DoubleClickCmd
         {
             get
@@ -435,6 +472,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _img2Dbclick;
+
         public ICommand Img2DoubleClickCmd
         {
             get
@@ -446,6 +484,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _img3Dbclick;
+
         public ICommand Img3DoubleClickCmd
         {
             get
@@ -457,6 +496,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _img4Dbclick;
+
         public ICommand Img4DoubleClickCmd
         {
             get
@@ -466,8 +506,8 @@ namespace AIForAgedClient.ViewModel
                 return _img4Dbclick;
             }
         }
-        #endregion
 
+        #endregion 设置Image doubleClick 命令
 
         public string Url1 { get; set; }
         public string Url2 { get; set; }
@@ -477,8 +517,8 @@ namespace AIForAgedClient.ViewModel
         [PreferredConstructor]
         public BaseFourVideoVM()
         {
-
         }
+
         public BaseFourVideoVM(string url1, string url2 = null, string url3 = null, string url4 = null)
         {
             Url1 = url1;

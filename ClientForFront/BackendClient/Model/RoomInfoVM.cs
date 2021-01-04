@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
@@ -14,8 +13,9 @@ namespace BackendClient.Model
         public long Id { get; set; }
 
         private string _name;
-        [Required(ErrorMessage ="不能为空")]
-        [StringLength(20,ErrorMessage ="最大长度为20字符")]
+
+        [Required(ErrorMessage = "不能为空")]
+        [StringLength(20, ErrorMessage = "最大长度为20字符")]
         public string Name
         {
             get => _name;
@@ -23,7 +23,8 @@ namespace BackendClient.Model
         }
 
         private int _roomSize;
-        [Range(0, 500,ErrorMessage ="取值范围为0-500")]
+
+        [Range(0, 500, ErrorMessage = "取值范围为0-500")]
         public int RoomSize
         {
             get => _roomSize;

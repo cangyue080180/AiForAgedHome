@@ -1,86 +1,85 @@
 ﻿<Window x:Class="AIForAgedClient.View.MonitorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
-        xmlns:local="clr-namespace:AIForAgedClient.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="图像监控画面" Height="450" Width="800" DataContext="{Binding Path=Monitor, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Closing">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Foreground" Value="Black" />
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Cyan"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Cyan" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.Style>
             <Style TargetType="Grid">
-                <Setter Property="Background" Value="White"/>
+                <Setter Property="Background" Value="White" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding PoseInfo.IsAlarm}" Value="True">
-                        <Setter Property="Background" Value="Red"/>
+                        <Setter Property="Background" Value="Red" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Grid.Style>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
-        <ContentControl Content="{Binding FourVideoVM}" Margin="5"/>
+        <ContentControl Content="{Binding FourVideoVM}" Margin="5" />
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Label Content="姓名：" />
-            <TextBlock Text="{Binding PoseInfo.AgesInfo.Name}" Grid.Column="1"/>
-            <Label Content="房间：" Grid.Row="1"/>
-            <TextBlock Text="{Binding PoseInfo.AgesInfo.RoomInfo.Name}" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="{Binding PoseInfo.AgesInfo.Name}" Grid.Column="1" />
+            <Label Content="房间：" Grid.Row="1" />
+            <TextBlock Text="{Binding PoseInfo.AgesInfo.RoomInfo.Name}" Grid.Row="1" Grid.Column="1" />
             <Label Content="进入时间：" Grid.Row="2" />
-            <TextBlock Text="{Binding PoseInfo.TimeIn}" Grid.Row="2" Grid.Column="1"/>
-            <Label Content="当前状态：" Grid.Row="3"/>
-            <TextBlock Text="{Binding PoseInfo.Status,Converter={StaticResource statusConverter}}" Foreground="{Binding IsStatusChanged,Converter={StaticResource statusColorConverter}}" Grid.Row="3" Grid.Column="1"/>
-            <Label Content="站姿时间：" Grid.Row="4"/>
-            <TextBlock Text="{Binding PoseInfo.TimeStand,Converter={StaticResource secondsTimeConverter}}" Grid.Row="4" Grid.Column="1"/>
-            <Label Content="坐姿时间：" Grid.Row="5"/>
-            <TextBlock Text="{Binding PoseInfo.TimeSit,Converter={StaticResource secondsTimeConverter}}" Grid.Row="5" Grid.Column="1"/>
-            <Label Content="躺姿时间：" Grid.Row="6"/>
-            <TextBlock Text="{Binding PoseInfo.TimeLie,Converter={StaticResource secondsTimeConverter}}" Grid.Row="6" Grid.Column="1"/>
-            <Label Content="跌倒时间：" Grid.Row="7"/>
-            <TextBlock Text="{Binding PoseInfo.TimeDown,Converter={StaticResource secondsTimeConverter}}" Grid.Row="7" Grid.Column="1"/>
-            <Label Content="其他时间：" Grid.Row="8"/>
-            <TextBlock Text="{Binding PoseInfo.TimeOther,Converter={StaticResource secondsTimeConverter}}" Grid.Row="8" Grid.Column="1"/>
+            <TextBlock Text="{Binding PoseInfo.TimeIn}" Grid.Row="2" Grid.Column="1" />
+            <Label Content="当前状态：" Grid.Row="3" />
+            <TextBlock Text="{Binding PoseInfo.Status,Converter={StaticResource statusConverter}}" Foreground="{Binding IsStatusChanged,Converter={StaticResource statusColorConverter}}" Grid.Row="3" Grid.Column="1" />
+            <Label Content="站姿时间：" Grid.Row="4" />
+            <TextBlock Text="{Binding PoseInfo.TimeStand,Converter={StaticResource secondsTimeConverter}}" Grid.Row="4" Grid.Column="1" />
+            <Label Content="坐姿时间：" Grid.Row="5" />
+            <TextBlock Text="{Binding PoseInfo.TimeSit,Converter={StaticResource secondsTimeConverter}}" Grid.Row="5" Grid.Column="1" />
+            <Label Content="躺姿时间：" Grid.Row="6" />
+            <TextBlock Text="{Binding PoseInfo.TimeLie,Converter={StaticResource secondsTimeConverter}}" Grid.Row="6" Grid.Column="1" />
+            <Label Content="跌倒时间：" Grid.Row="7" />
+            <TextBlock Text="{Binding PoseInfo.TimeDown,Converter={StaticResource secondsTimeConverter}}" Grid.Row="7" Grid.Column="1" />
+            <Label Content="其他时间：" Grid.Row="8" />
+            <TextBlock Text="{Binding PoseInfo.TimeOther,Converter={StaticResource secondsTimeConverter}}" Grid.Row="8" Grid.Column="1" />
             <!--<Border Grid.Row="10" Grid.ColumnSpan="2" CornerRadius="10" Background="CadetBlue" BorderThickness="1" Margin="5">
-                <TextBlock Text="期颐玖樟"  Foreground="White" TextAlignment="Center" FontSize="20" Margin="0,4,0,4"/>
+                <TextBlock Text="期颐玖樟"  Foreground="White" TextAlignment="Center" FontSize="20" Margin="0,4,0,4" />
             </Border>-->
         </Grid>
     </Grid>

@@ -4,6 +4,5 @@ namespace BackendClient.ViewModel
 {
     public class DataManagerVM : ViewModelBase
     {
-
     }
 }

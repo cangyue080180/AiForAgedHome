@@ -47,6 +47,5 @@ namespace AIForAgedClient.ViewModel
             videoPlayHelper3?.Stop();
             videoPlayHelper4?.Stop();
         }
-
     }
 }

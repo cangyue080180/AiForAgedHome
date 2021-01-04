@@ -21,6 +21,7 @@ namespace BackendClient.ViewModel
     public class ChartViewVM : ViewModelBase
     {
         #region property and command
+
         private HttpClient httpClient;
         private IMapper autoMapper;
         private Timer updateTimer;
@@ -40,6 +41,7 @@ namespace BackendClient.ViewModel
         public double AxisUnit { get; set; }
 
         private ObservableCollection<AgesInfo> _ageds = new ObservableCollection<AgesInfo>();
+
         public ObservableCollection<AgesInfo> Ageds
         {
             get
@@ -49,6 +51,7 @@ namespace BackendClient.ViewModel
         }
 
         private AgesInfo _selectedAged;
+
         public AgesInfo SelectedAged
         {
             get => _selectedAged;
@@ -56,6 +59,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onLoadedCmd;
+
         public ICommand OnLoadedCmd
         {
             get
@@ -67,6 +71,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onUnloadedCmd;
+
         public ICommand OnUnloadedCmd
         {
             get
@@ -78,6 +83,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _userSelectedChangedCmd;
+
         public ICommand UserSelectionChangeCmd
         {
             get
@@ -87,7 +93,8 @@ namespace BackendClient.ViewModel
                 return _userSelectedChangedCmd;
             }
         }
-        #endregion
+
+        #endregion property and command
 
         public ChartViewVM(HttpClient httpClient, Mapper autoMapper)
         {
@@ -218,6 +225,7 @@ namespace BackendClient.ViewModel
                 UpdateWeekSitLine(poseinfoes_month);
             }
         }
+
         //更新当前天的姿态信息饼图
         private void UpdateDayPieChart(IEnumerable<PoseInfo> poseInfos)
         {
@@ -232,6 +240,7 @@ namespace BackendClient.ViewModel
                 autoMapper.Map(poseinfo_day, PoseInfoVm_Now);
             }
         }
+
         //更新最近一周的姿态信息饼图
         private void UpdateWeekPieChart(IEnumerable<PoseInfo> poseInfos)
         {
@@ -251,6 +260,7 @@ namespace BackendClient.ViewModel
                 PoseInfoVm_Week.TimeStand += item.TimeStand;
             }
         }
+
         //更新最近一月的姿态信息饼图
         private void UpdateMonthPieChart(IEnumerable<PoseInfo> poseInfos)
         {
@@ -269,6 +279,7 @@ namespace BackendClient.ViewModel
                 PoseInfoVm_Month.TimeStand += item.TimeStand;
             }
         }
+
         //更新最近一周站立信息线图
         private void UpdateWeekStandLine(IEnumerable<PoseInfo> poseInfos)
         {
@@ -280,6 +291,7 @@ namespace BackendClient.ViewModel
             PoseInfoStandWeek.Clear();
             PoseInfoStandWeek.AddRange(pose_stand_week);
         }
+
         private void UpdateWeekLieLine(IEnumerable<PoseInfo> poseInfos)
         {
             var pose_lie_week = poseInfos.Where(item => item.Date > DateTime.Now.AddDays(-7)).Select(pose => new MeasureModel()
@@ -290,6 +302,7 @@ namespace BackendClient.ViewModel
             PoseInfoLieWeek.Clear();
             PoseInfoLieWeek.AddRange(pose_lie_week);
         }
+
         private void UpdateWeekSitLine(IEnumerable<PoseInfo> poseInfos)
         {
             var pose_sit_week = poseInfos.Where(item => item.Date > DateTime.Now.AddDays(-7)).Select(pose => new MeasureModel()
@@ -300,6 +313,7 @@ namespace BackendClient.ViewModel
             PoseInfoSitWeek.Clear();
             PoseInfoSitWeek.AddRange(pose_sit_week);
         }
+
         private void Unloaded()
         {
             LogHelper.Debug("DataView Unloaded.");

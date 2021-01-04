@@ -41,16 +41,15 @@ namespace AgedPoseDatabse.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<PaginatedList<DetailPoseInfo>>> GetDetailPoseInfosByDay(long id , string date, int pageIndex, int pageSize)
+        public async Task<ActionResult<PaginatedList<DetailPoseInfo>>> GetDetailPoseInfosByDay(long id, string date, int pageIndex, int pageSize)
         {
             DateTime startTime = DateTime.Parse(date);
             var detailPoseInfoes = _context.DeatilPoseInfos.Where(x => x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24));
 
-            var queryDetailPoseInfoes =await PaginatedList<DetailPoseInfo>.CreateAsync(detailPoseInfoes,pageIndex,pageSize);
+            var queryDetailPoseInfoes = await PaginatedList<DetailPoseInfo>.CreateAsync(detailPoseInfoes, pageIndex, pageSize);
 
             return queryDetailPoseInfoes;
         }
-
 
         // POST: api/DetailPoseInfoes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -75,15 +74,14 @@ namespace AgedPoseDatabse.Controllers
                 }
             }
 
-            return CreatedAtAction("GetDetailPoseInfo", new { id = detailPoseInfo.AgesInfoId, datetime=detailPoseInfo.DateTime }, detailPoseInfo);
+            return CreatedAtAction("GetDetailPoseInfo", new { id = detailPoseInfo.AgesInfoId, datetime = detailPoseInfo.DateTime }, detailPoseInfo);
         }
-
 
         [HttpDelete("[action]")]
         public async Task<ActionResult> DeleteDetailPoseInfoByDay(long id, string date)
         {
             DateTime startTime = DateTime.Parse(date);
-            var detailPoseInfoes = await _context.DeatilPoseInfos.Where(x=>x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24)).ToListAsync();
+            var detailPoseInfoes = await _context.DeatilPoseInfos.Where(x => x.AgesInfoId == id && x.DateTime >= startTime && x.DateTime <= startTime.AddHours(24)).ToListAsync();
             if (detailPoseInfoes.Count == 0)
             {
                 return NotFound();

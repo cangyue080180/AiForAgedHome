@@ -41,6 +41,7 @@ namespace AIForAgedClient.ViewModel
         public ObservableCollection<PoseInfoVM> PoseInfos { get; } = new ObservableCollection<PoseInfoVM>();
 
         private PoseInfoVM _selectedPoseInfo;
+
         public PoseInfoVM SelectedPoseInfo
         {
             get => _selectedPoseInfo;
@@ -53,6 +54,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _onLoaded;
+
         public ICommand OnLoadedCommand
         {
             get
@@ -64,6 +66,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _onClosing;
+
         public ICommand OnClosingCommand
         {
             get
@@ -77,6 +80,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand<Button> _goMonitorViewCmd;
+
         public ICommand GoMonitorViewCmd
         {
             get
@@ -94,7 +98,7 @@ namespace AIForAgedClient.ViewModel
                             SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
                         else if (video_type == "huo_chai_ren")
                             SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
-                        else if(video_type == "huochai_and_origin")
+                        else if (video_type == "huochai_and_origin")
                             SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiAndOriginVideoVM>();
                         else
                             SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
@@ -107,13 +111,15 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand<Button> _goDetailViewCmd;
+
         public ICommand GoDetailViewCmd
         {
             get
             {
                 if (_goDetailViewCmd == null)
                 {
-                    _goDetailViewCmd = new RelayCommand<Button>(btn=> {
+                    _goDetailViewCmd = new RelayCommand<Button>(btn =>
+                    {
                         var selectedItem = btn.DataContext as PoseInfoVM;
                         this.SelectedPoseInfo = selectedItem;
                         SimpleIoc.Default.Register(() => SelectedPoseInfo);
@@ -128,7 +134,7 @@ namespace AIForAgedClient.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(HttpClient httpClient,Mapper mapper)
+        public MainViewModel(HttpClient httpClient, Mapper mapper)
         {
             this.httpClient = httpClient;
             this.mapper = mapper;
@@ -186,7 +192,7 @@ namespace AIForAgedClient.ViewModel
                 }
                 else
                 {
-                    mapper.Map(item,tempPose);
+                    mapper.Map(item, tempPose);
                 }
             }
             //ºÏ≤È”–Œﬁ…æºı
@@ -216,6 +222,7 @@ namespace AIForAgedClient.ViewModel
             monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
             monitorWindow.ShowDialog();
         }
+
         private void ShowDetailPoseInfoWindow()
         {
             DetailPoseInfoWindow tempWindow = new DetailPoseInfoWindow();

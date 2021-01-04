@@ -1,12 +1,11 @@
 <Application x:Class="BackendClient.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BackendClient"
-             xmlns:vm="clr-namespace:BackendClient.ViewModel"
-             xmlns:v="clr-namespace:BackendClient.View"
-             StartupUri="MainWindow.xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             d1p1:Ignorable="d"
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:v="clr-namespace:BackendClient.View"
+             xmlns:vm="clr-namespace:BackendClient.ViewModel"
+             StartupUri="MainWindow.xaml"
+             d1p1:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:BackendClient.ViewModel" />
@@ -14,22 +13,22 @@
                 <v:DataView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:DataManagerVM}">
-                <v:DataManagerView/>
+                <v:DataManagerView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RoomInfoDatasVM}">
-                <v:RoomInfoDatasView/>
+                <v:RoomInfoDatasView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:AgesInfoDatasVM}">
-                <v:AgesInfoDatasView/>
+                <v:AgesInfoDatasView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:ServerInfoDatasVM}">
-                <v:ServerInfoDatasView/>
+                <v:ServerInfoDatasView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:CameraInfoDatasVM}">
-                <v:CameraInfoDatasView/>
+                <v:CameraInfoDatasView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:UserInfoDatasVM}">
-                <v:UserInfoDatasView/>
+                <v:UserInfoDatasView />
             </DataTemplate>
             <Style TargetType="TabItem" x:Key="tabItemStyle">
                 <Setter Property="Padding" Value="5" />
@@ -46,8 +45,8 @@
                 </Setter>
             </Style>
             <Style TargetType="Button">
-                <Setter Property="MinWidth" Value="70"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="MinWidth" Value="70" />
+                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Validation.ErrorTemplate">
@@ -55,8 +54,7 @@
                         <ControlTemplate>
                             <DockPanel LastChildFill="True">
                                 <TextBlock DockPanel.Dock="Bottom" Foreground="Red" FontSize="10"
-                             Text="{Binding ElementName=adornerPlaceholder,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
-                                       />
+                             Text="{Binding ElementName=adornerPlaceholder,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
                                 <Border BorderBrush="Green" BorderThickness="1">
                                     <AdornedElementPlaceholder Name="adornerPlaceholder"></AdornedElementPlaceholder>
                                 </Border>
@@ -66,7 +64,7 @@
                 </Setter>
             </Style>
             <Style TargetType="{x:Type StackPanel}" x:Key="text_stackpanel">
-                <Setter Property="Margin" Value="0,10,0,0"/>
+                <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

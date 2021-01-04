@@ -3,29 +3,32 @@ using System.Collections.ObjectModel;
 
 namespace AIForAgedClient.ViewModel
 {
-    public class PaginatedListVM<T>:ViewModelBase
+    public class PaginatedListVM<T> : ViewModelBase
     {
         private int _pageIndex;
-        public int PageIndex 
+
+        public int PageIndex
         {
             get => _pageIndex;
-            set => Set(()=>PageIndex,ref _pageIndex,value);
+            set => Set(() => PageIndex, ref _pageIndex, value);
         }
 
         private int _totalPages;
-        public int TotalPages 
+
+        public int TotalPages
         {
             get => _totalPages;
-            set => Set(()=>TotalPages,ref _totalPages,value);
+            set => Set(() => TotalPages, ref _totalPages, value);
         }
 
-        private ObservableCollection<T> _items=new ObservableCollection<T>();
+        private ObservableCollection<T> _items = new ObservableCollection<T>();
+
         public ObservableCollection<T> Items
         {
             get => _items;
             set
             {
-                if (_items!=value && value!=null)
+                if (_items != value && value != null)
                 {
                     _items.Clear();
 
@@ -38,13 +41,15 @@ namespace AIForAgedClient.ViewModel
         }
 
         private bool _hasPreviousPage;
+
         public bool HasPreviousPage
         {
             get => _hasPreviousPage;
-            set => Set(()=>HasPreviousPage,ref _hasPreviousPage,value);
+            set => Set(() => HasPreviousPage, ref _hasPreviousPage, value);
         }
 
         private bool _hasNextPage;
+
         public bool HasNextPage
         {
             get => _hasNextPage;

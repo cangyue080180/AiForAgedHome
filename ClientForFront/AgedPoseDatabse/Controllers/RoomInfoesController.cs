@@ -23,7 +23,7 @@ namespace AgedPoseDatabse.Controllers
         public async Task<ActionResult<IEnumerable<RoomInfo>>> GetRoomInfos()
         {
             return await _context.RoomInfos
-                .Include(room=>room.CameraInfos)
+                .Include(room => room.CameraInfos)
                 .ToListAsync();
         }
 

@@ -17,10 +17,12 @@ namespace BackendClient.ViewModel
                     return Visibility.Visible;
             }
         }
+
         public string Title { get; set; }
         public T Model { get; set; }
 
         private RelayCommand _onLoadCmd;
+
         public ICommand OnLoadCmd
         {
             get
@@ -37,6 +39,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onClosingCmd;
+
         public ICommand OnClosingCmd
         {
             get
@@ -53,6 +56,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand<Window> _okCmd;
+
         public RelayCommand<Window> OkCmd
         {
             get
@@ -75,6 +79,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand<Window> _cancelCmd;
+
         public RelayCommand<Window> CancelCmd
         {
             get
@@ -88,6 +93,7 @@ namespace BackendClient.ViewModel
         }
 
         public abstract bool IsNewModel();
+
         public abstract void OnWindowLoaded();
 
         public abstract void OnWindowClosing();

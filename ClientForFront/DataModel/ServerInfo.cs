@@ -12,6 +12,7 @@ namespace DataModel
 
         [StringLength(100)]
         public string FactoryInfo { get; set; }
+
         public byte MaxCameraCount { get; set; }
 
         [StringLength(15)]

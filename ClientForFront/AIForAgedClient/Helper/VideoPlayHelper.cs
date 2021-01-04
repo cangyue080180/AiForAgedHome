@@ -29,9 +29,12 @@ namespace AIForAgedClient.Helper
 
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
-            task = new Task(() => {PlayVideo(cancellationTokenSource.Token);
+            task = new Task(() =>
+            {
+                PlayVideo(cancellationTokenSource.Token);
             }, cancellationTokenSource.Token);
-            task.ContinueWith((task) => {
+            task.ContinueWith((task) =>
+            {
                 capture.Dispose();
             });
         }
@@ -48,9 +51,10 @@ namespace AIForAgedClient.Helper
 
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
-            task = new Task(() => {PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
-            task.ContinueWith((task)=> {
-                capture.Dispose();   
+            task = new Task(() => { PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
+            task.ContinueWith((task) =>
+            {
+                capture.Dispose();
             });
         }
 
@@ -97,13 +101,11 @@ namespace AIForAgedClient.Helper
                         }
                         catch (System.ArgumentException ex)
                         {
-
                         }
                     }
                 }
                 catch (AccessViolationException ex)
                 {
-
                 }
                 Thread.Sleep(50);
             }

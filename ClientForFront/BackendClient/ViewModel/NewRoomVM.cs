@@ -12,6 +12,7 @@ namespace BackendClient.ViewModel
     {
         //当为true时是新建对象，为false时是修改对象
         private readonly bool isNew = true;
+
         private readonly HttpClient httpClient;
         private readonly IMapper autoMapper;
 

@@ -10,9 +10,6 @@ namespace BackendClient.View
         public DataView()
         {
             InitializeComponent();
-
-
-
         }
     }
 }

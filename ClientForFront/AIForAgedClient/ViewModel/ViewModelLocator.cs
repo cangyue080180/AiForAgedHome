@@ -4,7 +4,7 @@
       <vm:ViewModelLocator xmlns:vm="clr-namespace:AIForAgedClient"
                            x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 
@@ -46,7 +46,7 @@ namespace AIForAgedClient.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
             SimpleIoc.Default.Register(() => new HttpClient());
-            SimpleIoc.Default.Register(()=>new Mapper(CreateConfiguration()));
+            SimpleIoc.Default.Register(() => new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MonitorViewModel>();
             SimpleIoc.Default.Register<DetailPoseInfoVM>();

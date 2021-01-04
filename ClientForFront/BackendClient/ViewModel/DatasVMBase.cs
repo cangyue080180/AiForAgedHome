@@ -12,6 +12,7 @@ namespace BackendClient.ViewModel
         public ObservableCollection<T> ItemsSource { get; } = new ObservableCollection<T>();
 
         private T _selectedItem;
+
         public T SelectedItem
         {
             get => _selectedItem;
@@ -19,6 +20,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onLoadedCmd;
+
         public ICommand OnLoadedCmd
         {
             get
@@ -30,6 +32,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onUnloadedCmd;
+
         public ICommand OnUnloadedCmd
         {
             get
@@ -41,6 +44,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _newCmd;
+
         public RelayCommand NewCmd//新建
         {
             get
@@ -57,6 +61,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _updateCmd;
+
         public ICommand UpdateCmd//刷新显示
         {
             get
@@ -68,6 +73,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand<Hyperlink> _delCmd;
+
         public ICommand DelCmd//删除
         {
             get
@@ -84,6 +90,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand<Hyperlink> _changeCmd;
+
         public ICommand ChangeCmd
         {
             get
@@ -100,6 +107,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand<string> _searchCmd;
+
         public RelayCommand<string> SearchCmd
         {
             get

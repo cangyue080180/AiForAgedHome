@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
@@ -7,15 +6,16 @@ namespace BackendClient.Model
     {
         public AgesInfoVM()
         {
-            ValidationKey(new string[] {nameof(Name),nameof(ContacterName),nameof(ContacterPhone),nameof(NurseName),nameof(Address) });
+            ValidationKey(new string[] { nameof(Name), nameof(ContacterName), nameof(ContacterPhone), nameof(NurseName), nameof(Address) });
             this.PropertyChanged += delegate { IsBeginValidation = true; };
         }
 
         public long Id { get; set; }
 
         private string _name;
-        [Required(ErrorMessage ="不能为空")]
-        [StringLength(20,ErrorMessage ="最大长度为20字符")]
+
+        [Required(ErrorMessage = "不能为空")]
+        [StringLength(20, ErrorMessage = "最大长度为20字符")]
         public string Name
         {
             get => _name;
@@ -23,6 +23,7 @@ namespace BackendClient.Model
         }
 
         private string _contacterName;
+
         [StringLength(20, ErrorMessage = "最大长度为20字符")]
         public string ContacterName
         {
@@ -31,6 +32,7 @@ namespace BackendClient.Model
         }
 
         private string _contacterPhone;
+
         [StringLength(11, ErrorMessage = "号码长度不正确")]
         public string ContacterPhone
         {
@@ -39,6 +41,7 @@ namespace BackendClient.Model
         }
 
         private string _nurseName;
+
         [StringLength(20, ErrorMessage = "最大长度为20字符")]
         public string NurseName
         {
@@ -47,6 +50,7 @@ namespace BackendClient.Model
         }
 
         private string _address;
+
         [StringLength(100, ErrorMessage = "最大长度为100字符")]
         public string Address
         {
@@ -57,6 +61,7 @@ namespace BackendClient.Model
         public long RoomInfoId { get; set; }
 
         private RoomInfoVM roomInfo;
+
         public RoomInfoVM RoomInfo
         {
             get => roomInfo;

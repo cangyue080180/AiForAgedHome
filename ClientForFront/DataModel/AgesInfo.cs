@@ -27,6 +27,5 @@ namespace DataModel
         public RoomInfo RoomInfo { get; set; }
 
         public List<PoseInfo> PoseInfos { get; set; }
-
     }
 }

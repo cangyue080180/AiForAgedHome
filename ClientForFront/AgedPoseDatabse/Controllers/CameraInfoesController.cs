@@ -30,7 +30,7 @@ namespace AgedPoseDatabse.Controllers
         {
             return await _context.CameraInfos
                 .Include(cam => cam.RoomInfo)
-                .Include(cam=>cam.ServerInfo)
+                .Include(cam => cam.ServerInfo)
                 .ToListAsync();
         }
 
@@ -60,7 +60,6 @@ namespace AgedPoseDatabse.Controllers
 
             return cameraInfos;
         }
-
 
         // PUT: api/CameraInfoes/id
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

@@ -69,7 +69,6 @@ namespace AgedPoseDatabse.Models
                         IsAlarm = false
                     };
                     aged2.PoseInfoes.Add(poseInfo2);
-
                 }
 
                 CameraInfo camera1 = new CameraInfo()
@@ -102,7 +101,6 @@ namespace AgedPoseDatabse.Models
                     VideoAddress = "http://ivi.bupt.edu.cn/hls/cctv8hd.m3u8",
                 };
 
-
                 ServerInfo serverInfo1 = new ServerInfo()
                 {
                     Name = "server1",
@@ -130,7 +128,6 @@ namespace AgedPoseDatabse.Models
 
                 serverInfo1.CameraInfos = new List<CameraInfo>();
                 serverInfo1.CameraInfos.AddRange(new CameraInfo[] { camera1, camera2, camera3, camera4 });
-
 
                 context.RoomInfos.AddRange(room1, room2);
                 context.ServerInfos.AddRange(serverInfo1, serverInfo2);

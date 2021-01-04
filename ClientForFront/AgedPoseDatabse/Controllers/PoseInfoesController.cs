@@ -25,6 +25,7 @@ namespace AgedPoseDatabse.Controllers
         {
             return await _context.PoseInfos.ToListAsync();
         }
+
         //获取Date为当天的所有Pose记录
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<PoseInfo>>> GetPoseInfoToday()
@@ -42,6 +43,7 @@ namespace AgedPoseDatabse.Controllers
 
             return poseInfo;
         }
+
         //获取指定老人的一段时间内的姿态信息
         // GET: api/PoseInfoes/getPoseInfo?id=1&minDate=2020-7-15&maxDate=2020-7-20
         [HttpGet("[action]")]
@@ -62,7 +64,7 @@ namespace AgedPoseDatabse.Controllers
         {
             var poseInfoes = await _context.PoseInfos
                 .Where(pose => pose.Date == DateTime.Now.Date && _context.RoomInfos.First(x => x.Id == id).AgesInfos.Any(y => y.Id == pose.AgesInfoId))
-                .Include(pose=>pose.AgesInfo)
+                .Include(pose => pose.AgesInfo)
                 .ToListAsync();
             if (poseInfoes.Count == 0)
             {
@@ -71,7 +73,6 @@ namespace AgedPoseDatabse.Controllers
 
             return poseInfoes;
         }
-
 
         //获取某一个老人的当天的姿态信息
         // GET: api/PoseInfoes/id
@@ -99,10 +100,9 @@ namespace AgedPoseDatabse.Controllers
             }
             else
             {
-                return await PutPoseInfo(id,poseInfo);
+                return await PutPoseInfo(id, poseInfo);
             }
         }
-
 
         // PUT: api/PoseInfoes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

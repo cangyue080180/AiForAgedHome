@@ -25,7 +25,6 @@ namespace BackendClient.Model
             }
             catch (ArgumentNullException)
             {
-
             }
             return false;
         }
@@ -64,7 +63,6 @@ namespace BackendClient.Model
             }
             catch (ArgumentNullException)
             {
-
             }
             return false;
         }

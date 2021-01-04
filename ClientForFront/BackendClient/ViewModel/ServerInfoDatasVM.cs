@@ -50,6 +50,7 @@ namespace BackendClient.ViewModel
             LogHelper.Debug("ServerInfoView Loaded.");
             Update();
         }
+
         public override void Unloaded()
         {
             LogHelper.Debug("ServerInfoView UnLoaded.");

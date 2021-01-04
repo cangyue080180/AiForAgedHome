@@ -14,6 +14,7 @@ namespace AIForAgedClient
         public DateTime Date { get; set; }
 
         private int _timeStand;
+
         public int TimeStand
         {
             get => _timeStand;
@@ -21,6 +22,7 @@ namespace AIForAgedClient
         }
 
         private int _timeSit;
+
         public int TimeSit
         {
             get => _timeSit;
@@ -28,6 +30,7 @@ namespace AIForAgedClient
         }
 
         private int _timeLie;
+
         public int TimeLie
         {
             get => _timeLie;
@@ -35,6 +38,7 @@ namespace AIForAgedClient
         }
 
         private int _timeDown;
+
         public int TimeDown
         {
             get => _timeDown;
@@ -42,6 +46,7 @@ namespace AIForAgedClient
         }
 
         private int _timeOther;
+
         public int TimeOther
         {
             get => _timeOther;
@@ -49,6 +54,7 @@ namespace AIForAgedClient
         }
 
         private string _timeIn;
+
         [StringLength(8)]
         public string TimeIn
         {
@@ -57,6 +63,7 @@ namespace AIForAgedClient
         }
 
         private bool _isAlarm;
+
         public bool IsAlarm
         {
             get => _isAlarm;
@@ -64,10 +71,11 @@ namespace AIForAgedClient
         }
 
         private byte? _status;
+
         public byte? Status
         {
             get => _status;
-            set => Set(()=>Status,ref _status, value);
+            set => Set(() => Status, ref _status, value);
         }
     }
 }

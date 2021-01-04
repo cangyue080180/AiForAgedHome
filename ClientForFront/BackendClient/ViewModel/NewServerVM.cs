@@ -31,6 +31,7 @@ namespace BackendClient.ViewModel
                 Title = "创建新服务器";
             }
         }
+
         public override bool IsNewModel()
         {
             return isNew;

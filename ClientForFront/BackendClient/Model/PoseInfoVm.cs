@@ -5,6 +5,7 @@ namespace BackendClient.Model
     public class PoseInfoVm : ViewModelBase
     {
         private double _timeStand;
+
         public double TimeStand
         {
             get => _timeStand;
@@ -12,6 +13,7 @@ namespace BackendClient.Model
         }
 
         private double _timeSit = 0;
+
         public double TimeSit
         {
             get => _timeSit;
@@ -20,6 +22,7 @@ namespace BackendClient.Model
         }
 
         private double _timeLie = 0;
+
         public double TimeLie
         {
             get => _timeLie;
@@ -28,6 +31,7 @@ namespace BackendClient.Model
         }
 
         private double _timeDown = 0;
+
         public double TimeDown
         {
             get => _timeDown;
@@ -36,6 +40,7 @@ namespace BackendClient.Model
         }
 
         private double _timeOther = 0;
+
         public double TimeOther
         {
             get => _timeOther;

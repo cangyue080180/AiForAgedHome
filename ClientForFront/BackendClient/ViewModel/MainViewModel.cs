@@ -28,6 +28,7 @@ namespace BackendClient.ViewModel
                 return Assembly.GetExecutingAssembly().GetName().Name;
             }
         }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -44,6 +45,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _aboutCmd;
+
         public ICommand AboutCmd
         {
             get
@@ -61,6 +63,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onLoadCmd;
+
         public ICommand OnLoadCmd
         {
             get
@@ -77,6 +80,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _onClosingCmd;
+
         public ICommand OnClosingCmd
         {
             get

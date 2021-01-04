@@ -50,10 +50,10 @@ namespace AgedPoseDatabse.Controllers
                 return BadRequest();
             }
             var serverInfo = await _context.ServerInfos
-                .Include(serverInfo=>serverInfo.CameraInfos)
-                .ThenInclude(camera=>camera.RoomInfo)
-                .ThenInclude(room=>room.AgesInfos)
-                .FirstOrDefaultAsync(x=>x.Ip==ip);
+                .Include(serverInfo => serverInfo.CameraInfos)
+                .ThenInclude(camera => camera.RoomInfo)
+                .ThenInclude(room => room.AgesInfos)
+                .FirstOrDefaultAsync(x => x.Ip == ip);
 
             if (serverInfo == null)
             {

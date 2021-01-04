@@ -18,15 +18,17 @@ using System.Windows.Threading;
 
 namespace AIForAgedClient.ViewModel
 {
-    public class RoomViewModel:ViewModelBase
+    public class RoomViewModel : ViewModelBase
     {
         #region variables and properies
+
         private HttpClient httpClient;
         private DispatcherTimer dispatcherTimer;
 
         public ObservableCollection<RoomInfo> RoomInfoes { get; } = new ObservableCollection<RoomInfo>();
 
         private RoomInfo _selectedRoom;
+
         public RoomInfo SelectedRoom
         {
             get => _selectedRoom;
@@ -38,12 +40,13 @@ namespace AIForAgedClient.ViewModel
             get
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                var titleAttribute = (AssemblyTitleAttribute)Attribute.GetCustomAttribute(assembly,typeof(AssemblyTitleAttribute));
+                var titleAttribute = (AssemblyTitleAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyTitleAttribute));
                 return titleAttribute.Title;
             }
         }
 
         private RelayCommand _onLoaded;
+
         public RelayCommand OnLoadedCommand
         {
             get
@@ -55,6 +58,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _onClosing;
+
         public RelayCommand OnClosingCommand
         {
             get
@@ -68,6 +72,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand<Button> _goMonitorViewCmd;
+
         public RelayCommand<Button> GoMonitorViewCmd
         {
             get
@@ -96,7 +101,8 @@ namespace AIForAgedClient.ViewModel
                 return _goMonitorViewCmd;
             }
         }
-        #endregion
+
+        #endregion variables and properies
 
         public RoomViewModel(HttpClient httpClient)
         {
@@ -111,6 +117,7 @@ namespace AIForAgedClient.ViewModel
         {
             GetRoomsAsync();
         }
+
         private async Task GetRoomsAsync()
         {
             string url = ConfigurationManager.AppSettings["GetRoomInfoUrl"];
@@ -147,7 +154,6 @@ namespace AIForAgedClient.ViewModel
                     //更新状态信息
                     tempPose.IsAlarm = item.IsAlarm;
                 }
-                
             }
             //检查有无删减
             for (int i = RoomInfoes.Count - 1; i >= 0; i--)

@@ -62,12 +62,11 @@ namespace PressureTestForDataServer
                 }
                 await Task.Delay(2000);
             }
-
         }
+
         //创建读数据库请求
         private static async void TestReadDb()
         {
-
             string url = "https://localhost:44358/api/poseinfoes/getposeinfotoday";
             string result;
             while (!isStop)

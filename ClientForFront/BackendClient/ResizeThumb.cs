@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace BackendClient
 {
-    public class ResizeThumb:Thumb
+    public class ResizeThumb : Thumb
     {
         public ResizeThumb()
         {
@@ -30,11 +26,13 @@ namespace BackendClient
                         deltaVertical = Math.Min(-e.VerticalChange, designerItem.ActualHeight - designerItem.MinHeight);
                         designerItem.Height -= deltaVertical;
                         break;
+
                     case VerticalAlignment.Top:
                         deltaVertical = Math.Min(e.VerticalChange, designerItem.ActualHeight - designerItem.MinHeight);
                         Canvas.SetTop(designerItem, Canvas.GetTop(designerItem) + deltaVertical);
                         designerItem.Height -= deltaVertical;
                         break;
+
                     default:
                         break;
                 }
@@ -46,10 +44,12 @@ namespace BackendClient
                         Canvas.SetLeft(designerItem, Canvas.GetLeft(designerItem) + deltaHorizontal);
                         designerItem.Width -= deltaHorizontal;
                         break;
+
                     case HorizontalAlignment.Right:
                         deltaHorizontal = Math.Min(-e.HorizontalChange, designerItem.ActualWidth - designerItem.MinWidth);
                         designerItem.Width -= deltaHorizontal;
                         break;
+
                     default:
                         break;
                 }

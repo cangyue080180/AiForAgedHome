@@ -6,7 +6,6 @@ namespace AgedPoseDatabse.Models
     {
         public AiForAgedDbContext(DbContextOptions<AiForAgedDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -17,7 +16,7 @@ namespace AgedPoseDatabse.Models
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Ip).IsUnique();
             modelBuilder.Entity<ServerInfo>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<UserInfo>().HasIndex(x => x.Name).IsUnique();
-            modelBuilder.Entity<DetailPoseInfo>().HasKey(k=>new { k.AgesInfoId,k.DateTime});
+            modelBuilder.Entity<DetailPoseInfo>().HasKey(k => new { k.AgesInfoId, k.DateTime });
         }
 
         public DbSet<RoomInfo> RoomInfos { get; set; }

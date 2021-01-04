@@ -1,26 +1,25 @@
 ﻿<Window x:Class="AIForAgedClient.View.DetailPoseInfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
-        xmlns:local="clr-namespace:AIForAgedClient.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800" DataContext="{Binding Path=DetailPoseInfo, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}"/>
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Closing">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}"/>
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="10">
             <TextBlock Text="{Binding DateSelected, StringFormat=yyyy/MM/dd}" />
@@ -32,8 +31,8 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="时间" DisplayMemberBinding="{Binding DateTime,StringFormat=HH:mm:ss}" Width="150"/>
-                        <GridViewColumn Header="姿态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="100"/>
+                        <GridViewColumn Header="时间" DisplayMemberBinding="{Binding DateTime,StringFormat=HH:mm:ss}" Width="150" />
+                        <GridViewColumn Header="姿态" DisplayMemberBinding="{Binding Status,Converter={StaticResource statusConverter}}" Width="100" />
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
@@ -44,11 +43,11 @@
                     上一页
                 </Hyperlink>
             </TextBlock>
-            <TextBlock >
+            <TextBlock>
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}  {0}/{1}  ">
-                        <Binding Path="PaginatedListContext.PageIndex"/>
-                        <Binding Path="PaginatedListContext.TotalPages"/>
+                        <Binding Path="PaginatedListContext.PageIndex" />
+                        <Binding Path="PaginatedListContext.TotalPages" />
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>

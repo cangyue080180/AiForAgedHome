@@ -9,18 +9,18 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=HelpVM}" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
-            <Border >
-                <TextBlock Margin="20" Text="{Binding Name}" FontSize="30"/>
+            <Border>
+                <TextBlock Margin="20" Text="{Binding Name}" FontSize="30" />
             </Border>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="版权:" Margin="20,0"/>
+                <TextBlock Text="版权:" Margin="20,0" />
                 <TextBlock Text="{Binding Copyright}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="20,5">
                 <TextBlock Text="版本：" />
                 <TextBlock Text="{Binding Auth}" />
             </StackPanel>
-            <TextBlock Text="{Binding Desc}"  Margin="20,5"/>
+            <TextBlock Text="{Binding Desc}"  Margin="20,5" />
         </StackPanel>
     </Grid>
 </Window>

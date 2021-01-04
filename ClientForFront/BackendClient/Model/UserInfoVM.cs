@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
@@ -7,14 +6,16 @@ namespace BackendClient.Model
     {
         public UserInfoVM()
         {
-            ValidationKey(new string[] { nameof(Name), nameof(Password),nameof(Authority) });
+            ValidationKey(new string[] { nameof(Name), nameof(Password), nameof(Authority) });
             this.PropertyChanged += delegate { IsBeginValidation = true; };
         }
+
         public int Id { get; set; }
 
         private string _name;
-        [Required(ErrorMessage ="不能为空")]
-        [StringLength(30,ErrorMessage ="最大字符长度为30")]
+
+        [Required(ErrorMessage = "不能为空")]
+        [StringLength(30, ErrorMessage = "最大字符长度为30")]
         public string Name
         {
             get => _name;
@@ -22,8 +23,9 @@ namespace BackendClient.Model
         }
 
         private string _password;
-        [Required(ErrorMessage ="不能为空")]
-        [StringLength(16,ErrorMessage ="最大字符长度为16")]
+
+        [Required(ErrorMessage = "不能为空")]
+        [StringLength(16, ErrorMessage = "最大字符长度为16")]
         public string Password
         {
             get => _password;
@@ -31,7 +33,8 @@ namespace BackendClient.Model
         }
 
         private int _authority = 30;
-        [Range(0,34,ErrorMessage ="不正确值")]
+
+        [Range(0, 34, ErrorMessage = "不正确值")]
         public int Authority
         {
             get => _authority;

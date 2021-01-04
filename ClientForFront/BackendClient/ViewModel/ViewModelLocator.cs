@@ -4,7 +4,7 @@
       <vm:ViewModelLocator xmlns:vm="clr-namespace:BackendClient"
                            x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 
@@ -63,6 +63,7 @@ namespace BackendClient.ViewModel
             SimpleIoc.Default.Register<NewCameraVM>();
             SimpleIoc.Default.Register<NewUserVM>();
         }
+
         public static MapperConfiguration CreateConfiguration()
         {
             var config = new MapperConfiguration(cfg =>
@@ -99,6 +100,7 @@ namespace BackendClient.ViewModel
                 return ServiceLocator.Current.GetInstance<ChartViewVM>();
             }
         }
+
         public DataManagerVM DataManagerVM
         {
             get
@@ -106,6 +108,7 @@ namespace BackendClient.ViewModel
                 return ServiceLocator.Current.GetInstance<DataManagerVM>();
             }
         }
+
         public RoomInfoDatasVM RoomInfoDatasVM
         {
             get
@@ -113,6 +116,7 @@ namespace BackendClient.ViewModel
                 return ServiceLocator.Current.GetInstance<RoomInfoDatasVM>();
             }
         }
+
         public AgesInfoDatasVM AgesInfoDatasVM
         {
             get => ServiceLocator.Current.GetInstance<AgesInfoDatasVM>();

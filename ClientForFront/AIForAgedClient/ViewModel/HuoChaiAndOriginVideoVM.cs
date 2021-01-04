@@ -82,7 +82,6 @@ namespace AIForAgedClient.ViewModel
                 }
                 catch (OperationCanceledException)
                 {
-
                 }
                 stream?.Close();
                 tcpClient?.Close();
@@ -131,7 +130,6 @@ namespace AIForAgedClient.ViewModel
                         }
                         else
                         {
-
                         }
                     }
                     catch (System.NotSupportedException)
@@ -140,7 +138,6 @@ namespace AIForAgedClient.ViewModel
                     }
                 }
             }
-
         }
 
         public override void Stop()
@@ -152,9 +149,6 @@ namespace AIForAgedClient.ViewModel
             //stream.Write(videoCmd_bytes, 0, videoCmd_bytes.Length);
 
             cancellationTokenSource.Cancel();
-
         }
-
-
     }
 }

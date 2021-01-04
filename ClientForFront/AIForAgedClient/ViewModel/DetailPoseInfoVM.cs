@@ -17,6 +17,7 @@ namespace AIForAgedClient.ViewModel
     public class DetailPoseInfoVM : ViewModelBase
     {
         #region variable and property
+
         private HttpClient httpClient;
         private IMapper mapper;
         public string Title { get; private set; }
@@ -25,10 +26,11 @@ namespace AIForAgedClient.ViewModel
         public PaginatedListVM<DetailPoseInfo> PaginatedListContext { get; private set; }
 
         private DateTime _dateSelected;
+
         public DateTime DateSelected
         {
             get => _dateSelected;
-            set => Set(()=>DateSelected,ref _dateSelected,value);
+            set => Set(() => DateSelected, ref _dateSelected, value);
         }
 
         public ICommand OnLoadedCommand
@@ -38,7 +40,6 @@ namespace AIForAgedClient.ViewModel
                 return new RelayCommand(OnWindowLoaded);
             }
         }
-
 
         public ICommand OnClosingCommand
         {
@@ -52,7 +53,7 @@ namespace AIForAgedClient.ViewModel
         {
             get
             {
-                return new RelayCommand(OnPreDayClick,IsEnablePreDayBtn);
+                return new RelayCommand(OnPreDayClick, IsEnablePreDayBtn);
             }
         }
 
@@ -60,7 +61,7 @@ namespace AIForAgedClient.ViewModel
         {
             get
             {
-                return new RelayCommand(OnNextDayClick,IsEnableNextDayBtn);
+                return new RelayCommand(OnNextDayClick, IsEnableNextDayBtn);
             }
         }
 
@@ -79,9 +80,10 @@ namespace AIForAgedClient.ViewModel
                 return new RelayCommand(OnNextPageClick);
             }
         }
-        #endregion
 
-        public DetailPoseInfoVM(PoseInfoVM poseInfoVM,HttpClient httpClient,Mapper mapper)
+        #endregion variable and property
+
+        public DetailPoseInfoVM(PoseInfoVM poseInfoVM, HttpClient httpClient, Mapper mapper)
         {
             this.httpClient = httpClient;
             PoseInfoVM = poseInfoVM;
@@ -112,7 +114,7 @@ namespace AIForAgedClient.ViewModel
             if (!string.IsNullOrEmpty(result))
             {
                 var datas = JsonConvert.DeserializeObject<PaginatedList<DetailPoseInfo>>(result);
-                mapper.Map(datas,PaginatedListContext);
+                mapper.Map(datas, PaginatedListContext);
             }
         }
 
@@ -120,7 +122,7 @@ namespace AIForAgedClient.ViewModel
         {
             var currentDay = PoseInfoVM.Date;
             var timeSpan = DateSelected - currentDay;
-            if(timeSpan.TotalDays>-4)
+            if (timeSpan.TotalDays > -4)
                 return true;
 
             return false;
@@ -137,7 +139,7 @@ namespace AIForAgedClient.ViewModel
         {
             var currentDay = PoseInfoVM.Date;
             var timeSpan = DateSelected - currentDay;
-            if (timeSpan.TotalDays <0)
+            if (timeSpan.TotalDays < 0)
                 return true;
 
             return false;
@@ -158,7 +160,7 @@ namespace AIForAgedClient.ViewModel
 
         private void OnNextPageClick()
         {
-            PaginatedListContext.PageIndex = PaginatedListContext.PageIndex+1;
+            PaginatedListContext.PageIndex = PaginatedListContext.PageIndex + 1;
             GetDetailPosesAsync(PoseInfoVM.AgesInfoId, DateSelected.ToShortDateString(), PaginatedListContext.PageIndex, 20);
         }
 

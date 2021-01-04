@@ -10,40 +10,40 @@
         Title="{Binding Title}" Name="window" Height="340" Width="330" DataContext="{Binding Source={StaticResource Locator}, Path=NewUserVM}" WindowStyle="ToolWindow">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadCmd}"/>
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadCmd}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Closing">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCmd}"/>
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCmd}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,15">
-                <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}"/>
-                <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0"/>
+                <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}" />
+                <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0" />
             </StackPanel>
             <ScrollViewer Margin="0,0,0,10">
                 <StackPanel Margin="10">
                     <StackPanel Visibility="{Binding IsNew}">
                         <TextBlock>Id</TextBlock>
-                        <TextBlock Text="{Binding Model.Id}"/>
+                        <TextBlock Text="{Binding Model.Id}" />
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>用户名</TextBlock>
-                        <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                        <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>密码</TextBlock>
-                        <TextBox Text="{Binding Model.Password,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                        <TextBox Text="{Binding Model.Password,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>权限</TextBlock>
-                        <TextBox Text="{Binding Model.Authority, StringFormat={}{0:D2},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
-                        <TextBlock Text="20：前台只读+后台无权限"/>
-                        <TextBlock Text="30：前台读写+后台无权限"/>
-                        <TextBlock Text="03：前台无权限+后台读写"/>
-                        <TextBlock Text="33：前台读写+后台读写"/>
-                        <TextBlock Text="32：前台读写+后台只读"/>
+                        <TextBox Text="{Binding Model.Authority, StringFormat={}{0:D2},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
+                        <TextBlock Text="20：前台只读+后台无权限" />
+                        <TextBlock Text="30：前台读写+后台无权限" />
+                        <TextBlock Text="03：前台无权限+后台读写" />
+                        <TextBlock Text="33：前台读写+后台读写" />
+                        <TextBlock Text="32：前台读写+后台只读" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

@@ -26,8 +26,8 @@ namespace AIForAgedClient.ViewModel
 
         public ObservableCollection<PoseInfoVM> PoseInfos { get; } = new ObservableCollection<PoseInfoVM>();
 
-
         private PoseInfoVM _selectedPoseInfo;
+
         public PoseInfoVM SelectedPoseInfo
         {
             get => _selectedPoseInfo;
@@ -38,6 +38,7 @@ namespace AIForAgedClient.ViewModel
         public RoomInfo RoomInfo { get; }
 
         private RelayCommand _onLoaded;
+
         public RelayCommand OnLoadedCommand
         {
             get
@@ -47,8 +48,9 @@ namespace AIForAgedClient.ViewModel
                 return _onLoaded;
             }
         }
-        
+
         private RelayCommand _onClosing;
+
         public RelayCommand OnClosingCommand
         {
             get
@@ -62,13 +64,15 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand<Button> _goDetailViewCmd;
+
         public RelayCommand<Button> GoDetailViewCmd
         {
             get
             {
                 if (_goDetailViewCmd == null)
                 {
-                    _goDetailViewCmd = new RelayCommand<Button>(btn => {
+                    _goDetailViewCmd = new RelayCommand<Button>(btn =>
+                    {
                         var selectedItem = btn.DataContext as PoseInfoVM;
                         this.SelectedPoseInfo = selectedItem;
                         SimpleIoc.Default.Register(() => SelectedPoseInfo);
@@ -80,7 +84,7 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        public ManyPersonMonitorVM(RoomInfo roomInfo,HttpClient httpClient,BaseFourVideoVM fourVideoViewModel,Mapper mapper)
+        public ManyPersonMonitorVM(RoomInfo roomInfo, HttpClient httpClient, BaseFourVideoVM fourVideoViewModel, Mapper mapper)
         {
             this.RoomInfo = roomInfo;
             this.httpClient = httpClient;
@@ -91,6 +95,7 @@ namespace AIForAgedClient.ViewModel
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
         }
+
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             GetPosesAsync();
@@ -102,7 +107,7 @@ namespace AIForAgedClient.ViewModel
             string result;
             try
             {
-                result = await httpClient.GetStringAsync(url+"?id="+RoomInfo.Id);
+                result = await httpClient.GetStringAsync(url + "?id=" + RoomInfo.Id);
             }
             catch (HttpRequestException e)
             {
@@ -202,7 +207,6 @@ namespace AIForAgedClient.ViewModel
             }
             else
             {
-
             }
 
             FourVideoVM.Start();

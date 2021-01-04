@@ -27,7 +27,6 @@ namespace AIForAgedClient
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -38,13 +37,12 @@ namespace AIForAgedClient
                 item.GetType(), Environment.NewLine, item.Source,
                 Environment.NewLine, item.Message);
             }
-            //将异常标识为已经观察到 
+            //将异常标识为已经观察到
             e.SetObserved();
         }
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-
         }
     }
 }

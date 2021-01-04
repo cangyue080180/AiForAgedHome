@@ -29,10 +29,12 @@ namespace BackendClient
 
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
-            task = new Task(() => {
+            task = new Task(() =>
+            {
                 PlayVideo(cancellationTokenSource.Token);
             }, cancellationTokenSource.Token);
-            task.ContinueWith((task) => {
+            task.ContinueWith((task) =>
+            {
                 capture.Dispose();
             });
         }
@@ -50,7 +52,8 @@ namespace BackendClient
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
             task = new Task(() => { PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
-            task.ContinueWith((task) => {
+            task.ContinueWith((task) =>
+            {
                 capture.Dispose();
             });
         }
@@ -93,19 +96,17 @@ namespace BackendClient
                         try
                         {
                             var writeableBitmap = frameMat.ToWriteableBitmap();
-                            
+
                             writeableBitmap.Freeze();
                             actionWidthVideo(writeableBitmap);
                         }
                         catch (System.ArgumentException ex)
                         {
-
                         }
                     }
                 }
                 catch (AccessViolationException ex)
                 {
-
                 }
                 Thread.Sleep(50);
             }

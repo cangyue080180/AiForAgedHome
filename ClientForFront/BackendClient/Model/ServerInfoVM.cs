@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BackendClient.Model
 {
@@ -7,14 +6,16 @@ namespace BackendClient.Model
     {
         public ServerInfoVM()
         {
-            ValidationKey(new string[] { nameof(Name), nameof(FactoryInfo),nameof(Ip) });
+            ValidationKey(new string[] { nameof(Name), nameof(FactoryInfo), nameof(Ip) });
             this.PropertyChanged += delegate { IsBeginValidation = true; };
         }
+
         public long Id { get; set; }
 
         private string _name;
-        [Required(ErrorMessage ="不能为空")]
-        [StringLength(20,ErrorMessage ="最大字符长度为20")]
+
+        [Required(ErrorMessage = "不能为空")]
+        [StringLength(20, ErrorMessage = "最大字符长度为20")]
         public string Name
         {
             get => _name;
@@ -22,6 +23,7 @@ namespace BackendClient.Model
         }
 
         private string _factoryInfo;
+
         [StringLength(100, ErrorMessage = "最大字符长度为20")]
         public string FactoryInfo
         {
@@ -30,6 +32,7 @@ namespace BackendClient.Model
         }
 
         private byte _maxCameraCount;
+
         public byte MaxCameraCount
         {
             get => _maxCameraCount;
