@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace BackendClient.ViewModel
 {
-    public class NewCameraVM : NewModelVMBase<CameraInfoVM>,INotifyPropertyChanged
+    public class NewCameraVM : NewModelVMBase<CameraInfoVM>, INotifyPropertyChanged
     {
         private readonly bool isNew = true;
         private readonly HttpClient httpClient;
@@ -27,6 +27,7 @@ namespace BackendClient.ViewModel
 
         public RoomInfoVM SelectedRoom { get; set; }
         public ServerInfoVM SelectedServerInfo { get; set; }
+
         public NewCameraVM(HttpClient httpClient, Mapper autoMapper)
         {
             this.httpClient = httpClient;
@@ -51,6 +52,7 @@ namespace BackendClient.ViewModel
         }
 
         private RelayCommand _testVideoUrlCmd;
+
         public RelayCommand TestVideoUrlCmd
         {
             get
@@ -83,7 +85,7 @@ namespace BackendClient.ViewModel
 
         private void RaisePropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public override bool IsNewModel()
@@ -91,8 +93,9 @@ namespace BackendClient.ViewModel
             return isNew;
         }
 
-        private double bitmapWidth=1920, bitmapHeight=1080;
+        private double bitmapWidth = 1920, bitmapHeight = 1080;
         private double _height = 300;
+
         public double Height
         {
             get => _height;
@@ -111,14 +114,15 @@ namespace BackendClient.ViewModel
             }
         }
 
-
         public double Width => 400;
 
-        private double _regionTop=100;
+        private double _regionTop = 100;
+
         public double RegionTop
         {
-            get =>_regionTop;
-            set{
+            get => _regionTop;
+            set
+            {
                 if (_regionTop != value)
                 {
                     _regionTop = value;
@@ -127,7 +131,8 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private double _regionLeft=100;
+        private double _regionLeft = 100;
+
         public double RegionLeft
         {
             get => _regionLeft;
@@ -141,7 +146,8 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private double _regionWidth=20;
+        private double _regionWidth = 20;
+
         public double RegionWidth
         {
             get => _regionWidth;
@@ -155,7 +161,8 @@ namespace BackendClient.ViewModel
             }
         }
 
-        private double _regionHeight=20;
+        private double _regionHeight = 20;
+
         public double RegionHeight
         {
             get => _regionHeight;
@@ -169,18 +176,20 @@ namespace BackendClient.ViewModel
             }
         }
 
-        VideoPlayHelper playHelper;
+        private VideoPlayHelper playHelper;
+
         private void TestVideoUrl()
         {
             playHelper?.Stop();
-            playHelper = new VideoPlayHelper(Model.VideoAddress,(x)=> { Image1 = x;
+            playHelper = new VideoPlayHelper(Model.VideoAddress, (x) =>
+            {
+                Image1 = x;
                 if (x != null)
                 {
-                    Height = x.Height * 400 / x.Width;
                     bitmapHeight = x.Height;
                     bitmapWidth = x.Width;
+                    Height = x.Height * 400 / x.Width;
                 }
-
             });
             playHelper.Start();
         }
