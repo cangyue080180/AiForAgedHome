@@ -32,7 +32,7 @@
         </Grid.RowDefinitions>
         <ContentControl Content="{Binding FourVideoVM}" Margin="5" />
         <ListView Grid.Row="1" ItemsSource="{Binding PoseInfos}" SelectedItem="{Binding SelectedPoseInfo}">
-            <ListView.ItemContainerStyle>
+            <!--<ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Background" Value="White" />
                     <Style.Triggers>
@@ -41,7 +41,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListView.ItemContainerStyle>
+            </ListView.ItemContainerStyle>-->
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
