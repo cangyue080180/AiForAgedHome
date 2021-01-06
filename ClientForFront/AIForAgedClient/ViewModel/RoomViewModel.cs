@@ -1,5 +1,7 @@
 ﻿using AIForAgedClient.Helper;
+using AIForAgedClient.Model;
 using AIForAgedClient.View;
+using AutoMapper;
 using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -24,12 +26,13 @@ namespace AIForAgedClient.ViewModel
 
         private HttpClient httpClient;
         private DispatcherTimer dispatcherTimer;
+        private IMapper mapper;
 
-        public ObservableCollection<RoomInfo> RoomInfoes { get; } = new ObservableCollection<RoomInfo>();
+        public ObservableCollection<RoomInfoVM> RoomInfoes { get; } = new ObservableCollection<RoomInfoVM>();
 
-        private RoomInfo _selectedRoom;
+        private RoomInfoVM _selectedRoom;
 
-        public RoomInfo SelectedRoom
+        public RoomInfoVM SelectedRoom
         {
             get => _selectedRoom;
             set => Set(ref _selectedRoom, value);
@@ -81,7 +84,7 @@ namespace AIForAgedClient.ViewModel
                 {
                     _goMonitorViewCmd = new RelayCommand<Button>((x) =>
                     {
-                        var selectedItem = x.DataContext as RoomInfo;
+                        var selectedItem = x.DataContext as RoomInfoVM;
                         this.SelectedRoom = selectedItem;
                         SimpleIoc.Default.Register(() => SelectedRoom);
 
@@ -104,9 +107,10 @@ namespace AIForAgedClient.ViewModel
 
         #endregion variables and properies
 
-        public RoomViewModel(HttpClient httpClient)
+        public RoomViewModel(HttpClient httpClient, Mapper mapper)
         {
             this.httpClient = httpClient;
+            this.mapper = mapper;
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
@@ -147,12 +151,12 @@ namespace AIForAgedClient.ViewModel
                 var tempPose = RoomInfoes.FirstOrDefault(x => x.Id == item.Id);
                 if (tempPose == null)
                 {
-                    RoomInfoes.Add(item);
+                    RoomInfoes.Add(mapper.Map<RoomInfoVM>(item));
                 }
                 else
                 {
                     //更新状态信息
-                    tempPose.IsAlarm = item.IsAlarm;
+                    mapper.Map(item, tempPose);
                 }
             }
             //检查有无删减

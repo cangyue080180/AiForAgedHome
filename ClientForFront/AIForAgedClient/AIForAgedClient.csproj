@@ -150,6 +150,7 @@
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Helper\StatusConverter.cs" />
     <Compile Include="Helper\VideoPlayHelper.cs" />
+    <Compile Include="Model\RoomInfoVM.cs" />
     <Compile Include="ViewModel\BaseFourVideoVM.cs" />
     <Compile Include="ViewModel\DetailPoseInfoVM.cs" />
     <Compile Include="ViewModel\FourVideoViewModel.cs" />

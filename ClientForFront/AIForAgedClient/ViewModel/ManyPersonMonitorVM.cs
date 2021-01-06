@@ -1,4 +1,5 @@
 ﻿using AIForAgedClient.Helper;
+using AIForAgedClient.Model;
 using AIForAgedClient.View;
 using AutoMapper;
 using DataModel;
@@ -35,7 +36,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         public BaseFourVideoVM FourVideoVM { get; }
-        public RoomInfo RoomInfo { get; }
+        public RoomInfoVM RoomInfo { get; }
 
         private RelayCommand _onLoaded;
 
@@ -84,7 +85,7 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        public ManyPersonMonitorVM(RoomInfo roomInfo, HttpClient httpClient, BaseFourVideoVM fourVideoViewModel, Mapper mapper)
+        public ManyPersonMonitorVM(RoomInfoVM roomInfo, HttpClient httpClient, BaseFourVideoVM fourVideoViewModel, Mapper mapper)
         {
             this.RoomInfo = roomInfo;
             this.httpClient = httpClient;
@@ -224,8 +225,9 @@ namespace AIForAgedClient.ViewModel
         {
             Console.WriteLine("ManyPersonWindowClosed");
             dispatcherTimer.Stop();
+            FourVideoVM.Stop();
 
-            SimpleIoc.Default.Unregister<RoomInfo>();
+            SimpleIoc.Default.Unregister<RoomInfoVM>();
             SimpleIoc.Default.Unregister<BaseFourVideoVM>();
         }
     }

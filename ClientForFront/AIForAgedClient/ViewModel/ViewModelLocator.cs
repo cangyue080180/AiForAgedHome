@@ -67,6 +67,7 @@ namespace AIForAgedClient.ViewModel
             {
                 // Add all profiles in current assembly
                 cfg.CreateMap<PoseInfo, PoseInfoVM>();
+                cfg.CreateMap<RoomInfo, RoomInfoVM>();
                 cfg.CreateMap<PaginatedList<DetailPoseInfo>, PaginatedListVM<DetailPoseInfo>>();
             });
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AIForAgedClient.Helper;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Net.Sockets;
@@ -82,6 +83,7 @@ namespace AIForAgedClient.ViewModel
                 catch (OperationCanceledException)
                 {
                 }
+
                 stream?.Close();
                 tcpClient?.Close();
             }, cancellationTokenSource.Token);
@@ -154,6 +156,10 @@ namespace AIForAgedClient.ViewModel
             //VideoCmd videoCmd = new VideoCmd(1, 5, RoomId, 0);
             //byte[] videoCmd_bytes = StructToBytesHelper.StructToBytes<VideoCmd>(videoCmd);
             //stream.Write(videoCmd_bytes, 0, videoCmd_bytes.Length);
+            //发送关闭连接命令
+            Role exit_role = new Role(4, 1, 1);
+            byte[] exit_bytes = StructToBytesHelper.StructToBytes<Role>(exit_role);
+            stream.Write(exit_bytes, 0, exit_bytes.Length);
 
             cancellationTokenSource.Cancel();
         }
