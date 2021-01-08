@@ -18,7 +18,7 @@ namespace AIForAgedClient
         public int TimeStand
         {
             get => _timeStand;
-            set => Set(ref _timeStand, value);
+            set => Set(() => TimeStand, ref _timeStand, value);
         }
 
         private int _timeSit;
@@ -26,7 +26,7 @@ namespace AIForAgedClient
         public int TimeSit
         {
             get => _timeSit;
-            set => Set(ref _timeSit, value);
+            set => Set(() => TimeSit, ref _timeSit, value);
         }
 
         private int _timeLie;
@@ -34,7 +34,7 @@ namespace AIForAgedClient
         public int TimeLie
         {
             get => _timeLie;
-            set => Set(ref _timeLie, value);
+            set => Set(() => TimeLie, ref _timeLie, value);
         }
 
         private int _timeDown;
@@ -42,7 +42,7 @@ namespace AIForAgedClient
         public int TimeDown
         {
             get => _timeDown;
-            set => Set(ref _timeDown, value);
+            set => Set(() => TimeDown, ref _timeDown, value);
         }
 
         private int _timeOther;
@@ -50,7 +50,7 @@ namespace AIForAgedClient
         public int TimeOther
         {
             get => _timeOther;
-            set => Set(ref _timeOther, value);
+            set => Set(() => TimeOther, ref _timeOther, value);
         }
 
         private string _timeIn;
@@ -59,7 +59,7 @@ namespace AIForAgedClient
         public string TimeIn
         {
             get => _timeIn;
-            set => Set(ref _timeIn, value);
+            set => Set(() => TimeIn, ref _timeIn, value);
         }
 
         private bool _isAlarm;
@@ -67,7 +67,7 @@ namespace AIForAgedClient
         public bool IsAlarm
         {
             get => _isAlarm;
-            set => Set(ref _isAlarm, value);
+            set => Set(() => IsAlarm, ref _isAlarm, value);
         }
 
         private byte? _status;
