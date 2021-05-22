@@ -13,6 +13,7 @@ namespace AIForAgedClient.ViewModel
         public PoseInfoVM PoseInfo { get; }
 
         private RelayCommand _onLoaded;
+
         public ICommand OnLoadedCommand
         {
             get
@@ -24,6 +25,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private RelayCommand _onClosing;
+
         public ICommand OnClosingCommand
         {
             get
@@ -35,6 +37,7 @@ namespace AIForAgedClient.ViewModel
                 return _onClosing;
             }
         }
+
         public MonitorViewModel(PoseInfoVM poseInfo, BaseFourVideoVM fourVideoViewModel)
         {
             this.PoseInfo = poseInfo;
@@ -43,6 +46,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         private bool _isStatusChanged = false;
+
         public bool IsStatusChanged
         {
             get
@@ -58,6 +62,7 @@ namespace AIForAgedClient.ViewModel
                 }
             }
         }
+
         //监测PoseInfoVM的属性更改事件，添加需要在此页面进行的附加操作
         private void _poseInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -66,7 +71,8 @@ namespace AIForAgedClient.ViewModel
             {
                 IsStatusChanged = true;
                 //1秒后恢复原来的状态
-                Task.Run(async()=> {
+                Task.Run(async () =>
+                {
                     await Task.Delay(1000);
                     IsStatusChanged = false;
                 });
@@ -110,7 +116,7 @@ namespace AIForAgedClient.ViewModel
                 if (PoseInfo.AgesInfo.RoomInfo.CameraInfos.Count == 1)
                 {
                     huoChaiAndOriginVideoVM.Url1 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].Id.ToString();
-                    huoChaiAndOriginVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
+                    //huoChaiAndOriginVideoVM.Url2 = PoseInfo.AgesInfo.RoomInfo.CameraInfos[0].VideoAddress;
                 }
                 else
                 {
@@ -119,7 +125,6 @@ namespace AIForAgedClient.ViewModel
             }
             else
             {
-
             }
 
             FourVideoVM.Start();

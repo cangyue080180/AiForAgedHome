@@ -62,13 +62,13 @@ namespace AIForAgedClient.ViewModel
 
             //发送角色数据包
             Role role = new Role(3, 1, 1);
-            byte[] send_bytes = StructToBytes(role);
+            byte[] send_bytes = StructToBytesHelper.StructToBytes(role);
             stream.WriteAsync(send_bytes, 0, send_bytes.Length);
             Console.WriteLine("send_role_packet");
 
             //发送获取图像请求命令包
             VideoCmd videoCmd = new VideoCmd(1, 5, RoomId, 1);
-            byte[] videoCmd_bytes = StructToBytes<VideoCmd>(videoCmd);
+            byte[] videoCmd_bytes = StructToBytesHelper.StructToBytes<VideoCmd>(videoCmd);
             stream.WriteAsync(videoCmd_bytes, 0, videoCmd_bytes.Length);
             Console.WriteLine("send_get_video_packet");
 
@@ -90,11 +90,6 @@ namespace AIForAgedClient.ViewModel
             recvVideoTask.Start();
         }
 
-        private byte[] StructToBytes<T>(T videoCmd)
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task RecvVideo(CancellationToken token)
         {
             while (true)
@@ -102,7 +97,7 @@ namespace AIForAgedClient.ViewModel
                 token.ThrowIfCancellationRequested();
 
                 byte[] video_header_bytes = await tcp_recv(stream, 9);
-                VideoHeader videoHeader = BytesToStruct<VideoHeader>(video_header_bytes);
+                VideoHeader videoHeader = StructToBytesHelper.BytesToStruct<VideoHeader>(video_header_bytes);
                 if (videoHeader.type == 2)
                 {
                     byte[] video_image_bytes = await tcp_recv(stream, (int)(videoHeader.len) - 4);
@@ -142,11 +137,6 @@ namespace AIForAgedClient.ViewModel
                     }
                 }
             }
-        }
-
-        private T BytesToStruct<T>(byte[] video_header_bytes)
-        {
-            throw new NotImplementedException();
         }
 
         public override void Stop()
