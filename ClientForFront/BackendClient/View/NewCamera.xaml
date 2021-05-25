@@ -7,7 +7,7 @@
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="{Binding Title}" Name="window" Height="550" Width="600" DataContext="{Binding Source={StaticResource Locator}, Path=NewCameraVM}" WindowStyle="ToolWindow">
+        Title="{Binding Title}" Name="window" Height="550" Width="800" DataContext="{Binding Source={StaticResource Locator}, Path=NewCameraVM}" WindowStyle="ToolWindow">
     <Window.Resources>
         <!-- MoveThumb Template -->
         <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type s:MoveThumb}">
@@ -71,7 +71,7 @@
                 </Border>
                 <StackPanel Orientation="Horizontal" Margin="10,5,0,10">
                     <TextBlock>视频地址:</TextBlock>
-                    <TextBox MinWidth="200" Text="{Binding Model.VideoAddress,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
+                    <TextBox Width="200" Text="{Binding Model.VideoAddress,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     <Button Margin="5,0,0,0" Content="测试" Command="{Binding TestVideoUrlCmd}" />
                 </StackPanel>
                 <GroupBox Header="安全区域">
