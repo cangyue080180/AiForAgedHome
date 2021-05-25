@@ -112,7 +112,7 @@ namespace AIForAgedClient.ViewModel
             }
             catch (HttpRequestException e)
             {
-                LogHelper.Debug($"GetAgeds caught exception: {e.Message}");
+                LogHelper.Debug($"{url + "?id=" + RoomInfo.Id} caught exception: {e.Message}");
                 result = null;
             }
 
@@ -199,7 +199,7 @@ namespace AIForAgedClient.ViewModel
                 if (RoomInfo.CameraInfos.Count == 1)
                 {
                     huoChaiAndOriginVideoVM.Url1 = RoomInfo.CameraInfos[0].Id.ToString();
-                    huoChaiAndOriginVideoVM.Url2 = RoomInfo.CameraInfos[0].VideoAddress;
+                    //huoChaiAndOriginVideoVM.Url2 = RoomInfo.CameraInfos[0].VideoAddress;
                 }
                 else
                 {
