@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AIForAgedClient"
              xmlns:v="clr-namespace:AIForAgedClient.View"
              xmlns:vm="clr-namespace:AIForAgedClient.ViewModel"
-             StartupUri="View/RoomsWindow.xaml"
+             StartupUri="View/NewMainWindow.xaml"
              d1p1:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>

@@ -1,0 +1,67 @@
+﻿<Window x:Class="AIForAgedClient.View.NewMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AIForAgedClient.View"
+        mc:Ignorable="d"
+        Title="NewMainWindow" Height="450" Width="800" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Rectangle x:Name="optionMark" Grid.Row="1" Width="{TemplateBinding Width}" Fill="{TemplateBinding Foreground}" Height="3" Visibility="Hidden" />
+                            <TextBlock x:Name="text" Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <!--<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" />-->
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Visibility" TargetName="optionMark" Value="Visible" />
+                                <Setter Property="Foreground" TargetName="text" Value="#FF00E8FF" />
+                                <Setter Property="Fill" TargetName="optionMark" Value="#FF00E8FF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <!--Image Source=""/-->
+            <TextBlock Text="系统标题" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+            <Button Margin="0,0,10,0" BorderBrush="{x:Null}" Name="minBtn" Click="minBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/AiForAgedClient;component/icons/min.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+            <Button Margin="0,0,10,0" BorderBrush="{x:Null}" Name="maxBtn" Click="maxBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/AiForAgedClient;component/icons/max.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+            <Button Margin="0,0,10,0" BorderBrush="{x:Null}" Name="closeBtn" Click="closeBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/AiForAgedClient;component/icons/close.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Background="#FF373A3C" Orientation="Horizontal">
+            <RadioButton Content="内容1" Foreground="White"  Padding="5" GroupName="one" Height="45" Margin="20,0,20,0" />
+            <RadioButton Content="内容2" Foreground="White" Padding="5" GroupName="one" />
+        </StackPanel>
+    </Grid>
+</Window>
