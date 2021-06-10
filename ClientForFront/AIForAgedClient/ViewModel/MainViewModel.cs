@@ -34,23 +34,17 @@ namespace AIForAgedClient.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private HttpClient httpClient;
-        private IMapper mapper;
-        private DispatcherTimer dispatcherTimer;
-
-        public ObservableCollection<PoseInfoVM> PoseInfos { get; } = new ObservableCollection<PoseInfoVM>();
-
-        private PoseInfoVM _selectedPoseInfo;
-
-        public PoseInfoVM SelectedPoseInfo
-        {
-            get => _selectedPoseInfo;
-            set => Set(ref _selectedPoseInfo, value);
-        }
-
         public string WindowName
         {
             get => Assembly.GetExecutingAssembly().GetName().Name;
+        }
+
+        private ViewModelBase _contentVM;
+
+        public ViewModelBase ContentViewModel
+        {
+            get => _contentVM;
+            set => Set(ref _contentVM, value);
         }
 
         private RelayCommand _onLoaded;
@@ -79,156 +73,76 @@ namespace AIForAgedClient.ViewModel
             }
         }
 
-        private RelayCommand<Button> _goMonitorViewCmd;
+        private RelayCommand _monitorCommand;
 
-        public ICommand GoMonitorViewCmd
+        public ICommand MonitorCommand
         {
             get
             {
-                if (_goMonitorViewCmd == null)
+                if (_monitorCommand == null)
                 {
-                    _goMonitorViewCmd = new RelayCommand<Button>((x) =>
-                    {
-                        var selectedItem = x.DataContext as PoseInfoVM;
-                        this.SelectedPoseInfo = selectedItem;
-                        SimpleIoc.Default.Register(() => SelectedPoseInfo);
-
-                        string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
-                        if (video_type == "orignal")
-                            SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
-                        else if (video_type == "huo_chai_ren")
-                            SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiRenFourVideoVM>();
-                        else if (video_type == "huochai_and_origin")
-                            SimpleIoc.Default.Register<BaseFourVideoVM, HuoChaiAndOriginVideoVM>();
-                        else
-                            SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
-
-                        ShowMonitorWindow();
-                    });
+                    _monitorCommand = new RelayCommand(OnMonitor);
                 }
-                return _goMonitorViewCmd;
+                return _monitorCommand;
             }
         }
 
-        private RelayCommand<Button> _goDetailViewCmd;
+        private void OnMonitor()
+        {
+            ContentViewModel = SimpleIoc.Default.GetInstance<PoseInfoesVM>();
+        }
 
-        public ICommand GoDetailViewCmd
+        private RelayCommand _manageCommand;
+
+        public ICommand ManageCommand
         {
             get
             {
-                if (_goDetailViewCmd == null)
+                if (_manageCommand == null)
                 {
-                    _goDetailViewCmd = new RelayCommand<Button>(btn =>
-                    {
-                        var selectedItem = btn.DataContext as PoseInfoVM;
-                        this.SelectedPoseInfo = selectedItem;
-                        SimpleIoc.Default.Register(() => SelectedPoseInfo);
-
-                        ShowDetailPoseInfoWindow();
-                    });
+                    _manageCommand = new RelayCommand(OnManage);
                 }
-                return _goDetailViewCmd;
+                return _manageCommand;
             }
+        }
+
+        private void OnManage()
+        {
+        }
+
+        private RelayCommand _showChartViewCommand;
+
+        public ICommand ShowChartViewCommand
+        {
+            get
+            {
+                if (_showChartViewCommand == null)
+                {
+                    _showChartViewCommand = new RelayCommand(OnShowChartView);
+                }
+                return _showChartViewCommand;
+            }
+        }
+
+        private void OnShowChartView()
+        {
         }
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(HttpClient httpClient, Mapper mapper)
+        public MainViewModel()
         {
-            this.httpClient = httpClient;
-            this.mapper = mapper;
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
         }
 
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        private void OnWindowLoaded()
         {
-            GetPosesAsync();
-        }
-
-        private async void OnWindowLoaded()
-        {
-            await GetPosesAsync();
-            dispatcherTimer.Start();
+            ContentViewModel = SimpleIoc.Default.GetInstance<PoseInfoesVM>();
         }
 
         private void OnWindowClosing()
         {
-            dispatcherTimer.Stop();
-        }
-
-        private async Task GetPosesAsync()
-        {
-            string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
-            string result;
-            try
-            {
-                result = await httpClient.GetStringAsync(url);
-            }
-            catch (HttpRequestException e)
-            {
-                LogHelper.Debug($"GetAgeds caught exception: {e.Message}");
-                result = null;
-            }
-
-            if (!string.IsNullOrEmpty(result))
-            {
-                var datas = JsonConvert.DeserializeObject<List<PoseInfo>>(result);
-                UpdateDataSource(datas);
-            }
-        }
-
-        private void UpdateDataSource(IEnumerable<PoseInfo> poseInfos)
-        {
-            //检查有无新增
-            foreach (var item in poseInfos)
-            {
-                var tempPose = PoseInfos.FirstOrDefault(x => x.AgesInfoId == item.AgesInfoId);
-                if (tempPose == null)
-                {
-                    PoseInfos.Add(mapper.Map<PoseInfoVM>(item));
-                }
-                else
-                {
-                    mapper.Map(item, tempPose);
-                }
-            }
-            //检查有无删减
-            for (int i = PoseInfos.Count - 1; i >= 0; i--)
-            {
-                bool isExit = false;
-                foreach (var item in poseInfos)
-                {
-                    if (PoseInfos.ElementAt(i).AgesInfoId == item.AgesInfoId)
-                    {
-                        isExit = true;
-                        break;
-                    }
-                }
-
-                if (!isExit)
-                {
-                    PoseInfos.RemoveAt(i);
-                }
-            }
-        }
-
-        private void ShowMonitorWindow()
-        {
-            MonitorWindow monitorWindow = new MonitorWindow();
-            monitorWindow.Owner = App.Current.MainWindow;
-            monitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
-            monitorWindow.ShowDialog();
-        }
-
-        private void ShowDetailPoseInfoWindow()
-        {
-            DetailPoseInfoWindow tempWindow = new DetailPoseInfoWindow();
-            tempWindow.Owner = App.Current.MainWindow;
-            tempWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
-            tempWindow.ShowDialog();
+            // dispatcherTimer.Stop();
         }
     }
 }

@@ -48,6 +48,7 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register(() => new HttpClient());
             SimpleIoc.Default.Register(() => new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<PoseInfoesVM>();
             SimpleIoc.Default.Register<MonitorViewModel>();
             SimpleIoc.Default.Register<DetailPoseInfoVM>();
             SimpleIoc.Default.Register<RoomViewModel>();
@@ -79,6 +80,14 @@ namespace AIForAgedClient.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public PoseInfoesVM PoseInfoesVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PoseInfoesVM>();
             }
         }
 

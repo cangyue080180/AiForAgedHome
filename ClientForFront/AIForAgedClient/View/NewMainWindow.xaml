@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:AIForAgedClient.View"
+        xmlns:vm="clr-namespace:AIForAgedClient.ViewModel"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:AIForAgedClient.View"
         mc:Ignorable="d"
-        Title="NewMainWindow" Height="450" Width="800" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStartupLocation="CenterScreen">
+        Title="" Height="450" Width="800" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Window.Resources>
         <Style TargetType="RadioButton">
             <Setter Property="Template">
@@ -32,6 +37,14 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -40,7 +53,7 @@
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <!--Image Source=""/-->
-            <TextBlock Text="系统标题" />
+            <TextBlock Text="SHC养老全时护理系统" />
         </StackPanel>
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
             <Button Margin="0,0,10,0" BorderBrush="{x:Null}" Name="minBtn" Click="minBtn_Click">
@@ -60,8 +73,10 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Background="#FF373A3C" Orientation="Horizontal">
-            <RadioButton Content="内容1" Foreground="White"  Padding="5" GroupName="one" Height="45" Margin="20,0,20,0" />
-            <RadioButton Content="内容2" Foreground="White" Padding="5" GroupName="one" />
+            <RadioButton Content="监控" Foreground="White"  Padding="5" Height="45" Margin="20,0,20,0" IsChecked="True" />
+            <RadioButton Content="管理" Foreground="White" Padding="5" Margin="0,0,20,0" />
+            <RadioButton Content="统计" Foreground="White" Padding="5" />
         </StackPanel>
+        <ContentControl Grid.Row="2" Content="{Binding ContentViewModel}" />
     </Grid>
 </Window>

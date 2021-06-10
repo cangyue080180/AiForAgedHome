@@ -18,6 +18,10 @@
             <DataTemplate DataType="{x:Type vm:BaseFourVideoVM}">
                 <v:FourVideoControl />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PoseInfoesVM}">
+                <v:PoseInfoesView />
+            </DataTemplate>
+
             <Style TargetType="TextBlock">
                 <Setter Property="TextAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
