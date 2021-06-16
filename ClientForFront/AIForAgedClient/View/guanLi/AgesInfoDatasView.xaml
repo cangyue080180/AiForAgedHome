@@ -21,7 +21,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border Background="AntiqueWhite">
+        <Border>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
                 <TextBlock>老人姓名：</TextBlock>
                 <TextBox MinWidth="120" x:Name="searchText"></TextBox>

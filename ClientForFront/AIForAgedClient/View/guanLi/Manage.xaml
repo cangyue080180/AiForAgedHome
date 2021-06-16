@@ -11,7 +11,7 @@
             <Setter Property="Padding" Value="5" />
         </Style>
     </UserControl.Resources>
-    <Grid Background="Bisque">
+    <Grid>
         <TabControl TabStripPlacement="Left">
             <TabItem Header="房间信息">
                 <ContentControl Content="{Binding Path=RoomInfoDatasVM, Source={StaticResource Locator}}" />

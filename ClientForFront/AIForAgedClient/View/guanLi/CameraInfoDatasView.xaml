@@ -21,9 +21,9 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border Background="AntiqueWhite">
+        <Border>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
-                <TextBlock>所在房间：</TextBlock>
+                <TextBlock>房间名称：</TextBlock>
                 <TextBox MinWidth="120" x:Name="searchText"></TextBox>
                 <Button Style="{StaticResource toolBtn}" Command="{Binding SearchCmd}" CommandParameter="{Binding ElementName=searchText, Path=Text}" Margin="10,0,20,0">查找</Button>
                 <Button Style="{StaticResource toolBtn}" Command="{Binding NewCmd}" Margin="10,0,20,0">新建</Button>

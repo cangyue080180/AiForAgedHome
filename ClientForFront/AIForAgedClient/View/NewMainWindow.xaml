@@ -47,10 +47,11 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
             <!--Image Source=""/-->
-            <TextBlock Text="SHC养老全时护理系统" />
+            <TextBlock Text="SHC养老全时护理系统" Margin="10,0,0,0" FontWeight="Bold" />
         </StackPanel>
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
             <Button Margin="0,0,10,0" Width="25" Height="20" BorderBrush="{x:Null}" Name="minBtn" Click="minBtn_Click">
@@ -75,5 +76,10 @@
             <RadioButton Content="统计" Foreground="White" Padding="5" Command="{Binding ShowChartViewCommand}" />
         </StackPanel>
         <ContentControl Grid.Row="2" Content="{Binding ContentViewModel}" />
+        <Border Grid.Row="3" Background="#FFEEE4DF">
+            <TextBlock HorizontalAlignment="Center">
+            北京大兴区亦庄养老中心
+            </TextBlock>
+        </Border>
     </Grid>
 </Window>

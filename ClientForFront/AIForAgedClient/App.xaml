@@ -56,6 +56,15 @@
             <Style TargetType="Button" x:Key="toolBtn">
                 <Setter Property="MinWidth" Value="70" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <!--<Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="5" Background="White" TextBlock.Foreground="#FF00E8FF">
+                                <ContentPresenter Content="{TemplateBinding ContentControl.Content}" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>-->
             </Style>
             <ControlTemplate TargetType="CheckBox" x:Key="baoJing">
                 <Ellipse Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Fill="{TemplateBinding Background}" />
