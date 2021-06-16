@@ -54,20 +54,33 @@
             <TextBlock Text="SHC养老全时护理系统" Margin="10,0,0,0" FontWeight="Bold" />
         </StackPanel>
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
-            <Button Margin="0,0,10,0" Width="25" Height="20" BorderBrush="{x:Null}" Name="minBtn" Click="minBtn_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="/AiForAgedClient;component/icons/min.png" Stretch="Uniform" />
-                </Button.Background>
+            <Button Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="minBtn" Click="minBtn_Click">
+                <Path Stroke="Black">
+                    <Path.Data>
+                        <LineGeometry StartPoint="0,0" EndPoint="10,0" />
+                    </Path.Data>
+                </Path>
             </Button>
-            <Button Margin="0,0,10,0" Width="25" Height="20" BorderBrush="{x:Null}" Name="maxBtn" Click="maxBtn_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="/AiForAgedClient;component/icons/max.png" Stretch="Uniform" />
-                </Button.Background>
+            <Button Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="maxBtn" Click="maxBtn_Click">
+                <Path Stroke="Black">
+                    <Path.Data>
+                        <RectangleGeometry Rect="0,0,10,10" />
+                    </Path.Data>
+                </Path>
             </Button>
-            <Button Margin="0,0,10,0" Width="25" Height="20" BorderBrush="{x:Null}" Name="closeBtn" Click="closeBtn_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="/AiForAgedClient;component/icons/close.png" Stretch="Uniform" />
-                </Button.Background>
+            <Button Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="closeBtn" Click="closeBtn_Click">
+                <Path Stroke="Black">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure IsClosed="False" StartPoint="0,0">
+                                <LineSegment Point="10,10" />
+                            </PathFigure>
+                            <PathFigure IsClosed="False" StartPoint="10,0">
+                                <LineSegment Point="0,10" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Background="#FF373A3C" Orientation="Horizontal">
