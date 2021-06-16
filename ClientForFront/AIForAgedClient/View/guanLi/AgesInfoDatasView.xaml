@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="AIForAgedClient.View.AgesInfoDatasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:AIForAgedClient.View"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnLoadedCmd}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=OnUnloadedCmd}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="AntiqueWhite">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
+                <TextBlock>老人姓名：</TextBlock>
+                <TextBox MinWidth="120" x:Name="searchText"></TextBox>
+                <Button Command="{Binding SearchCmd}" CommandParameter="{Binding ElementName=searchText, Path=Text}" Margin="10,0,20,0" Style="{StaticResource toolBtn}">查找</Button>
+                <Button Style="{StaticResource toolBtn}" Command="{Binding NewCmd}" Margin="10,0,20,0">新建</Button>
+                <Button Style="{StaticResource toolBtn}" Command="{Binding UpdateCmd}">刷新</Button>
+            </StackPanel>
+        </Border>
+        <ListView  ItemsSource="{Binding ItemsSource}" SelectedItem="{Binding SelectedItem}" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="姓名" Width="100" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="房间" Width="100" DisplayMemberBinding="{Binding RoomInfo.Name}" />
+                    <GridViewColumn Header="联系人电话" Width="100" DisplayMemberBinding="{Binding ContacterPhone}" />
+                    <GridViewColumn Header="看护人" Width="100" DisplayMemberBinding="{Binding NurseName}" />
+                    <GridViewColumn Header="操作" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>
+                                                    <Hyperlink Command="{Binding DataContext.DelCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">删除</Hyperlink>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                                    <Hyperlink Command="{Binding DataContext.ChangeCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">修改</Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="家庭地址" Width="150" DisplayMemberBinding="{Binding Address}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

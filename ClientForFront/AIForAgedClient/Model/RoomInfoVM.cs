@@ -1,23 +1,38 @@
-﻿using DataModel;
-using GalaSoft.MvvmLight;
-using System;
+﻿using AIForAgedClient.ViewModel;
+using DataModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AIForAgedClient.Model
 {
-    public class RoomInfoVM : ViewModelBase
+    public class RoomInfoVM : ViewModelValidationBase
     {
+        public RoomInfoVM()
+        {
+            ValidationKey(new string[] { nameof(Name), nameof(RoomSize) });
+            this.PropertyChanged += delegate { IsBeginValidation = true; };
+        }
+
         public long Id { get; set; }
 
-        [StringLength(20)]
-        public string Name { get; set; }
+        private string _name;
 
-        [Range(0, 500)]
-        public int RoomSize { get; set; }
+        [Required(ErrorMessage = "不能为空")]
+        [StringLength(20, ErrorMessage = "最大长度为20字符")]
+        public string Name
+        {
+            get => _name;
+            set => Set(ref _name, value);
+        }
+
+        private int _roomSize;
+
+        [Range(0, 500, ErrorMessage = "取值范围为0-500")]
+        public int RoomSize
+        {
+            get => _roomSize;
+            set => Set(ref _roomSize, value);
+        }
 
         private bool _isAlarm;
 

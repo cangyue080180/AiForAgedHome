@@ -49,6 +49,16 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register(() => new Mapper(CreateConfiguration()));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PoseInfoesVM>();
+            SimpleIoc.Default.Register<DataManagerVM>();
+            SimpleIoc.Default.Register<ChartViewVM>();
+            SimpleIoc.Default.Register<RoomInfoDatasVM>();
+            SimpleIoc.Default.Register<AgesInfoDatasVM>();
+            SimpleIoc.Default.Register<ServerInfoDatasVM>();
+            SimpleIoc.Default.Register<CameraInfoDatasVM>();
+            SimpleIoc.Default.Register<NewRoomVM>();
+            SimpleIoc.Default.Register<NewAgedVM>();
+            SimpleIoc.Default.Register<NewServerVM>();
+            SimpleIoc.Default.Register<NewCameraVM>();
             SimpleIoc.Default.Register<MonitorViewModel>();
             SimpleIoc.Default.Register<DetailPoseInfoVM>();
             SimpleIoc.Default.Register<RoomViewModel>();
@@ -69,6 +79,13 @@ namespace AIForAgedClient.ViewModel
                 // Add all profiles in current assembly
                 cfg.CreateMap<PoseInfo, PoseInfoVM>();
                 cfg.CreateMap<RoomInfo, RoomInfoVM>();
+                cfg.CreateMap<RoomInfoVM, RoomInfo>();
+                cfg.CreateMap<AgesInfo, AgesInfoVM>();
+                cfg.CreateMap<AgesInfoVM, AgesInfo>();
+                cfg.CreateMap<ServerInfo, ServerInfoVM>();
+                cfg.CreateMap<ServerInfoVM, ServerInfo>();
+                cfg.CreateMap<CameraInfo, CameraInfoVM>();
+                cfg.CreateMap<CameraInfoVM, CameraInfo>();
                 cfg.CreateMap<PaginatedList<DetailPoseInfo>, PaginatedListVM<DetailPoseInfo>>();
             });
 
@@ -81,6 +98,58 @@ namespace AIForAgedClient.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
+        }
+
+        public RoomInfoDatasVM RoomInfoDatasVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RoomInfoDatasVM>();
+            }
+        }
+
+        public AgesInfoDatasVM AgesInfoDatasVM
+        {
+            get => ServiceLocator.Current.GetInstance<AgesInfoDatasVM>();
+        }
+
+        public ServerInfoDatasVM ServerInfoDatasVM
+        {
+            get => ServiceLocator.Current.GetInstance<ServerInfoDatasVM>();
+        }
+
+        public CameraInfoDatasVM CameraInfoDatasVM
+        {
+            get => ServiceLocator.Current.GetInstance<CameraInfoDatasVM>();
+        }
+
+        public NewRoomVM NewRoomVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewRoomVM>(Guid.NewGuid().ToString());//每次都重新生成一个新的实例
+            }
+        }
+
+        public NewAgedVM NewAgedVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewAgedVM>(Guid.NewGuid().ToString());
+            }
+        }
+
+        public NewServerVM NewServerVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewServerVM>(Guid.NewGuid().ToString());
+            }
+        }
+
+        public NewCameraVM NewCameraVM
+        {
+            get => ServiceLocator.Current.GetInstance<NewCameraVM>(Guid.NewGuid().ToString());
         }
 
         public PoseInfoesVM PoseInfoesVM

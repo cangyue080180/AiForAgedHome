@@ -1,22 +1,8 @@
-using AIForAgedClient.Helper;
-using AIForAgedClient.View;
-using AutoMapper;
-using DataModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace AIForAgedClient.ViewModel
 {
@@ -108,6 +94,7 @@ namespace AIForAgedClient.ViewModel
 
         private void OnManage()
         {
+            ContentViewModel = SimpleIoc.Default.GetInstance<DataManagerVM>();
         }
 
         private RelayCommand _showChartViewCommand;
@@ -126,6 +113,7 @@ namespace AIForAgedClient.ViewModel
 
         private void OnShowChartView()
         {
+            ContentViewModel = SimpleIoc.Default.GetInstance<ChartViewVM>();
         }
 
         /// <summary>
