@@ -18,7 +18,7 @@
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -34,7 +34,7 @@
             <Border.InputBindings>
                 <MouseBinding Command="{Binding Mode=OneWay, Path=Img2DoubleClickCmd}" MouseAction="LeftDoubleClick" />
             </Border.InputBindings>
-            <Image Source="{Binding Image2}" />
+            <Image Source="{Binding Image2}" Visibility="Collapsed" />
         </Border>
         <Border Grid.Row="{Binding Img3Row}" Grid.Column="{Binding Img3Column}" Grid.ColumnSpan="{Binding Img3ColumnSpan}" Grid.RowSpan="{Binding Img3RowSpan}" Visibility="{Binding Img3Visibility,Mode=TwoWay}">
             <Border.InputBindings>

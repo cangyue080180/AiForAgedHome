@@ -203,9 +203,6 @@
     <Compile Include="View\jiankong\FourVideoControl.xaml.cs">
       <DependentUpon>FourVideoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\jiankong\ManageView.xaml.cs">
-      <DependentUpon>ManageView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\jiankong\ManyPersonMonitorWindow.xaml.cs">
       <DependentUpon>ManyPersonMonitorWindow.xaml</DependentUpon>
     </Compile>
@@ -263,10 +260,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\jiankong\FourVideoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\jiankong\ManageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

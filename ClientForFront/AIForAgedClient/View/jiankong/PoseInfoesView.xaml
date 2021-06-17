@@ -39,11 +39,11 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
                                             查看监控
                                         </Button>
-                                        <Button Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        <Button Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
                                             查看详情
                                         </Button>
