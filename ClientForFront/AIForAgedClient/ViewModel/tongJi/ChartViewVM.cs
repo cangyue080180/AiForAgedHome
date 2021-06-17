@@ -200,7 +200,7 @@ namespace AIForAgedClient.ViewModel
         private async Task GetPoseInfoOfMonthAsync(long agedId)
         {
             //获取选择用户最近一个月的姿态信息
-            string url = ConfigurationManager.AppSettings["GetPoseInfoUrl"];
+            string url = ConfigurationManager.AppSettings["GetPoseInfoesUrl"];
             url += $"/GetPoseInfoDays?id={agedId}&minDate={DateTime.Now.AddDays(-29).Date}&maxDate={DateTime.Now.AddDays(1).Date}";
             string result;
 

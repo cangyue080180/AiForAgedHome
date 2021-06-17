@@ -33,6 +33,9 @@
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding PoseInfo.IsAlarm}" Value="True">
                         <Setter Property="Background" Value="Red" />
+                        <DataTrigger.EnterActions>
+                            <SoundPlayerAction Source="sounds/alarm.wav" />
+                        </DataTrigger.EnterActions>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

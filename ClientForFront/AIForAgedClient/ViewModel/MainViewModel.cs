@@ -75,6 +75,10 @@ namespace AIForAgedClient.ViewModel
 
         private void OnMonitor()
         {
+            if (!SimpleIoc.Default.IsRegistered<PoseInfoesVM>())
+            {
+                SimpleIoc.Default.Register<PoseInfoesVM>();
+            }
             ContentViewModel = SimpleIoc.Default.GetInstance<PoseInfoesVM>();
         }
 
@@ -94,6 +98,10 @@ namespace AIForAgedClient.ViewModel
 
         private void OnManage()
         {
+            if (SimpleIoc.Default.IsRegistered<PoseInfoesVM>())
+            {
+                SimpleIoc.Default.Unregister<PoseInfoesVM>();
+            }
             ContentViewModel = SimpleIoc.Default.GetInstance<DataManagerVM>();
         }
 
@@ -125,6 +133,7 @@ namespace AIForAgedClient.ViewModel
 
         private void OnWindowLoaded()
         {
+            SimpleIoc.Default.Register<PoseInfoesVM>();
             ContentViewModel = SimpleIoc.Default.GetInstance<PoseInfoesVM>();
         }
 

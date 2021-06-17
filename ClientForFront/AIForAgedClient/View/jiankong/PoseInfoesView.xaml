@@ -11,6 +11,19 @@
             <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding PoseInfos}" SelectedItem="{Binding SelectedPoseInfo}">
