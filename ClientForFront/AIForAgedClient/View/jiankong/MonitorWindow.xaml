@@ -37,6 +37,9 @@
                             <SoundPlayerAction Source="sounds/alarm.wav" />
                         </DataTrigger.EnterActions>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding PoseInfo.Status}" Value="1">
+                        <Setter Property="Background" Value="Yellow" />
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Grid.Style>
