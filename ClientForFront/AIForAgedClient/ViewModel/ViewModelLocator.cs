@@ -63,6 +63,7 @@ namespace AIForAgedClient.ViewModel
             SimpleIoc.Default.Register<DetailPoseInfoVM>();
             SimpleIoc.Default.Register<RoomViewModel>();
             SimpleIoc.Default.Register<ManyPersonMonitorVM>();
+            SimpleIoc.Default.Register<RiChangGuanLiVM>();
             //string video_type = ConfigurationManager.AppSettings["video_type"].Trim();
             //if (video_type == "orignal")
             //    SimpleIoc.Default.Register<BaseFourVideoVM, FourVideoViewModel>();
@@ -121,6 +122,11 @@ namespace AIForAgedClient.ViewModel
         public CameraInfoDatasVM CameraInfoDatasVM
         {
             get => ServiceLocator.Current.GetInstance<CameraInfoDatasVM>();
+        }
+
+        public RiChangGuanLiVM HuLiVM
+        {
+            get => ServiceLocator.Current.GetInstance<RiChangGuanLiVM>();
         }
 
         public NewRoomVM NewRoomVM

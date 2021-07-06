@@ -18,10 +18,10 @@
     </i:Interaction.Triggers>
     <Grid>
         <DockPanel>
-                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,15">
-                    <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}" />
-                    <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0" />
-                </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,15">
+                <Button Content="确定" Command="{Binding OkCmd}" CommandParameter="{Binding ElementName=window}" />
+                <Button Content="取消" Command="{Binding CancelCmd}" CommandParameter="{Binding ElementName=window}" Margin="15,0,0,0" />
+            </StackPanel>
             <ScrollViewer Margin="0,0,0,10">
                 <StackPanel Margin="10">
                     <StackPanel Visibility="{Binding IsNew}">
@@ -31,6 +31,14 @@
                     <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>名称</TextBlock>
                         <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
+                        <TextBlock>出生日期</TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox SelectedValue="{Binding Year}" ItemsSource="{Binding Years}" Width="60" />
+                            <ComboBox SelectedValue="{Binding Month}" ItemsSource="{Binding Months}" Width="60" Margin="10,0,0,0" />
+                            <ComboBox SelectedValue="{Binding Day}" ItemsSource="{Binding Days}" Width="60" Margin="10,0,0,0" />
+                        </StackPanel>
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>联系人</TextBlock>

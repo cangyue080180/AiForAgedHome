@@ -37,7 +37,7 @@
                     <GridViewColumn Header="姓名" Width="100" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="房间" Width="100" DisplayMemberBinding="{Binding RoomInfo.Name}" />
                     <GridViewColumn Header="联系人电话" Width="100" DisplayMemberBinding="{Binding ContacterPhone}" />
-                    <GridViewColumn Header="看护人" Width="100" DisplayMemberBinding="{Binding NurseName}" />
+                    <GridViewColumn Header="负责人" Width="100" DisplayMemberBinding="{Binding NurseName}" />
                     <GridViewColumn Header="操作" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

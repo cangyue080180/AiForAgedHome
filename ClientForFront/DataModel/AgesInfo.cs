@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataModel
@@ -9,6 +10,9 @@ namespace DataModel
 
         [StringLength(20)]
         public string Name { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime BirthDay { get; set; }
 
         [StringLength(20)]
         public string ContacterName { get; set; }

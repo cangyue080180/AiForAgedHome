@@ -7,7 +7,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="" Height="450" Width="800" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStartupLocation="CenterScreen"
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="RadioButton">
             <Setter Property="Template">
@@ -25,8 +25,8 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Visibility" TargetName="optionMark" Value="Visible" />
-                                <Setter Property="Foreground" TargetName="text" Value="#FF00E8FF" />
-                                <Setter Property="Fill" TargetName="optionMark" Value="#FF00E8FF" />
+                                <Setter Property="Foreground" TargetName="text" Value="{StaticResource ResourceKey=mycolor}" />
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource ResourceKey=mycolor}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -49,11 +49,11 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-            <!--Image Source=""/-->
-            <TextBlock Text="SHC养老全时护理系统" Margin="10,0,0,0" FontWeight="Bold" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Image Height="20" Width="20" Source="../imgs/icon.jpg" />
+            <TextBlock Text="SHC养老全时护理系统" VerticalAlignment="Center" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Visibility="Collapsed">
             <Button Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="minBtn" Click="minBtn_Click">
                 <Path Stroke="Black">
                     <Path.Data>
@@ -68,7 +68,26 @@
                     </Path.Data>
                 </Path>
             </Button>
-            <Button Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="closeBtn" Click="closeBtn_Click">
+            <!--<Button Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="closeBtn" Click="closeBtn_Click">
+                <Path Stroke="Black">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure IsClosed="False" StartPoint="0,0">
+                                <LineSegment Point="10,10" />
+                            </PathFigure>
+                            <PathFigure IsClosed="False" StartPoint="10,0">
+                                <LineSegment Point="0,10" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Button>-->
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Border HorizontalAlignment="Right" CornerRadius="15" Background="{StaticResource mycolor}" Margin="0,3,3,3">
+                <TextBlock Text="北京石景山养老驿站" Foreground="White" VerticalAlignment="Center" Padding="5" />
+            </Border>
+            <Button HorizontalAlignment="Right" Margin="0,0,10,0" Width="25" Height="20" Background="Transparent" BorderBrush="{x:Null}" Name="closeBtn" Click="closeBtn_Click">
                 <Path Stroke="Black">
                     <Path.Data>
                         <PathGeometry>
@@ -83,13 +102,20 @@
                 </Path>
             </Button>
         </StackPanel>
+
         <StackPanel Grid.Row="1" Background="#FF373A3C" Orientation="Horizontal">
             <RadioButton Content="监控" Foreground="White"  Padding="5" Height="45" Margin="20,0,20,0" IsChecked="True" Command="{Binding MonitorCommand}" />
             <RadioButton Content="管理" Foreground="White" Padding="5" Margin="0,0,20,0" Command="{Binding ManageCommand}" />
             <RadioButton Content="统计" Foreground="White" Padding="5" Command="{Binding ShowChartViewCommand}" />
         </StackPanel>
+        <Border Grid.Row="1" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="15" Background="#FF635D5D">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Margin="20,3,60,3" BorderBrush="Transparent" Text="搜索关键信息" Foreground="{StaticResource mycolor}" Background="Transparent" />
+                <Image Source="/AiForAgedClient;component/imgs/search.png" Width="20" Height="20" Margin="0,0,3,0" />
+            </StackPanel>
+        </Border>
         <ContentControl Grid.Row="2" Content="{Binding ContentViewModel}" />
-        <Border Grid.Row="3" Background="#FFEEE4DF">
+        <Border Visibility="Collapsed" Grid.Row="3" Background="#FFEEE4DF">
             <TextBlock HorizontalAlignment="Center">
             北京大兴区亦庄养老中心
             </TextBlock>

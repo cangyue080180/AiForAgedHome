@@ -4,6 +4,7 @@ using AutoMapper;
 using DataModel;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -23,6 +24,89 @@ namespace AIForAgedClient.ViewModel
         public ObservableCollection<RoomInfoVM> Rooms { get; } = new ObservableCollection<RoomInfoVM>();
 
         public RoomInfoVM SelectedRoom { get; set; }
+
+        public int Year
+        {
+            get
+            {
+                return Model.BirthDay.Year;
+            }
+            set
+            {
+                int month = Model.BirthDay.Month;
+                int day = Model.BirthDay.Day;
+                Model.BirthDay = DateTime.Parse(value + "/" + month + "/" + day);
+            }
+        }
+
+        public int Month
+        {
+            get
+            {
+                return Model.BirthDay.Month;
+            }
+            set
+            {
+                int year = Model.BirthDay.Year;
+                int day = Model.BirthDay.Day;
+                Model.BirthDay = DateTime.Parse(year + "/" + value + "/" + day);
+            }
+        }
+
+        public int Day
+        {
+            get
+            {
+                return Model.BirthDay.Day;
+            }
+            set
+            {
+                int year = Model.BirthDay.Year;
+                int month = Model.BirthDay.Month;
+                Model.BirthDay = DateTime.Parse(year + "/" + month + "/" + value);
+            }
+        }
+
+        public List<int> Years
+        {
+            get
+            {
+                List<int> _years = new List<int>();
+                int maxAge = 120;
+                int startYear = DateTime.Now.Year - maxAge;
+                for (int i = 0; i < maxAge; i++)
+                {
+                    _years.Add(startYear + i);
+                }
+                return _years;
+            }
+        }
+
+        public List<int> Months
+        {
+            get
+            {
+                List<int> _months = new List<int>(12);
+                for (int i = 1; i < 13; i++)
+                {
+                    _months.Add(i);
+                }
+                return _months;
+            }
+        }
+
+        public List<int> Days
+        {
+            get
+            {
+                List<int> _days = new List<int>(31);
+                for (int i = 1; i < 32; i++)
+                {
+                    _days.Add(i);
+                }
+                return _days;
+            }
+        }
 
         public NewAgedVM(HttpClient httpClient, Mapper autoMapper)
         {

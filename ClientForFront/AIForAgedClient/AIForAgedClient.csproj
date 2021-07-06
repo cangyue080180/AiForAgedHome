@@ -152,6 +152,7 @@
     <Compile Include="Model\AgesInfoVM.cs" />
     <Compile Include="Model\CameraInfoVM.cs" />
     <Compile Include="Model\Common.cs" />
+    <Compile Include="Model\Huli.cs" />
     <Compile Include="Model\IntConvertToChartValues.cs" />
     <Compile Include="Model\MeasureModel.cs" />
     <Compile Include="Model\PaginatedList.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Model\ServerInfoVM.cs" />
     <Compile Include="Helper\MoveThumb.cs" />
     <Compile Include="Helper\ResizeThumb.cs" />
+    <Compile Include="ViewModel\guanLi\RiChangGuanLiVM.cs" />
     <Compile Include="ViewModel\tongJi\ChartViewVM.cs" />
     <Compile Include="ViewModel\guanLi\CameraInfoDatasVM.cs" />
     <Compile Include="ViewModel\guanLi\AgesInfoDatasVM.cs" />
@@ -188,6 +190,9 @@
     <Compile Include="ViewModel\guanLi\NewServerVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewModelValidationBase.cs" />
+    <Compile Include="View\guanLi\RiChangGuanLi.xaml.cs">
+      <DependentUpon>RiChangGuanLi.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\tongJi\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>
@@ -243,6 +248,10 @@
     <Compile Include="View\guanLi\ServerInfoDatasView.xaml.cs">
       <DependentUpon>ServerInfoDatasView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\guanLi\RiChangGuanLi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\tongJi\ChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -346,6 +355,42 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="imgs\bj2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\happy.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\house.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\icon.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\person.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\tiwen.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\walk.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\women.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\xinlv.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\xueya.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imgs\xueyang.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sounds\alarm.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

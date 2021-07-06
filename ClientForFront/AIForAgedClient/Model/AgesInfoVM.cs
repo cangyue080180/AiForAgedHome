@@ -1,4 +1,5 @@
 ﻿using AIForAgedClient.ViewModel;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AIForAgedClient.Model
@@ -21,6 +22,15 @@ namespace AIForAgedClient.Model
         {
             get => _name;
             set => Set(ref _name, value);
+        }
+
+        private DateTime _date;
+
+        [DataType(DataType.Date)]
+        public DateTime BirthDay
+        {
+            get => _date;
+            set => Set(ref _date, value);
         }
 
         private string _contacterName;

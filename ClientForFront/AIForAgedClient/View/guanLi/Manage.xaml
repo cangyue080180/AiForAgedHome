@@ -13,6 +13,9 @@
     </UserControl.Resources>
     <Grid>
         <TabControl TabStripPlacement="Left">
+            <TabItem Header="日常记录">
+                <ContentControl Content="{Binding Path=HuLiVM, Source={StaticResource Locator}}" />
+            </TabItem>
             <TabItem Header="房间信息">
                 <ContentControl Content="{Binding Path=RoomInfoDatasVM, Source={StaticResource Locator}}" />
             </TabItem>

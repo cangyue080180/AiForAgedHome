@@ -3,14 +3,16 @@ using System;
 using AgedPoseDatabse.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    partial class AiForAgedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210629030634_addBirthDayForAges1")]
+    partial class addBirthDayForAges1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +30,7 @@ namespace AgedPoseDatabse.Migrations
                         .HasMaxLength(100);
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("Date");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("ContacterName")
                         .HasColumnType("varchar(20)")

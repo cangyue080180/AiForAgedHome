@@ -11,6 +11,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:AIForAgedClient.ViewModel" />
+            <SolidColorBrush x:Key="mycolor" Color="#FF5FE6E2" />
             <DataTemplate DataType="{x:Type vm:BaseFourVideoVM}">
                 <v:FourVideoControl />
             </DataTemplate>
@@ -34,6 +35,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:ChartViewVM}">
                 <v:ChartView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RiChangGuanLiVM}">
+                <v:RiChangGuanLi />
             </DataTemplate>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Validation.ErrorTemplate">

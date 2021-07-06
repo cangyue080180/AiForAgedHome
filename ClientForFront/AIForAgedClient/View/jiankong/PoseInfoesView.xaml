@@ -7,6 +7,10 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator}, Path=PoseInfoesVM}">
     <UserControl.Resources>
+        <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="MyHeaderStyle">
+            <Setter Property="Background" Value="#FFDDE6E3" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
         <Style TargetType="TextBlock">
             <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -29,6 +33,7 @@
         <ListView Grid.Row="1" ItemsSource="{Binding PoseInfos}" SelectedItem="{Binding SelectedPoseInfo}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                     <Setter Property="Background" Value="White" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsAlarm}" Value="True">
@@ -44,7 +49,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
+                <GridView ColumnHeaderContainerStyle="{StaticResource MyHeaderStyle}">
                     <GridView.Columns>
                         <GridViewColumn Header="姓名" DisplayMemberBinding="{Binding AgesInfo.Name}" Width="60" />
                         <GridViewColumn Header="房间" DisplayMemberBinding="{Binding AgesInfo.RoomInfo.Name}" Width="100" />
@@ -59,10 +64,10 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button Command="{Binding DataContext.GoMonitorViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
+                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}" Foreground="{StaticResource mycolor}">
                                             查看监控
                                         </Button>
-                                        <Button Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        <Button Visibility="Collapsed" Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
                                             查看详情
                                         </Button>

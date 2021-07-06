@@ -39,6 +39,14 @@
                         <TextBox Text="{Binding Model.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
+                        <TextBlock>出生日期</TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox SelectedValue="{Binding Year}" ItemsSource="{Binding Years}" Width="60" />
+                            <ComboBox SelectedValue="{Binding Month}" ItemsSource="{Binding Months}" Width="60" Margin="10,0,0,0" />
+                            <ComboBox SelectedValue="{Binding Day}" ItemsSource="{Binding Days}" Width="60" Margin="10,0,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource text_stackpanel}">
                         <TextBlock>联系人</TextBlock>
                         <TextBox Text="{Binding Model.ContacterName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     </StackPanel>
@@ -47,7 +55,7 @@
                         <TextBox Text="{Binding Model.ContacterPhone,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
-                        <TextBlock>看护人</TextBlock>
+                        <TextBlock>负责人</TextBlock>
                         <TextBox Text="{Binding Model.NurseName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" />
                     </StackPanel>
                     <StackPanel Style="{StaticResource text_stackpanel}">
