@@ -142,7 +142,7 @@ namespace AIForAgedClient.ViewModel
         }
 
         //从数据库加载老人信息
-        private async void GetAgedsAsync()
+        public async Task GetAgedsAsync()
         {
             string url = ConfigurationManager.AppSettings["GetAgedsUrl"];
             string result;

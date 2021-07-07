@@ -27,28 +27,28 @@
                     <GridViewColumn Header="排便" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsPaiBian}" />
+                                <CheckBox IsChecked="{Binding IsPaiBian}" IsEnabled="{Binding IsCommit}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="洗浴" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsXiYu}" />
+                                <CheckBox IsChecked="{Binding IsXiYu}" IsEnabled="{Binding IsCommit}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="喂药" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsWeiYao}" />
+                                <CheckBox IsChecked="{Binding IsWeiYao}" IsEnabled="{Binding IsCommit}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="负责人" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListView},Path=DataContext.Managers}" SelectedValue="{Binding Manager}" />
+                                <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListView},Path=DataContext.Managers}" SelectedValue="{Binding Manager}" IsEnabled="{Binding IsCommit}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -62,7 +62,8 @@
                                             CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">提交</Hyperlink>
                                     </TextBlock>
                                     <TextBlock Margin="10,0,0,0">
-                                        <Hyperlink>查看</Hyperlink>
+                                        <Hyperlink Command="{Binding DataContext.OnViewCmd,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                   CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">查看</Hyperlink>
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>

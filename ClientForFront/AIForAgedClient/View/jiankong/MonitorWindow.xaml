@@ -72,15 +72,15 @@
                 <TextBlock Text="站立" FontSize="12" Foreground="Black" />
                 <TextBlock Text="日常体态识别" Foreground="#FFFBBB22" FontSize="12" />
             </StackPanel>
-            <Label Content="74%" FontSize="25" VerticalAlignment="Center" DockPanel.Dock="Right" Foreground="Silver" HorizontalAlignment="Right" />
+            <Label Content="{Binding ZhanPercent}" ContentStringFormat="{}{0:p1}" FontSize="25" VerticalAlignment="Center" DockPanel.Dock="Right" Foreground="Silver" HorizontalAlignment="Right" />
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="1" Background="White" Margin="10">
             <StackPanel DockPanel.Dock="Left" Margin="10">
-                <TextBlock Text="走路" FontSize="12" Foreground="Black" />
+                <TextBlock Text="蹲坐" FontSize="12" Foreground="Black" />
                 <TextBlock Text="行为识别" Foreground="#FF2269FB" FontSize="12" />
             </StackPanel>
             <Image Source="../../imgs/walk.jpg" Width="30" Height="30" />
-            <Label Content="36%" FontSize="25" VerticalAlignment="Center" DockPanel.Dock="Right" Foreground="Silver" HorizontalAlignment="Right" />
+            <Label Content="{Binding ZuoPercent}" ContentStringFormat="{}{0:p1}" FontSize="25" VerticalAlignment="Center" DockPanel.Dock="Right" Foreground="Silver" HorizontalAlignment="Right" />
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="2" Background="White" Margin="10">
             <StackPanel DockPanel.Dock="Left" Margin="10">
@@ -92,11 +92,11 @@
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="3" Background="White" Margin="10">
             <StackPanel DockPanel.Dock="Left" Margin="10">
-                <TextBlock Text="暂无" FontSize="12" Foreground="Black" />
+                <TextBlock Text="摔倒" FontSize="12" Foreground="Black" />
                 <TextBlock Text="风险体态识别" Foreground="#FF15EA15" FontSize="12" />
             </StackPanel>
-            <TextBlock Text="胸闷" Foreground="Silver" />
-            <Label Content="3%" FontSize="25" VerticalAlignment="Center" DockPanel.Dock="Right" Foreground="Silver" HorizontalAlignment="Right" />
+            <TextBlock Text="" Foreground="Silver" />
+            <Label Content="{Binding DownPercent}" ContentStringFormat="{}{0:p1}" FontSize="25" VerticalAlignment="Center" DockPanel.Dock="Right" Foreground="Silver" HorizontalAlignment="Right" />
         </DockPanel>
         <DockPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Background="White" Margin="10" LastChildFill="True">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment='Right' Margin="0,0,10,20">

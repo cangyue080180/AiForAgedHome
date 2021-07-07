@@ -12,6 +12,30 @@ namespace AIForAgedClient.ViewModel
         public BaseFourVideoVM FourVideoVM { get; }
         public PoseInfoVM PoseInfo { get; }
 
+        private double _zhanPercent;
+
+        public double ZhanPercent
+        {
+            get => _zhanPercent;
+            set => Set(nameof(ZhanPercent), ref _zhanPercent, value);
+        }
+
+        private double _zuoPercent;
+
+        public double ZuoPercent
+        {
+            get => _zuoPercent;
+            set => Set(nameof(ZuoPercent), ref _zuoPercent, value);
+        }
+
+        private double _downPercent;
+
+        public double DownPercent
+        {
+            get => _downPercent;
+            set => Set(() => DownPercent, ref _downPercent, value);
+        }
+
         private RelayCommand _onLoaded;
 
         public ICommand OnLoadedCommand
@@ -70,6 +94,11 @@ namespace AIForAgedClient.ViewModel
             if (e.PropertyName == "Status")
             {
                 IsStatusChanged = true;
+                //更新时间百分比值
+                double sumTime = PoseInfo.TimeDown + PoseInfo.TimeLie + PoseInfo.TimeOther + PoseInfo.TimeSit + PoseInfo.TimeStand;
+                ZhanPercent = PoseInfo.TimeStand / sumTime;
+                ZuoPercent = PoseInfo.TimeSit / sumTime;
+                DownPercent = PoseInfo.TimeDown / sumTime;
                 //1秒后恢复原来的状态
                 Task.Run(async () =>
                 {

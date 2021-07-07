@@ -1,6 +1,7 @@
 ﻿using AIForAgedClient.Model;
 using DataModel;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,25 @@ namespace AIForAgedClient.ViewModel
                     _onCommitCmd = new RelayCommand<Hyperlink>(Commit);
                 return _onCommitCmd;
             }
+        }
+
+        private RelayCommand<Hyperlink> _onViewCmd;
+
+        public RelayCommand<Hyperlink> OnViewCmd
+        {
+            get
+            {
+                if (_onViewCmd == null)
+                    _onViewCmd = new RelayCommand<Hyperlink>(ViewTongJi);
+                return _onViewCmd;
+            }
+        }
+
+        private void ViewTongJi(Hyperlink obj)
+        {
+            var huli = obj.DataContext as Huli;
+            var mainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>();
+            mainViewModel.ShowChartViewCommand.Execute(huli.Name);//TODO: 这里传Name只是暂时简单实现，实际使用时应传ID。
         }
 
         private void Commit(Hyperlink btn)

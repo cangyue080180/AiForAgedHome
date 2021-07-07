@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 
@@ -105,23 +106,35 @@ namespace AIForAgedClient.ViewModel
             ContentViewModel = SimpleIoc.Default.GetInstance<DataManagerVM>();
         }
 
-        private RelayCommand _showChartViewCommand;
+        private RelayCommand<string> _showChartViewCommand;
 
-        public ICommand ShowChartViewCommand
+        public RelayCommand<string> ShowChartViewCommand
         {
             get
             {
                 if (_showChartViewCommand == null)
                 {
-                    _showChartViewCommand = new RelayCommand(OnShowChartView);
+                    _showChartViewCommand = new RelayCommand<string>(OnShowChartView);
                 }
                 return _showChartViewCommand;
             }
         }
 
-        private void OnShowChartView()
+        private async void OnShowChartView(string name)
         {
-            ContentViewModel = SimpleIoc.Default.GetInstance<ChartViewVM>();
+            if (name == null)
+            {
+                ContentViewModel = SimpleIoc.Default.GetInstance<ChartViewVM>();
+                ChartViewVM chartViewVM = ContentViewModel as ChartViewVM;
+            }
+            else
+            {
+                ContentViewModel = SimpleIoc.Default.GetInstance<ChartViewVM>();
+                ChartViewVM chartViewVM = ContentViewModel as ChartViewVM;
+                await chartViewVM.GetAgedsAsync();
+                chartViewVM.SelectedAged = chartViewVM.Ageds.Where(x => x.Name == name).FirstOrDefault();
+                chartViewVM.UserSelectionChangeCmd.Execute(null);
+            }
         }
 
         /// <summary>

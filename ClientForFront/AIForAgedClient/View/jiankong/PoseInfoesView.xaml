@@ -59,7 +59,7 @@
                         <GridViewColumn Header="坐" DisplayMemberBinding="{Binding TimeSit,Converter={StaticResource secondsTimeConverter}}" Width="80" />
                         <GridViewColumn Header="躺" DisplayMemberBinding="{Binding TimeLie,Converter={StaticResource secondsTimeConverter}}" Width="80" />
                         <GridViewColumn Header="其他" DisplayMemberBinding="{Binding TimeOther,Converter={StaticResource secondsTimeConverter}}" Width="80" />
-                        <GridViewColumn Header="操作" Width="200">
+                        <GridViewColumn Header="操作" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -67,8 +67,8 @@
                                                 CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}" Foreground="{StaticResource mycolor}">
                                             查看监控
                                         </Button>
-                                        <Button Visibility="Collapsed" Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}">
+                                        <Button Margin="3,0,0,0" Command="{Binding DataContext.GoDetailViewCmd, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}" Foreground="{StaticResource mycolor}">
                                             查看详情
                                         </Button>
                                     </StackPanel>
