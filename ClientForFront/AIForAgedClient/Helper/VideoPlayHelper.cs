@@ -33,10 +33,10 @@ namespace AIForAgedClient.Helper
             {
                 PlayVideo(cancellationTokenSource.Token);
             }, cancellationTokenSource.Token);
-            task.ContinueWith((task) =>
-            {
-                capture.Dispose();
-            });
+            _ = task.ContinueWith((task) =>
+              {
+                  capture.Dispose();
+              });
         }
 
         /// <summary>
@@ -52,10 +52,10 @@ namespace AIForAgedClient.Helper
             capture = new VideoCapture();
             cancellationTokenSource = new CancellationTokenSource();
             task = new Task(() => { PlayVideo(cancellationTokenSource.Token); }, cancellationTokenSource.Token);
-            task.ContinueWith((task) =>
-            {
-                capture.Dispose();
-            });
+            _ = task.ContinueWith((task) =>
+              {
+                  capture.Dispose();
+              });
         }
 
         public void Start()
@@ -79,12 +79,12 @@ namespace AIForAgedClient.Helper
                 return;
             }
 
-            while (true)
+            while (capture.IsOpened())
             {
                 token.ThrowIfCancellationRequested();
                 try
                 {
-                    using (var frameMat = capture.RetrieveMat())
+                    using (Mat frameMat = capture.RetrieveMat())
                     {
                         //var rects = cascadeClassifier.DetectMultiScale(frameMat, 1.1, 5, HaarDetectionType.ScaleImage, new OpenCvSharp.Size(30, 30));
                         //if (rects.Length > 0)
@@ -95,7 +95,7 @@ namespace AIForAgedClient.Helper
                         // var frameBitmap = MatToBitmapImage(frameMat);
                         try
                         {
-                            var writeableBitmap = frameMat.ToWriteableBitmap();
+                            WriteableBitmap writeableBitmap = frameMat.ToWriteableBitmap();
                             writeableBitmap.Freeze();
                             actionWidthVideo(writeableBitmap);
                         }
