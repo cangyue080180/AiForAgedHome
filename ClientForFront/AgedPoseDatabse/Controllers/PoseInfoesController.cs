@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AgedPoseDatabse.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("age/[controller]")]
     [ApiController]
     public class PoseInfoesController : ControllerBase
     {
