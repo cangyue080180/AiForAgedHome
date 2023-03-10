@@ -105,12 +105,12 @@
 
         <StackPanel Grid.Row="1" Background="#FF373A3C" Orientation="Horizontal">
             <RadioButton Content="监控" Foreground="White"  Padding="5" Height="45" Margin="20,0,20,0" IsChecked="True" Command="{Binding MonitorCommand}" />
-            <RadioButton Content="管理" Foreground="White" Padding="5" Margin="0,0,20,0" Command="{Binding ManageCommand}" />
+            <RadioButton Visibility="Collapsed" Content="管理" Foreground="White" Padding="5" Margin="0,0,20,0" Command="{Binding ManageCommand}" />
             <RadioButton Content="统计" Foreground="White" Padding="5" Command="{Binding ShowChartViewCommand}" CommandParameter="{x:Null}" />
         </StackPanel>
         <Border Grid.Row="1" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" CornerRadius="15" Background="#FF635D5D">
             <StackPanel Orientation="Horizontal">
-                <TextBox Margin="20,3,60,3" BorderBrush="Transparent" Text="搜索关键信息" Foreground="{StaticResource mycolor}" Background="Transparent" />
+                <TextBox Margin="20,3,60,3" BorderBrush="Transparent" Text="    " Foreground="{StaticResource mycolor}" Background="Transparent" />
                 <Image Source="/AiForAgedClient;component/imgs/search.png" Width="20" Height="20" Margin="0,0,3,0" />
             </StackPanel>
         </Border>
