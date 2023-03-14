@@ -26,5 +26,7 @@ namespace AgedPoseDatabse.Models
         public DbSet<ServerInfo> ServerInfos { get; set; }
         public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<DetailPoseInfo> DeatilPoseInfos { get; set; }
+
+        public DbSet<RecEvent> RecEvents { get; set; }
     }
 }

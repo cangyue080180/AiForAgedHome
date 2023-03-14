@@ -3,14 +3,16 @@ using System;
 using AgedPoseDatabse.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgedPoseDatabse.Migrations
 {
     [DbContext(typeof(AiForAgedDbContext))]
-    partial class AiForAgedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230313152733_newtable_recEvent")]
+    partial class newtable_recEvent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,9 +174,6 @@ namespace AgedPoseDatabse.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)")
                         .HasMaxLength(20);
-
-                    b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
